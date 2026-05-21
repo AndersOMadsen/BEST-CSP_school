@@ -320,8 +320,13 @@ These structures are good starting points for a PLATON/ADDSYM exercise.
         with st.spinner("Querying COD…"):
             st.session_state["df1"] = query_cod(q)
 
+    fobs1 = st.checkbox("Only structures with structure factors (FCF) available", key="fobs1")
+
     if "df1" in st.session_state:
-        show_table(st.session_state["df1"], sort_by="Cell volume (Å³)", ascending=False)
+        df1 = st.session_state["df1"]
+        if fobs1:
+            df1 = df1[df1["flags"].str.contains("has Fobs", na=False)]
+        show_table(df1, sort_by="Cell volume (Å³)", ascending=False)
 
 
 # ── Tab 2: High Z′ structures ──────────────────────────────────────────────────
@@ -364,8 +369,13 @@ Compare the independent molecules: are they really different, or almost identica
         with st.spinner("Querying COD…"):
             st.session_state["df2"] = query_cod(q)
 
+    fobs2 = st.checkbox("Only structures with structure factors (FCF) available", key="fobs2")
+
     if "df2" in st.session_state:
-        show_table(st.session_state["df2"], sort_by="Z′", ascending=False)
+        df2 = st.session_state["df2"]
+        if fobs2:
+            df2 = df2[df2["flags"].str.contains("has Fobs", na=False)]
+        show_table(df2, sort_by="Z′", ascending=False)
 
 
 # ── Tab 3: Space group P -1 ────────────────────────────────────────────────────
@@ -428,8 +438,13 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
             st.session_state["df3"] = query_cod(q)
         st.session_state["sort3"] = sort3
 
+    fobs3 = st.checkbox("Only structures with structure factors (FCF) available", key="fobs3")
+
     if "df3" in st.session_state:
-        show_table(st.session_state["df3"], sort_by=st.session_state.get("sort3", "Cell volume (Å³)"), ascending=False)
+        df3 = st.session_state["df3"]
+        if fobs3:
+            df3 = df3[df3["flags"].str.contains("has Fobs", na=False)]
+        show_table(df3, sort_by=st.session_state.get("sort3", "Cell volume (Å³)"), ascending=False)
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
