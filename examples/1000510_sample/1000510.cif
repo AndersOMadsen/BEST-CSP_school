@@ -1,0 +1,143 @@
+#------------------------------------------------------------------------------
+#$Date: 2025-08-18 15:21:50 +0300 (Mon, 18 Aug 2025) $
+#$Revision: 301771 $
+#$URL: file:///home/coder/svn-repositories/_RELOADED_COD/cod-reloaded/cif/1/00/05/1000510.cif $
+#------------------------------------------------------------------------------
+#
+# This file is available in the Crystallography Open Database (COD),
+# http://www.crystallography.net/
+#
+# All data on this site have been placed in the public domain by the
+# contributors.
+#
+data_1000510
+loop_
+_publ_author_name
+'Martel, A.'
+'Leconte, S.'
+'Dujardin, G.'
+'Brown, E.'
+'Maisonneuve, V.'
+'Retoux, R.'
+_publ_section_title
+;
+ Lewis Acid Catalysed [4+2] Heterocycloadditions between Ketone Enol Ethers
+ and \b-Ethylenic \a-Oxo Esters
+;
+_journal_issue                   3
+_journal_name_full               'European Journal of Organic Chemistry'
+_journal_page_first              514
+_journal_page_last               525
+_journal_paper_doi
+10.1002/1099-0690(20022)2002:3<514::AID-EJOC514>3.0.CO;2-Z
+_journal_volume                  2002
+_journal_year                    2002
+_chemical_formula_moiety         'C23 H34 O4 Si1'
+_chemical_formula_sum            'C23 H34 O4 Si'
+_chemical_melting_point          399.15
+_chemical_name_systematic
+'Methyl (4R*,4aS*,8aS*)-8a-t-butyldimethylsiloxy-4-phenyl-4a,5,6,7,8,8a-hexahydro-4H-chromene-2-carboxylate'
+_space_group_IT_number           2
+_symmetry_cell_setting           triclinic
+_symmetry_Int_Tables_number      2
+_symmetry_space_group_name_Hall  '-P 1'
+_symmetry_space_group_name_H-M   'P -1'
+_cell_angle_alpha                89.406(10)
+_cell_angle_beta                 72.021(13)
+_cell_angle_gamma                70.117(11)
+_cell_formula_units_Z            2
+_cell_length_a                   9.4586(17)
+_cell_length_b                   11.1593(16)
+_cell_length_c                   12.4892(15)
+_cell_volume                     1172.522
+_diffrn_ambient_temperature      293
+_exptl_crystal_density_diffrn    1.14
+_refine_ls_R_factor_gt           0.0822
+_refine_ls_wR_factor_gt          0.0822
+_cod_original_formula_sum        'C23 H34 O4 Si1'
+_cod_database_code               1000510
+loop_
+_symmetry_equiv_pos_site_id
+_symmetry_equiv_pos_as_xyz
+1 x,y,z
+2 -x,-y,-z
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Si1 Si 0.44140(12) 0.25701(10) 0.32927(8)
+O1 O 0.5587(2) 0.25947(17) 0.20207(16)
+O2 O 0.7816(2) 0.07236(18) 0.15445(19)
+O3 O 0.8154(3) -0.1538(2) 0.2074(2)
+O4 O 0.7540(4) -0.2140(2) 0.0649(2)
+C1 C 0.7245(3) 0.2083(2) 0.1459(3)
+C2 C 0.7555(3) 0.2339(3) 0.0214(3)
+H1 H 0.879(7) 0.188(5) -0.024(4)
+C3 C 0.7156(4) 0.3775(3) 0.0125(3)
+H2 H 0.60240 0.42160 0.04870
+H3 H 0.74130 0.39240 -0.06670
+C4 C 0.8058(5) 0.4329(3) 0.0674(4)
+H4 H 0.91890 0.39500 0.02710
+H5 H 0.77340 0.52470 0.06300
+C5 C 0.7731(5) 0.4064(3) 0.1901(4)
+H6 H 0.83480 0.43910 0.22320
+H7 H 0.66150 0.45070 0.23170
+C6 C 0.8158(4) 0.2633(3) 0.2004(3)
+H8 H 0.79070 0.24890 0.27970
+H9 H 0.92910 0.21980 0.16380
+C7 C 0.6655(3) 0.1735(3) -0.0319(2)
+H10 H 0.55190 0.22450 -0.00080
+C8 C 0.6895(4) 0.0405(3) 0.0024(2)
+H11 H 0.655(7) -0.022(5) -0.037(5)
+C9 C 0.7443(3) 0.0001(3) 0.0872(3)
+C10 C 0.7152(3) 0.1734(3) -0.1590(3)
+C11 C 0.8688(4) 0.1024(4) -0.2274(3)
+H12 H 0.945(7) 0.043(6) -0.195(5)
+C12 C 0.9108(6) 0.1038(5) -0.3440(3)
+H13 H 1.039(7) 0.049(5) -0.393(5)
+C13 C 0.8044(7) 0.1743(5) -0.3930(4)
+H14 H 0.826(6) 0.199(5) -0.487(5)
+C14 C 0.6518(7) 0.2457(6) -0.3264(4)
+H15 H 0.571(7) 0.296(6) -0.348(5)
+C15 C 0.6066(5) 0.2441(4) -0.2104(3)
+H16 H 0.492(7) 0.299(5) -0.156(5)
+C16 C 0.7705(4) -0.1334(3) 0.1178(3)
+C17 C 0.8447(6) -0.2816(4) 0.2430(4)
+H17 H 0.91190 -0.29590 0.28930
+H18 H 0.74550 -0.28990 0.28560
+H19 H 0.89600 -0.34370 0.17750
+C18 C 0.4324(7) 0.3899(7) 0.4296(5)
+H20 H 0.39470 0.36890 0.50550
+H21 H 0.35880 0.46800 0.41880
+H22 H 0.53490 0.39290 0.41290
+C19 C 0.5114(8) 0.1093(6) 0.3915(5)
+H23 H 0.50260 0.04010 0.35270
+H24 H 0.44850 0.11900 0.47050
+H25 H 0.62100 0.08980 0.38650
+C20 C 0.2437(5) 0.3052(5) 0.3141(3)
+C21 C 0.1136(7) 0.3108(7) 0.4237(5)
+H26 H 0.01480 0.32910 0.40910
+H27 H 0.10320 0.37690 0.47720
+H28 H 0.14030 0.22970 0.45400
+C22 C 0.1984(8) 0.4248(10) 0.2668(9)
+H29 H 0.08540 0.45730 0.28230
+H30 H 0.25100 0.41160 0.18640
+H31 H 0.22860 0.48540 0.30000
+C23 C 0.2520(9) 0.1965(11) 0.2311(7)
+H32 H 0.14680 0.19680 0.24250
+H33 H 0.31670 0.11500 0.24570
+H34 H 0.29770 0.21130 0.15440
+loop_
+_atom_type_symbol
+_atom_type_radius_bond
+C 0.68
+H 0.23
+O 0.68
+Si 1.20
+loop_
+_cod_related_entry_id
+_cod_related_entry_database
+_cod_related_entry_code
+1 PubChem 12072273

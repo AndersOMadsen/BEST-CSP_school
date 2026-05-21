@@ -1,0 +1,26 @@
+# Word/Office lock files and personal notes
+*.docx
+*.xlsx
+~$*
+
+# Editor backup and swap files
+*.py~
+*~
+*.swp
+*.swo
+
+# macOS metadata
+.DS_Store
+.AppleDouble
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+__pycache__/
+
+# Python environments
+.venv/
+venv/
+*.pyc
+
+# Local output from cod_checker (don't commit bulk downloads)
+cod_checks/
