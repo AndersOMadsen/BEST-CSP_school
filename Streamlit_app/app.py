@@ -436,7 +436,6 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
         )
         with st.spinner("Querying COD…"):
             st.session_state["df3"] = query_cod(q)
-        st.session_state["sort3"] = sort3
 
     fobs3 = st.checkbox("Only structures with structure factors (FCF) available", key="fobs3")
 
@@ -444,7 +443,7 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
         df3 = st.session_state["df3"]
         if fobs3:
             df3 = df3[df3["flags"].str.contains("has Fobs", na=False)]
-        show_table(df3, sort_by=st.session_state.get("sort3", "Cell volume (Å³)"), ascending=False)
+        show_table(df3, sort_by=sort3, ascending=False)
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
