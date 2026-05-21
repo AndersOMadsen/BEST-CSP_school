@@ -208,8 +208,10 @@ These structures are good starting points for a PLATON/ADDSYM exercise.
         el_filter = "&el1=C" if organic_only1 else ""
         q = f"format=csv&vmin={vmin}&vmax=1000000&strictmin=1&strictmax={el_max}{el_filter}"
         with st.spinner("Querying COD…"):
-            df1 = query_cod(q)
-        show_table(df1, sort_by="Cell volume (Å³)", ascending=False)
+            st.session_state["df1"] = query_cod(q)
+
+    if "df1" in st.session_state:
+        show_table(st.session_state["df1"], sort_by="Cell volume (Å³)", ascending=False)
 
 
 # ── Tab 2: High Z′ structures ──────────────────────────────────────────────────
@@ -250,8 +252,10 @@ Compare the independent molecules: are they really different, or almost identica
         el_filter = "&el1=C" if organic_only2 else ""
         q = f"format=csv&minZprime={zprime_min}{el_filter}"
         with st.spinner("Querying COD…"):
-            df2 = query_cod(q)
-        show_table(df2, sort_by="Z′", ascending=False)
+            st.session_state["df2"] = query_cod(q)
+
+    if "df2" in st.session_state:
+        show_table(st.session_state["df2"], sort_by="Z′", ascending=False)
 
 
 # ── Tab 3: Space group P -1 ────────────────────────────────────────────────────
@@ -311,8 +315,11 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
             f"{vol_filter}{el_filter}"
         )
         with st.spinner("Querying COD…"):
-            df3 = query_cod(q)
-        show_table(df3, sort_by=sort3, ascending=False)
+            st.session_state["df3"] = query_cod(q)
+        st.session_state["sort3"] = sort3
+
+    if "df3" in st.session_state:
+        show_table(st.session_state["df3"], sort_by=st.session_state.get("sort3", "Cell volume (Å³)"), ascending=False)
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
