@@ -35,6 +35,18 @@ TABLE_COLS = ["COD ID", "Formula", "Space group", "Cell volume (Å³)", "Z", "Z�
 # ── Helper functions ───────────────────────────────────────────────────────────
 
 @st.cache_data(ttl=3600)
+def fetch_file(url: str) -> bytes | None:
+    """Download a file from COD; return bytes or None on failure."""
+    try:
+        r = requests.get(url, timeout=30)
+        if r.status_code == 200:
+            return r.content
+        return None
+    except Exception:
+        return None
+
+
+@st.cache_data(ttl=3600)
 def query_cod(query_string: str) -> pd.DataFrame:
     """Fetch CSV from COD REST API and return as a DataFrame."""
     url = COD_BASE + query_string
@@ -92,6 +104,7 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
 
     if chosen:
         row = df[df["COD ID"] == chosen].iloc[0]
+        has_fobs = "has Fobs" in str(row.get("flags", ""))
         c1, c2, c3 = st.columns(3)
 
         with c1:
@@ -101,15 +114,43 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
             )
 
         with c2:
-            st.markdown("**Download CIF**")
+            st.markdown("**Download files**")
             st.markdown(
                 f"[{chosen}.cif](https://www.crystallography.net/cod/{chosen}.cif)"
+                " — crystal structure"
             )
+            if has_fobs:
+                fcf_bytes = fetch_file(
+                    f"https://www.crystallography.net/cod/{chosen}.hkl"
+                )
+                if fcf_bytes:
+                    st.download_button(
+                        label=f"Download {chosen}.fcf — structure factors",
+                        data=fcf_bytes,
+                        file_name=f"{chosen}.fcf",
+                        mime="text/plain",
+                        key=f"fcf_{chosen}",
+                    )
+                    st.caption(
+                        "COD stores this as .hkl but it is already in FCF (CIF) format. "
+                        "The button saves it with the .fcf extension CheckCIF expects."
+                    )
+            else:
+                st.caption("No structure factor file available for this entry in COD.")
 
         with c3:
             st.markdown("**CheckCIF (IUCr)**")
             st.markdown("[Open CheckCIF](https://checkcif.iucr.org/)")
-            st.caption("Upload the CIF file you downloaded.")
+            if has_fobs:
+                st.caption(
+                    "Upload **both** the .cif and .fcf files for a complete check "
+                    "including reflection-data statistics (ALERT A/B level)."
+                )
+            else:
+                st.caption(
+                    "Upload the .cif file only. Without structure factors, "
+                    "CheckCIF runs geometry checks but skips reflection-data alerts."
+                )
 
         doi = row.get("DOI", None)
         if pd.notna(doi) and str(doi).strip() not in ("", "nan"):
