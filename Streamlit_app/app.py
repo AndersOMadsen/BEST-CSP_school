@@ -5,11 +5,56 @@ import io
 
 # ── Page configuration ─────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="COD Structure Explorer",
-    page_icon="💎",
+    page_title="COD Structure Explorer · BEST-CSP",
+    page_icon="assets/bestcsp-icon.png",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
+
+# ── Brand colours (from BEST-CSP SVG identity) ─────────────────────────────────
+# #253d8e — navy blue (text, icons)   #b0afd2 — lavender (circle motif)
+st.markdown("""
+<style>
+/* ── Sidebar ── */
+section[data-testid="stSidebar"] {
+    background-color: #f4f4f8;
+}
+
+/* ── Primary buttons (Search) ── */
+.stButton > button {
+    background-color: #253d8e;
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+.stButton > button:hover {
+    background-color: #1c2f6e;
+    color: white;
+}
+
+/* ── Download buttons ── */
+.stDownloadButton > button {
+    border: 2px solid #253d8e;
+    color: #253d8e;
+    background-color: white;
+    font-weight: 600;
+}
+.stDownloadButton > button:hover {
+    background-color: #eef0f8;
+}
+
+/* ── Active tab indicator ── */
+.stTabs [aria-selected="true"] {
+    color: #253d8e !important;
+    border-bottom-color: #253d8e !important;
+}
+
+/* ── Top colour bar ── */
+header[data-testid="stHeader"] {
+    border-top: 4px solid #253d8e;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 COD_BASE = "https://www.crystallography.net/cod/result?"
@@ -174,30 +219,50 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
+    st.image("assets/bestcsp-logo.png", use_container_width=True)
+    st.markdown("---")
     st.markdown("### About this tool")
     st.markdown(
         """
-This app queries the [Crystallography Open Database (COD)](https://www.crystallography.net/cod/)
+This app queries the
+[Crystallography Open Database (COD)](https://www.crystallography.net/cod/)
 and surfaces structures that may reward closer inspection.
 
-It is intended as a teaching aid — **not** a quality-ranking system.
-All conclusions require reading the original paper.
-
----
-*Bucharest Best-CSP School*
+It is a teaching aid — **not** a quality-ranking system.
+All conclusions require reading the original paper and checking the data.
         """
+    )
+    st.markdown("---")
+    st.markdown(
+        "<p style='text-align:center; font-size:0.8rem; color:#555; margin-bottom:4px'>"
+        "Supported by</p>",
+        unsafe_allow_html=True,
+    )
+    st.image("assets/cost-logo.png", use_container_width=True)
+    st.markdown(
+        "<p style='text-align:center; font-size:0.8rem; color:#555; margin-top:4px'>"
+        "<a href='https://best-csp.eu/' target='_blank' style='color:#253d8e'>"
+        "BEST-CSP · CA22107</a></p>",
+        unsafe_allow_html=True,
     )
 
 
 # ── Main page ──────────────────────────────────────────────────────────────────
-st.title("💎 COD Crystal Structure Explorer")
-st.markdown(
-    """
-Find crystal structures from the **Crystallography Open Database** that are worth a second look —
-not because they are wrong, but because they raise interesting crystallographic questions.
+col_logo, col_title = st.columns([1, 5])
+with col_logo:
+    st.image("assets/bestcsp-icon.png", width=80)
+with col_title:
+    st.markdown(
+        "<h1 style='color:#253d8e; margin-bottom:0'>COD Crystal Structure Explorer</h1>"
+        "<p style='color:#b0afd2; font-size:1rem; margin-top:2px; font-weight:600'>"
+        "BEST-CSP · COST Action CA22107</p>",
+        unsafe_allow_html=True,
+    )
 
-Choose a search type, adjust the filters, and click **Search**.
-    """
+st.markdown(
+    "Find crystal structures from the **Crystallography Open Database** that are worth "
+    "a second look — not because they are wrong, but because they raise interesting "
+    "crystallographic questions. Choose a search type, adjust the filters, and click **Search**."
 )
 
 tab1, tab2, tab3 = st.tabs([
@@ -365,8 +430,11 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
 st.divider()
-st.caption(
-    "Data from the [Crystallography Open Database](https://www.crystallography.net/cod/) · "
-    "Open-access repository of crystal structure data · "
-    "Educational use — Bucharest Best-CSP School"
+st.markdown(
+    "<p style='text-align:center; font-size:0.8rem; color:#888'>"
+    "Data from the <a href='https://www.crystallography.net/cod/' style='color:#253d8e'>Crystallography Open Database</a> · "
+    "Developed for the <a href='https://best-csp.eu/' style='color:#253d8e'>BEST-CSP COST Action CA22107</a> · "
+    "Educational use only"
+    "</p>",
+    unsafe_allow_html=True,
 )
