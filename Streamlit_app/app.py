@@ -117,7 +117,7 @@ def query_cod(query_string: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
+def show_table(df: pd.DataFrame, sort_by: str, tab_id: str, ascending: bool = False):
     """Render the results table, download button, and deep-dive panel."""
     if df.empty:
         st.warning("No structures found. Try relaxing your filters.")
@@ -125,7 +125,13 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
 
     # Select available columns only (COD doesn't always return everything)
     cols = [c for c in TABLE_COLS if c in df.columns]
-    display = df[cols].sort_values(sort_by, ascending=ascending).reset_index(drop=True)
+    # Fall back to first available column if the requested sort column is absent
+    if sort_by not in cols:
+        sort_by = cols[0] if cols else None
+    display = df[cols].copy()
+    if sort_by:
+        display = display.sort_values(sort_by, ascending=ascending)
+    display = display.reset_index(drop=True)
 
     st.success(f"Found **{len(display)}** structures.")
 
@@ -136,6 +142,7 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
             data=display.to_csv(index=False).encode(),
             file_name="cod_results.csv",
             mime="text/csv",
+            key=f"csv_{tab_id}",
         )
 
     st.dataframe(display, use_container_width=True, hide_index=True)
@@ -149,7 +156,7 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
     )
 
     cod_ids = display["COD ID"].dropna().unique().tolist()
-    chosen = st.selectbox("COD ID", cod_ids, key=f"dive_{sort_by}")
+    chosen = st.selectbox("COD ID", cod_ids, key=f"dive_{tab_id}")
 
     if chosen:
         row = df[df["COD ID"] == chosen].iloc[0]
@@ -178,7 +185,7 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
                         data=fcf_bytes,
                         file_name=f"{chosen}.fcf",
                         mime="text/plain",
-                        key=f"fcf_{chosen}",
+                        key=f"fcf_{tab_id}_{chosen}",
                     )
                     st.caption(
                         "COD stores this as .hkl but it is already in FCF (CIF) format. "
@@ -324,9 +331,9 @@ These structures are good starting points for a PLATON/ADDSYM exercise.
 
     if "df1" in st.session_state:
         df1 = st.session_state["df1"]
-        if fobs1:
+        if fobs1 and "flags" in df1.columns:
             df1 = df1[df1["flags"].str.contains("has Fobs", na=False)]
-        show_table(df1, sort_by="Cell volume (Å³)", ascending=False)
+        show_table(df1, sort_by="Cell volume (Å³)", tab_id="tab1", ascending=False)
 
 
 # ── Tab 2: High Z′ structures ──────────────────────────────────────────────────
@@ -373,9 +380,9 @@ Compare the independent molecules: are they really different, or almost identica
 
     if "df2" in st.session_state:
         df2 = st.session_state["df2"]
-        if fobs2:
+        if fobs2 and "flags" in df2.columns:
             df2 = df2[df2["flags"].str.contains("has Fobs", na=False)]
-        show_table(df2, sort_by="Z′", ascending=False)
+        show_table(df2, sort_by="Z′", tab_id="tab2", ascending=False)
 
 
 # ── Tab 3: Space group P -1 ────────────────────────────────────────────────────
@@ -441,9 +448,9 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
 
     if "df3" in st.session_state:
         df3 = st.session_state["df3"]
-        if fobs3:
+        if fobs3 and "flags" in df3.columns:
             df3 = df3[df3["flags"].str.contains("has Fobs", na=False)]
-        show_table(df3, sort_by=sort3, ascending=False)
+        show_table(df3, sort_by=sort3, tab_id="tab3", ascending=False)
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
