@@ -2,11 +2,15 @@ import streamlit as st
 import pandas as pd
 import requests
 import io
+from pathlib import Path
+
+# Always resolve asset paths relative to this file, regardless of working directory
+ASSETS = Path(__file__).parent / "assets"
 
 # ── Page configuration ─────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="COD Structure Explorer · BEST-CSP",
-    page_icon="assets/bestcsp-icon.png",
+    page_icon=str(ASSETS / "bestcsp-icon.png"),
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -219,7 +223,7 @@ def show_table(df: pd.DataFrame, sort_by: str, ascending: bool = False):
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.image("assets/bestcsp-logo.png", use_container_width=True)
+    st.image(str(ASSETS / "bestcsp-logo.png"), use_container_width=True)
     st.markdown("---")
     st.markdown("### About this tool")
     st.markdown(
@@ -238,7 +242,7 @@ All conclusions require reading the original paper and checking the data.
         "Supported by</p>",
         unsafe_allow_html=True,
     )
-    st.image("assets/cost-logo.png", use_container_width=True)
+    st.image(str(ASSETS / "cost-logo.png"), use_container_width=True)
     st.markdown(
         "<p style='text-align:center; font-size:0.8rem; color:#555; margin-top:4px'>"
         "<a href='https://best-csp.eu/' target='_blank' style='color:#253d8e'>"
@@ -250,7 +254,7 @@ All conclusions require reading the original paper and checking the data.
 # ── Main page ──────────────────────────────────────────────────────────────────
 col_logo, col_title = st.columns([1, 5])
 with col_logo:
-    st.image("assets/bestcsp-icon.png", width=80)
+    st.image(str(ASSETS / "bestcsp-icon.png"), width=80)
 with col_title:
     st.markdown(
         "<h1 style='color:#253d8e; margin-bottom:0'>COD Crystal Structure Explorer</h1>"
