@@ -203,9 +203,15 @@ def _check_shelxl_sanity(lst_path: Path, name: str) -> tuple[bool, str]:
     if not lst_path.exists():
         return True, ''
     text = lst_path.read_text(errors='replace').upper()
-    # Non-positive-definite ADPs
-    if 'NON-POSITIVE DEFINITE' in text or 'NPD' in text:
+    # Non-positive-definite ADPs.
+    # SHELXL always prints "N atoms NPD" in its summary (N can be 0 = fine).
+    # Only flag when the explicit warning fires OR when N > 0 in that summary.
+    if 'NON-POSITIVE DEFINITE' in text:
         return False, "non-positive-definite ADPs detected in .lst"
+    import re as _re2
+    m_npd = _re2.search(r'(\d+)\s+ATOMS\s+NPD', text)
+    if m_npd and int(m_npd.group(1)) > 0:
+        return False, f"{m_npd.group(1)} atom(s) with non-positive-definite ADPs"
     # Diverged R-factor
     import re as _re
     m = _re.search(r'R1\s*=\s*([\d.]+)\s+FOR', text)
