@@ -46,6 +46,22 @@ structures:
       # genuine internal inconsistency (Rint rises) and forces ADP distortion.
       # mu_t is elevated for uranium (high intrinsic absorption at Mo Kα).
       - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 2.0, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # MS: C2/c → Cc  (remove inversion, keep C-centering and c-glide)
+    # Note: uranium compound — complex structure, may produce catastrophic rung.
+    # Try with hb8120 (simpler organic) first.
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "Cc"
+      shift_to_origin: null
+      note: "C2/c → Cc by removing inversion centre (LATT 7 → -7)"
+    # WA: instructor must inspect the structure and choose a C↔N pair near the
+    # uranium coordination sphere for maximum diagnostic impact.
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"
 
   - id: hb8120
     path: Good_Structures_and_data/hb8120
@@ -65,6 +81,18 @@ structures:
       - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
       - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
       - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # MS: P21/n → P21  (recommended: hb8120 is a clean organic, good first test)
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "P21"
+      shift_to_origin: null
+      note: "P21/n → P21 by removing inversion centre (LATT 1 → -1)"
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"
 
   - id: wm5793
     path: Good_Structures_and_data/wm5793
@@ -84,6 +112,19 @@ structures:
       - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
       - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
       - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # MS: P212121 is already non-centrosymmetric — inversion removal not applicable.
+    # To demonstrate missed symmetry here, the instructor would need to manually
+    # construct a P21 or P2 model, which is beyond the automated generator.
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "NOT_APPLICABLE"
+      note: "P212121 is non-centrosymmetric — MS rung not supported by this generator"
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"
 
   - id: yz2076
     path: Good_Structures_and_data/yz2076
@@ -107,6 +148,20 @@ structures:
       - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
       # Absorption: axis [0,1,1] breaks monoclinic 2/m Laue symmetry.
       - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # MS: P-1 → P1 is the SIMPLEST possible case — just remove the inversion.
+    # Recommended as the first MS rung to test: the normal matrix singularity
+    # is usually manageable for triclinic structures.
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "P1"
+      shift_to_origin: null
+      note: "P-1 → P1 by removing inversion centre (LATT 1 → -1)"
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"
 
   # ── Cu Kα — no resolution-truncation rungs (little headroom past 0.83 Å) ──
 
@@ -126,6 +181,17 @@ structures:
       - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
       - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
       - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "P21"
+      shift_to_origin: null
+      note: "P21/c → P21 by removing inversion centre (LATT 1 → -1)"
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"
 
   - id: nx2034
     path: Good_Structures_and_data/nx2034
@@ -143,6 +209,17 @@ structures:
       - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
       - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
       - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "P21"
+      shift_to_origin: null
+      note: "P21/c → P21 by removing inversion centre (LATT 1 → -1)"
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"
 
   - id: wm2328
     path: Good_Structures_and_data/wm2328
@@ -160,3 +237,14 @@ structures:
       - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
       - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
       - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # P212121 is already non-centrosymmetric; MS rung not supported by generator.
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "NOT_APPLICABLE"
+      note: "P212121 is non-centrosymmetric — MS rung not supported by this generator"
+    wa_rung:
+      enabled: false
+      swaps:
+        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+      note: "C↔N swap — fill in atom label after inspecting the structure"

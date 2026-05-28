@@ -46,6 +46,8 @@ except ImportError:
 import degrade_data as dd
 from assemble_cif import merge_cif
 from parse_platon import parse_chk, parse_ckf
+from generate_ms_rung import generate_ms_rung
+from generate_wa_rung import generate_wa_rung
 
 # ── tool paths ────────────────────────────────────────────────────────────────
 SHELXL = '/usr/local/bin/shelxl'
@@ -158,13 +160,70 @@ def step_generate(struct: dict, struct_dir: Path,
         )
         rung_dirs.append(rung_dir)
 
+    # ── Model-error rungs (MS and WA) — generated after data rungs ───────────
+    ins_path = struct_dir / f"{name}.ins"
+    hkl_path = struct_dir / f"{name}.hkl"
+    pub_cif  = struct_dir / struct.get('published_cif', '')
+
+    ms_cfg = struct.get('ms_rung', {})
+    if ms_cfg.get('enabled'):
+        tag      = 'ms'
+        rung_dir = ladder_root / f"rung_{tag}"
+        subgroup = ms_cfg.get('drop_to_subgroup', '?')
+        shift    = ms_cfg.get('shift_to_origin')
+        note     = ms_cfg.get('note', '')
+        print(f"    [ms]  missed-symmetry rung → {subgroup}")
+        if not dry_run:
+            desc = generate_ms_rung(ins_path, hkl_path, rung_dir,
+                                    name, subgroup, shift, struct['id'], note)
+            print(f"          {desc}")
+        rung_dirs.append(rung_dir)
+
+    wa_cfg = struct.get('wa_rung', {})
+    if wa_cfg.get('enabled'):
+        tag      = 'wa'
+        rung_dir = ladder_root / f"rung_{tag}"
+        sw       = wa_cfg.get('swaps', [])
+        print(f"    [wa]  wrong-atom rung — "
+              + ', '.join(f"{s['atom']} {s['from_element']}→{s['to_element']}"
+                          for s in sw))
+        if not dry_run:
+            desc = generate_wa_rung(ins_path, hkl_path, rung_dir,
+                                    name, sw, struct['id'])
+            print(f"          {desc}")
+        rung_dirs.append(rung_dir)
+
     return rung_dirs
 
 
-# ── Step 2: SHELXL refinement ─────────────────────────────────────────────────
+# ── Step 2: SHELXL refinement + sanity gate ───────────────────────────────────
 
-def step_refine(struct: dict, rung_dir: Path, dry_run: bool = False) -> bool:
-    """Run shelxl <name> in rung_dir.  Returns True on success."""
+def _check_shelxl_sanity(lst_path: Path, name: str) -> tuple[bool, str]:
+    """Parse SHELXL .lst; return (is_ok, warning_message_or_empty)."""
+    if not lst_path.exists():
+        return True, ''
+    text = lst_path.read_text(errors='replace').upper()
+    # Non-positive-definite ADPs
+    if 'NON-POSITIVE DEFINITE' in text or 'NPD' in text:
+        return False, "non-positive-definite ADPs detected in .lst"
+    # Diverged R-factor
+    import re as _re
+    m = _re.search(r'R1\s*=\s*([\d.]+)\s+FOR', text)
+    if m and float(m.group(1)) > 0.50:
+        return False, f"R1 = {float(m.group(1)):.3f} — refinement diverged (> 0.50)"
+    # SHELXL explicitly says not converged
+    if '** NOT CONVERGED **' in text or 'NOT CONVERGE' in text:
+        return False, "SHELXL reports refinement did not converge"
+    return True, ''
+
+
+def step_refine(struct: dict, rung_dir: Path, dry_run: bool = False,
+                is_model_rung: bool = False) -> bool:
+    """Run shelxl <name> in rung_dir.  Returns True on success.
+
+    For model-error rungs (is_model_rung=True) the sanity gate is applied
+    and a CATASTROPHIC.txt stamp is written if the refinement is broken.
+    """
     name = struct['shelx_name']
     cmd  = [SHELXL, name]
     if dry_run:
@@ -179,6 +238,30 @@ def step_refine(struct: dict, rung_dir: Path, dry_run: bool = False) -> bool:
         if result.stdout:
             print(result.stdout[-2000:])
         return False
+
+    # Sanity gate for model-error rungs (and optionally for all)
+    lst_path = rung_dir / f"{name}.lst"
+    ok, warning = _check_shelxl_sanity(lst_path, name)
+    if not ok:
+        msg = (
+            f"    WARNING: SHELXL sanity check FAILED for {rung_dir.name}\n"
+            f"    → {warning}\n"
+            f"    This rung is CATASTROPHIC — do not use its results for teaching.\n"
+            f"    Instructor action: choose a different subgroup/swap or source structure."
+        )
+        print(msg)
+        (rung_dir / 'CATASTROPHIC.txt').write_text(
+            "RUNG FLAGGED AS CATASTROPHIC BY SANITY GATE\n"
+            f"reason: {warning}\n"
+            "The refinement did not converge to a meaningful result.\n"
+            "Do NOT use this rung for teaching until the issue is resolved.\n"
+            "Suggested actions:\n"
+            "  MS rung: try a different origin shift, or a different structure.\n"
+            "  WA rung: try a more conservative element swap (e.g. C↔N not O↔F).\n"
+        )
+        if is_model_rung:
+            return False  # block further pipeline steps for model-error rungs
+
     return True
 
 
@@ -249,33 +332,70 @@ def step_validate(struct: dict, rung_dir: Path, dry_run: bool = False) -> bool:
 
 # ── Step 5: summarize ─────────────────────────────────────────────────────────
 
+def _read_op_desc(rung_dir: Path) -> str:
+    """Read the operation description from a rung's stamp file."""
+    # Data-degradation rungs use DEGRADATION.txt (op: line)
+    deg = rung_dir / 'DEGRADATION.txt'
+    if deg.exists():
+        for line in deg.read_text().splitlines():
+            if line.startswith('op:'):
+                return line[3:].strip()
+    # Model-error rungs use MODEL_MODIFICATION.txt (modification: line)
+    mod = rung_dir / 'MODEL_MODIFICATION.txt'
+    if mod.exists():
+        for line in mod.read_text().splitlines():
+            if line.startswith('modification:'):
+                return line[13:].strip()
+    return ''
+
+
+def _rung_is_catastrophic(rung_dir: Path) -> bool:
+    return (rung_dir / 'CATASTROPHIC.txt').exists()
+
+
 def step_summarize(struct: dict, struct_dir: Path) -> None:
-    """Parse .chk and .ckf files → ladder/summary.csv and ladder/summary.md."""
+    """Parse .chk and .ckf files → ladder/summary.csv and ladder/summary.md.
+
+    Processes ALL rung_*/ directories (data-degradation AND model-error rungs).
+    """
     name        = struct['shelx_name']
     ladder_root = struct_dir / 'ladder'
+
+    # Build ordered list of (tag, rung_dir) from all rung_*/ directories,
+    # then overlay with YAML rung ordering for data-degradation rungs.
+    yaml_tags = [rc['tag'] for rc in struct.get('rungs', [])]
+    all_rung_dirs = sorted(ladder_root.glob('rung_*/'))
+
+    # Ordered: yaml rungs first (in YAML order), then any extra dirs (ms, wa)
+    ordered_tags: list[str] = list(yaml_tags)
+    for rd in all_rung_dirs:
+        tag = rd.name.removeprefix('rung_')
+        if tag not in ordered_tags:
+            ordered_tags.append(tag)
 
     rows: list[dict] = []
     ref_alert_codes: set[str] = set()
 
-    for rung_cfg in struct['rungs']:
-        tag      = rung_cfg['tag']
+    for tag in ordered_tags:
         rung_dir = ladder_root / f"rung_{tag}"
+        if not rung_dir.is_dir():
+            continue
         chk_path = rung_dir / f"{name}.chk"
         ckf_path = rung_dir / f"{name}.ckf"
 
-        # Read the degradation op string from the stamp file
-        deg_path = rung_dir / 'DEGRADATION.txt'
-        op_desc  = rung_cfg.get('op', '')
-        if deg_path.exists():
-            for line in deg_path.read_text().splitlines():
-                if line.startswith('op:'):
-                    op_desc = line[3:].strip()
+        op_desc = _read_op_desc(rung_dir)
+        # Fallback: use op from YAML config if stamp not yet written
+        if not op_desc:
+            for rc in struct.get('rungs', []):
+                if rc.get('tag') == tag:
+                    op_desc = rc.get('op', tag)
                     break
 
         row: dict = {
             # ── Identity ──────────────────────────────────────────────────────
             'rung':                  tag,
             'op':                    op_desc,
+            'catastrophic':          'YES' if _rung_is_catastrophic(rung_dir) else '',
             # ── Refinement quality (.chk) ─────────────────────────────────────
             'R1':                    '',
             'wR2':                   '',
@@ -392,7 +512,7 @@ def step_summarize(struct: dict, struct_dir: Path) -> None:
 
         # Table 1: refinement + completeness + alerts
         cols1 = [
-            'rung', 'R1', 'wR2', 'GooF', 'rint',
+            'rung', 'catastrophic', 'R1', 'wR2', 'GooF', 'rint',
             'data_param_ratio', 'completeness', 'completeness_acta',
             'rho_max', 'resolution_A',
             'alerts_A', 'alerts_B', 'alerts_C', 'new_alert_codes',
@@ -484,11 +604,14 @@ def main() -> None:
                 continue
 
         for rung_dir in rung_dirs:
-            tag = rung_dir.name.removeprefix('rung_')
-            print(f"\n  Rung: {tag}")
+            tag            = rung_dir.name.removeprefix('rung_')
+            is_model_rung  = tag in ('ms', 'wa')
+            print(f"\n  Rung: {tag}"
+                  + ("  [MODEL-ERROR RUNG]" if is_model_rung else ""))
 
             if 'refine' in steps:
-                ok = step_refine(struct, rung_dir, dry_run=args.dry_run)
+                ok = step_refine(struct, rung_dir, dry_run=args.dry_run,
+                                 is_model_rung=is_model_rung)
                 if not ok:
                     print(f"  Skipping assemble/validate for {tag} (shelxl failed)")
                     continue
