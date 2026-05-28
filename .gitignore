@@ -24,3 +24,12 @@ venv/
 
 # Local output from cod_checker (don't commit bulk downloads)
 cod_checks/
+
+# PLATON runtime and session files (binary / session-specific, not source)
+platon.bin
+platon.def
+platon.hkp
+platon.pjn
+platon.sum
+platon.
+platon_pl.res

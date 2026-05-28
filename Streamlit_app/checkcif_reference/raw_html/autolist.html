@@ -1,0 +1,4625 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head><script type="text/javascript" src="https://web-static.archive.org/_static/js/bundle-playback.js?v=oZ57VlYl" charset="utf-8"></script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden","showSwfDownload":true};</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/ruffle/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("https://journals.iucr.org/services/cif/checking/autolist.html","20240927030403","https://web.archive.org/","web","https://web-static.archive.org/_static/",
+	      "1727406243");
+</script>
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/banner-styles.css?v=1utQkbB3" />
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/iconochive.css?v=3PDvdIFv" />
+<!-- End Wayback Rewrite JS Include -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>(IUCr) IUCr Journals - checkCIF data validation tests</title>
+                <link rel="schema.DC" href="//purl.org/DC/elements/1.0/"/>      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="copyright" content="© International Union of Crystallography 2024"/>
+      <meta name="DC.title" content="IUCr Journals - checkCIF data validation tests"/>
+      <meta name="DC.contributor" content=""/>
+      <meta name="DC.coverage" content=""/>
+      <meta name="DC.relation" content=""/>
+      <meta name="DC.date" content="2024-08-23"/>
+      <meta name="DC.publisher" content="International Union of Crystallography"/>
+      <meta name="DC.rights" content="© International Union of Crystallography 2024"/>
+      
+      <meta name="DC.source" content="//journals.iucr.org/services/cif/checking/autolist.html"/>
+      <meta name="DC.type" content="text"/>
+      <meta name="DC.creator" content="IUCr"/>
+      <meta name="DC.language" content="EN"/>
+      <meta name="DC.format" content="text/html"/>
+            <meta name="DC.description" content="Crystallography and related science Journals Online"/>             <meta name="DC.subject" content="Acta Cryst."/>             <meta name="DC.subject" content="crystallography"/>             <meta name="DC.subject" content="X-ray"/>             <meta name="DC.subject" content="neutron"/>             <meta name="DC.subject" content="synchrotron radiation"/>             <meta name="DC.subject" content="diffraction"/>             <meta name="DC.subject" content="physics"/>             <meta name="DC.subject" content="chemistry"/>             <meta name="DC.subject" content="biology"/>             <meta name="DC.subject" content="molecular structures"/>             <meta name="DC.subject" content="checkCIF"/>             <meta name="DC.subject" content="PLATON"/>             <meta name="DC.subject" content="tests"/>             <meta name="DC.subject" content="CIF"/>           <meta name="keywords" content="Acta Cryst.; crystallography; X-ray; neutron; synchrotron radiation; diffraction; physics; chemistry; biology; molecular structures; checkCIF; PLATON; tests; CIF"/>
+           <meta name="citation.keywords" content="Acta Cryst.; crystallography; X-ray; neutron; synchrotron radiation; diffraction; physics; chemistry; biology; molecular structures; checkCIF; PLATON; tests; CIF"/>   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+                  <link rel="stylesheet" href="//web.archive.org/web/20240927030403cs_/https://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css"/>
+    
+          <link rel="stylesheet" type="text/css" href="/web/20240927030403cs_/https://journals.iucr.org/style/debugging.css"/>
+     
+    
+          <link rel="stylesheet" type="text/css" href="/web/20240927030403cs_/https://journals.iucr.org/style/iustyle1.css"/>
+      <link rel="stylesheet" type="text/css" href="/web/20240927030403cs_/https://journals.iucr.org/style/iustyle2.css" media="all and (min-width: 20px)"/>
+<!--[if !IE]>-->
+<!-- <link media="only screen and (max-device-width: 480px)" href="/style/iustyle2.css" type= "text/css" rel="stylesheet"> -->
+<!--<![endif]-->
+      <!--[if (lt IE 9)&(!IEMobile)]>
+ <link rel="stylesheet" href="/style/iustyle2.css" media="all" />
+ <link rel="stylesheet" href="/style/iustyle3.css" media="all" />
+<![endif]-->
+            <link rel="stylesheet" type="text/css" href="/web/20240927030403cs_/https://journals.iucr.org/style/iustyleprint.css" media="print"/>
+    
+<script src="https://web.archive.org/web/20240927030403js_/https://journals.iucr.org/javascript/analytics.js"></script>
+
+</head>
+<body><div id="jpage_gen"><div id="header">
+    <div id="hd_top">
+        <div id="hd_icon"><table id="hd_icon_all" class="layout"><tr><td>
+        <div style="width:70px;height:60px;margin:1em;">          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/a/"><!--a href="//journals.iucr.org/a/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/a_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/b/"><!--a href="//journals.iucr.org/b/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/b_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/c/"><!--a href="//journals.iucr.org/c/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/c_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/d/"><!--a href="//journals.iucr.org/d/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/d_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/e/"><!--a href="//journals.iucr.org/e/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/e_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/f/"><!--a href="//journals.iucr.org/f/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/f_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/j/"><!--a href="//journals.iucr.org/j/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/j_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/s/"><!--a href="//journals.iucr.org/s/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/s_36x36.png"/></a></div>          <div style="float:left;margin:1px;"><a href="/web/20240927030403/https://journals.iucr.org/m/"><!--a href="//journals.iucr.org/m/"--><img class="hd_minilogoblockicon" style="width:20px;height:20px" src="/web/20240927030403im_/https://journals.iucr.org/logos/jicons/m_36x36.png"/></a></div>        </div>
+      </td><td>
+        <span class="hd_maintitle"><a href="//web.archive.org/web/20240927030403/https://journals.iucr.org/" style="color: #666; font-weight: 600;">IUCr&nbsp;Journals</a></span><span class="hd_subtitle"><br/><a href="//web.archive.org/web/20240927030403/https://journals.iucr.org/" style="color: #666;">CRYSTALLOGRAPHY&nbsp;JOURNALS&nbsp;ONLINE</a></span>
+      </td></tr></table>    </div><!-- end of div hd_icon -->
+        <div id="hd_right">
+      <div id="hd_mlink">        <a class="hd_blink" id="hd_cjoi" title="Crystallography Journals Online" href="//web.archive.org/web/20240927030403/https://journals.iucr.org/"><img alt="Journals Logo" src="//web.archive.org/web/20240927030403im_/https://journals.iucr.org/logos/iucr_journals_logo_spaces.png" height="20"/></a>
+        <a class="hd_blink" id="hd_iucr" title="International Union of Crystallography" href="https://web.archive.org/web/20240927030403/https://www.iucr.org/">IUCr</a>
+        <a class="hd_blink" id="hd_it" title="International Tables" href="https://web.archive.org/web/20240927030403/https://it.iucr.org/">IT</a>
+        <a class="hd_blink" id="hd_wdc" title="World Directory of Crystallographers" href="https://web.archive.org/web/20240927030403/https://wdc.iucr.org/">WDC</a>
+      </div><!-- end of id "hd_mlink" -->
+      <form id="hd_search_form" class="inputWrap" action="//web.archive.org/web/20240927030403/https://scripts.iucr.org/cgi-bin/full_search" method="post" accept-charset="utf-8">
+        <div id="hd_search"> 
+          <label for="hd_words">search IUCr Journals</label><input type="text" name="words" value="" id="hd_words" title="Search IUCr Journals"/>
+          <input type="submit" name="Action" value="GO" id="hd_go"/>
+        </div><!-- end of id "hd_search" -->
+      </form>
+    </div><!-- end of id "hd_right" -->
+  </div><!-- end of id "hd_top" -->
+  <div class="clear"></div>
+    <div id="hd_navigate"><a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/index.html">home       </a>       <a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/services/submit_general.html">submit       </a>       <a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/services/subscriberservices.html">subscribe       </a>       <a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/services/openaccess.html">open access       </a>   </div><!-- End of div hd_navigate -->
+   <div id="hd_navigatesmall">
+     <div class="hd_navigatetitle hide">
+     <img src="/web/20240927030403im_/https://journals.iucr.org/logos/arrows/smarrr_white.png" alt="" class=""/><img src="/web/20240927030403im_/https://journals.iucr.org/logos/arrows/smarrd_white.png" alt="" class="hide"/>menu</div>
+     <div class="sitelink hide"><a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/index.html">home       </a>       <a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/services/submit_general.html">submit       </a>       <a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/services/subscriberservices.html">subscribe       </a>       <a class="hd_navlink" href="/web/20240927030403/https://journals.iucr.org/services/openaccess.html">open access       </a>     </div>
+   </div><!-- End of div hd_navigatesmall -->  </div><!-- end of id "header" -->
+<div id="pagebody">
+  <div class="layout_cjo_standard">
+    <div id="main" style=""><h1 class="mainheading"><span style="">data validation procedures </span></h1>  
+  <script language="JavaScript" type="text/javascript">
+      <!-- Hide script
+      //<![CDATA[
+        // Global variable for subwindow reference
+  var helpWindow;
+    // Version flag for old browsers (Nav2/IE3)
+      var oldStuff = parseInt(navigator.appversion) < 3;
+
+                // generate and fill the help window
+  function makeHelpWindow(entry) {
+            var newLink = "/services/cif/checking/" + entry;
+         // open help file and jump to right point in it
+      helpWindow = window.open(newLink, 'iucr_info', 'scrollbars=yes,width=600,height=400');
+           // handle Navigator 2, which doesnt have an opener property
+        if (!helpWindow.opener) {
+       helpWindow.opener = window;
+          }
+         if (!oldStuff) {
+        // window is already open so bring it to the front
+     helpWindow.focus();
+          }
+      }
+
+     //]]> End script hiding -->
+</script>
+
+<style type="text/css">
+/*<![CDATA[*/
+
+div.table td {
+  background-color: #ffffff;
+  border: 1px solid rgb(238, 238, 238);
+  text-align: left;
+}
+
+/*]]>*/
+
+@media only screen and (max-width: 768px) {
+  #main {
+  width:auto;
+  float:none;
+  padding-top:.5em;
+  }
+  #pagebody {
+    clear:both;
+    padding-top:.5em;
+  }
+  #hd_navigatesmall {
+    margin-bottom:0;
+  }
+}
+.symbol
+{font-family: TimesNewRoman, 'Times New Roman', Times, Baskerville, 
+Georgia, serif; font-size:110%;}
+div.table_wrap {
+    position: relative;
+    width: auto;
+    overflow-x: auto;
+    border: 1px solid #AAA;
+    background: none repeat scroll 0% 0% #EFEFEF;
+    border-radius: 4px;
+    margin: 0px;
+    padding: 1em;
+    clear: both;
+    max-width: 800px;
+}    
+div.table_wrap td {
+
+    background: none repeat scroll 0% 0% #FFF;
+    text-align: left;
+}
+div.table_wrap table {
+
+    border-collapse: separate;
+    border-spacing: 2px;
+    width:99%;
+    overflow: auto;
+}
+</style>
+
+
+<a name="FORMU01"></a>
+<b>PROC-NAME</b>: <b>FORMU01</b> Type_1/2<br/>
+<br/>
+<b>PURPOSE</b>: To check that the total sum formulae derived from the _chemical_formula_sum
+_chemical_formula_moiety, _atom_site_ and _atom_type_ data all match.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+(1). Sum formula derived from the _chemical_formula_moiety using the rules in the CIF-dictionary. Type_1
+<br/>
+(2). Sum formula from the _atom_site_ items taking into account the _atom_site_occupancy and
+symmetry as appropriate. Type_1
+<br/>
+(3). Sum formula from the _atom_type_ items (if present). Type_2<br/>
+<br/><b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> the atom count is &gt; 0.01 atom, from that given by the _chemical_formula_sum 
+<br/><b><i>THEN</i></b> issue a General <b>ALERT</b><br/>
+For (1) <br/>
+<tt>&nbsp;&nbsp;&nbsp;"There is a discrepancy between the atom counts in the
+_chemical_formula_sum and _chemical_formula_moiety. This is
+usually due to the moiety formula being in the wrong format."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_chemical_formula_moiety has the identical format to _chemical_formula_sum,
+namely C, H, then alphabetical, with the exception that the individual
+unconnected independent entities in the structure are listed separately.
+A common mistake is to attempt to depict organometallic coordination with
+this entry.  Such coordination can be given under
+_chemical_formula_structural or _chemical_formula_IUPAC if desired, but
+must never be given as _chemical_formula_moiety.  Furthermore, do not
+use subscript formatting: C10 H20 is correct, C~10~ H~20~ is not.  Nesting
+of parentheses is also not allowed.
+<p>
+Correct examples:<br/>
+_chemical_formula_moiety&nbsp;&nbsp;   'C7 H4 Cl Hg N O3 S'<br/>
+_chemical_formula_moiety&nbsp;&nbsp;   'C12 H17 N4 O S 1+, C6 H2 N3 O7 1-'<br/>
+_chemical_formula_moiety&nbsp;&nbsp;   'C12 H16 N2 O6, 5(H2 O1)'<br/>
+_chemical_formula_moiety&nbsp;&nbsp;   '(Cd 2+)3, (C6 N6 Cr 3-)2, 2(H2 O)'<br/>
+<p>
+Formulae like '[Co Re (C12 H22 P)2 (C O)6].0.5C H3 O H' and
+'(Pt (N H3)2 (C5 H7 N3 O)2) (Cl O4)2' are INCORRECT for
+_chemical_formula_moiety.<br/>
+However these can be given as:<br/>
+_chemical_formula_IUPAC&nbsp;&nbsp;&nbsp;&nbsp;       '[Co Re (C12 H22 P)2 (C O)6].0.5(C H3 O H)'<br/>
+_chemical_formula_structural&nbsp;&nbsp;  '(Pt (N H3)2 (C5 H7 N3 O)2) (Cl O4)2'<br/>
+<p>
+If _chemical_formula_moiety has been given in the correct style, then
+there is a discrepancy between the atom counts in one or more of the
+moieties and the total calculated over all moieties.  Check that there
+is not a typographical error in _chemical_formula_moiety and
+_chemical_formula_sum and that the actual moieties present in the
+structure have been interpreted correctly.
+ <p>
+Both _chemical_formula_moiety and _chemical_formula_sum must correspond
+with the true species present, including any solvent, and not
+the contents implied by the model if there are differences due to
+the omission of a few H atoms or solvent atoms.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z, _chemical_formula_moiety and
+_chemical_formula_sum.                          
+
+
+</font>
+</td>
+</tr>
+</table> 
+For (2)<br/>
+<tt>&nbsp;&nbsp;&nbsp; "There is a discrepancy between the atom counts in the
+ _chemical_formula_sum and the formula from the _atom_type* data."</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+There is a discrepancy between the total number of each element
+in the unit cell calculated from Z * _chemical_formula_sum and
+that given in the loop structure:<br/>
+loop_<br/>
+&nbsp;&nbsp;    _atom_type_symbol<br/>
+&nbsp;&nbsp;    _atom_type_description<br/>
+&nbsp;&nbsp;    _atom_type_number_in_cell<br/>
+<p>
+Check that the entries under _cell_formula_units_Z,
+_chemical_formula_sum and in the above loop are given correctly and
+completely. _chemical_formula_sum must correspond with the
+true sum of all elements in all distinct moieties present, including
+any solvent and all H atoms, and not the contents implied by the model
+if there are differences due to the omission of a few H atoms or
+solvent atoms.  Similarly, the atom_type_* loop must indicate the total
+number of each element type expected to be present in the entire unit
+cell, including all solvent and H atoms.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z and _chemical_formula_sum.
+<p>
+_chemical_formula_sum must also be in the correct format (e.g. do
+not use subscript formatting: C10 H20 is correct, C~10~ H~20~ is not).
+
+
+</font>
+</td>
+</tr>
+</table>  
+For (3)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"There is a discrepancy between the atom counts in the
+_chemical_formula_sum and the formula from the _atom_site* data."</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+There is a difference between the atom count derived from
+_chemical_formula_sum and from the _atom_site_ list (i.e
+the list of atomic coordinates).  Check that _chemical_formula_sum
+is given correctly and in the correct format (e.g. do not use
+subscript formatting: C10 H20 is correct, C~10~ H~20~ is not).
+<p>
+Of course, _chemical_formula_sum must correspond with the
+true sum of all elements in all distinct moieties present, including
+any solvent and all H atoms, and not the contents implied by the model
+if there are differences due to the omission of a few H atoms or
+solvent atoms.  In this case, this message can be ignored.  However,
+be sure that the model is indeed otherwise complete and that no elements
+have been misassigned.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z and _chemical_formula_sum.
+<p>
+However, this alert could also be an indication of overlooked errors
+in the model.  Be sure that the model is indeed as complete as intended
+and that no elements have been misassigned.
+<p>
+Also check that the atom site occupancy is correct for the
+atomic coordinates otherwise a mismatch may be encountered [e.g
+an atom on a 2-fold axis normally has a site occupancy of 1.0
+(but a multiplicity of 0.5)].  Furthermore, the site occupancy
+for disordered atomic sites should always sum to 1.0 when all of
+the alternative disordered sites are considered.
+
+</font>
+</td>
+</tr>
+</table>     
+ 
+<br/>
+<!----------------------------------------------------->
+<hr>
+<a name="ABSMU01"></a>
+<b>PROC-NAME</b>: <b>ABSMU01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _exptl_absorpt_coefficient_mu value is
+consistent with the cell contents.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/><b><i>SUMMATION</i></b><br/>
+<br/>
+(1) match _atom_type_symbol with element symbol
+in table of atomic abs coefficients and
+extract the AMU value for _diffrn_radiation_type.
+<p>
+<b><i>IF</i></b> _diffrn_radiation_type is not identified,
+issue a General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Calculation of _exptl_absorpt_correction_mu 
+not performed for this radiation type."</tt>
+<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600"> Only Mo, Cu and Ag radiation is recognized by CHECKCIF for these purposes; wavelengths
+from other X-ray tubes, synchrotrons or neutrons will cause the
+calculation of _exptl_absorpt_correction_mu to be skipped.
+<p>
+If you are using Mo, Cu or Ag radiation, but this is not recognised,
+the format of your keyword entry for _diffrn_radiation_type may be
+ incorrect.  The correct format for _diffrn_radiation_type is
+'Mo K\a', 'Cu K\a' or 'Ag K\a'.
+</font>
+</td>
+</tr>
+</table>
+</p>
+
+
+[Attached are AMU values by Z for CuK\a, MoK\a and AgK\a]<br/>
+<br/>
+&gt;&gt;&gt; AMU for CuK\a in barn/atom (INT TAB VOL C P193-198)<br/>
+<br/>
+[.0655, .194, .576, 1.66, 4.15, 8.99, 17.3, 30.4, 49.8, 76.8, 
+114., 161., 222., 297., 388., 497., 624., 772., 940., 1130., 
+1350., 1590., 1850., 2130., 2460., 2800., 3140., 476., 547., 629., 
+719., 819., 929., 1050., 1180., 1320., 1480., 1650., 1830., 2030., 
+2230., 2460., 2700., 2950., 3230., 3520., 3820., 4150., 4500., 4860., 
+5250., 5650., 6070., 6520., 7000., 7500., 8030., 8570., 9120., 9680., 
+10200., 10800., 11000., 10500., 8470., 9770., 3470., 3670., 3930., 4100., 
+4500., 4600., 4850., 5130., 5720., 5800., 6240., 6340., 6690., 6680., 
+7540., 7980., 8430., 8810., 8650., 9720., 10200., 10200., 14300., 11800., 
+10600., 11200.]<br/>
+<br/>
+&gt;&gt;&gt; AMU for MoK\a in barn/atom (INT TAB VOL C P193-198)<br/>
+<br/>
+[.0624, .134, .228, .383, .661, 1.15, 1.96, 3.25, 5.15, 7.86, 
+11.6, 16.5, 22.9, 31., 41., 53.2, 67.8, 85.1, 105., 129., 
+156., 186., 220., 258., 302., 349., 401., 457., 518., 586., 
+660., 738., 822., 911., 1000., 1100., 1210., 1320., 1430., 247., 
+273., 300., 332., 364., 399., 436., 476., 518., 563., 611., 
+662., 716., 773., 834., 898., 965., 1040., 1110., 1190., 1270., 
+1350., 1440., 1540., 1630., 1740., 1840., 1950., 2070., 2190., 2310., 
+2440., 2580., 2720., 2860., 3010., 3160., 3310., 3480., 3650., 3820., 
+4010., 4190., 4380., 4580., 4070., 3980., 3220., 3300., 5400., 3700., 
+3870., 4030.]<br/>
+<br/>
+&gt;&gt;&gt; AMU for AgK\a in barn/atom (INT TAB VOL C P193-198)<br/>
+<br/>
+[.0614, .128, .206, .313, .479, .745, 1.17, 1.82, 2.77, 4.12, 
+5.96, 8.42, 11.6, 15.6, 20.6, 26.7, 34.1, 42.9, 53.2, 65.2, 
+78.9, 94.7, 112., 133., 155., 180., 207., 238., 271., 307., 
+346., 387., 433., 482., 535., 592., 652., 715., 780., 847., 
+922., 1150., 1070., 192., 210., 230., 251., 273., 297., 323., 
+350., 378., 409., 441., 475., 511., 549., 588., 630., 674., 
+720., 768., 819., 872., 927., 985., 1040., 1110., 1170., 1240., 
+1310., 1390., 1460., 1540., 1620., 1710., 1800., 1890., 1990., 2090., 
+2190., 2290., 2400., 2510., 2620., 2730., 2850., 2980., 3110., 3230., 
+3420., 3500.]<br/>
+<br/>
+(2) <b><i>SUM</i></b><br/>
+TOTAMU = AMU * &lt;number of each type in cell&gt;<br/>
+<br/>
+(3) <b><i>CALCULATE</i></b><br/>
+<br/>
+MU = 10 * TOTAMU / _cell_volume (ie. mu/mm)<br/>
+<br/>
+RMU = _exptl_absorpt_coefficient_mu / MU<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> RMU is 0.90 &lt;&gt; 1.10 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The ratio of given/expected absorption coefficient lies
+outside the range 0.90 &lt;&gt; 1.10"</tt><br/>
+0.95 &lt;&gt; 1.05 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The ratio of given/expected absorption coefficient lies
+outside the range 0.95 &lt;&gt; 1.05"</tt><br/>
+0.99 &lt;&gt; 1.01 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The ratio of given/expected absorption coefficient lies
+outside the range 0.99 &lt;&gt; 1.01"</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600"> This alert does not imply that you need to apply an absorption
+    correction or that your absorption correction is inappropriate
+    in any way.  It indicates that your value of the linear absorption
+    coefficient (_exptl_absorpt_correction_mu) in the CIF does not
+    agree with the value calculated from your given unit cell volume
+    and the total number of each element type in the unit cell.
+   <p> 
+    Small differences between your value and the predicted value may
+    arise if your software uses an older (e.g. Int. Tables, Vol. IV, 1974)
+    or a different source of the mass attenuation coefficients.  CHECKCIF
+    uses the photon interaction cross sections for the elements given in
+    Int. Tables, Vol. C, 1992, Table 4.2.4.2, pp. 193-198.
+   <p> 
+    Other differences between your value and the predicted value
+    will arise if the unit cell volume, Z or _chemical_formula_sum
+    in your CIF is different from that used to obtain your value of mu.
+    Don't forget that _chemical_formula_sum must correspond with the
+    true sum of all elements in all distinct moieties present, including
+    any solvent and all H atoms, and not the contents implied by the model
+    if there are differences due to the omission of a few H atoms or
+    solvent atoms.
+   <p> 
+    If multiple moieties such as solvent are present, or one of the
+    moieties possesses or is disordered about a crystallographic symmetry
+    element, ensure that the correct ratio of moieties has been allowed for
+    in the calculation of Z, _chemical_formula_sum and the linear absorption
+    coefficient.                                             
+
+</font>
+</td>
+</tr>
+</table> 
+                     
+<br/>
+<!----------------------------------------------------->
+<!--
+<HR>
+<a name=ABSTM01</a>
+<B>PROC-NAME</B>: <b>ABSTM01</b> Type_1<br />
+<br />
+<B>PURPOSE</B>: To check that _exptl_absorpt_correction_T_min is less
+than _exptl_absorpt_correction_T_max.<br />
+<br />
+<B>PROCEDURE</B>:<br />
+<br /><B><I>TEST</I></B><br />
+<br />
+<B><I>IF</I></B> _exptl_absorpt_correction_T_min &gt;
+_exptl_absorpt_correction_T_max<br />
+issue <B>ALERT</B> A<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A The minimum transmission value cannot exceed the maximum
+value"</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+Check that the values entered under _exptl_absorpt_correction_T_min
+and_exptl_absorpt_correction_T_max have not been reversed or if
+there is a typographical error for one of these two items.
+
+</font>
+</td>
+</tr>
+</table>   
+ 
+<br />
+-->
+<!------------------------------------------------------------------------------->
+<!--
+<HR>
+<a name=ABSTM02></a>
+<B>PROC-NAME</B>: <b>ABSTM02</b> Type_3<br />
+<br />
+<B>PURPOSE</B>: To check that _exptl_absorpt_correction_T_min and
+_exptl_absorpt_correction_T_max are appropriate to the
+_exptl_crystal_size_ and _exptl_absorpt_coefficient_mu
+values.<br />
+<br />
+<B>PROCEDURE</B>: DEFINE<br />
+<br />
+mu is the value _exptl_absorpt_coefficient_mu<br />
+tmax is the distance _exptl_crystal_size_max<br />
+tmid is the distance _exptl_crystal_size_mid<br />
+tmin is the distance _exptl_crystal_size_min<br />
+trad is the radius _exptl_crystal_size_rad<br />
+<br />
+Tmax(rep) is reported _exptl_absorpt_correction_T_max<br />
+Tmin(rep) is reported _exptl_absorpt_correction_T_min<br />
+<br />
+<B><I>TEST</I></B><br />
+<br />
+<B><I>IF</I></B> _exptl_absorpt_correction_type ~ "psi-scan"<br />
+<B><I>OR</I></B> "empirical"<br />
+<B><I>OR</I></B> "multi-scan"<br />
+<B><I>OR</I></B> "refdelf"<br />
+<br />
+<B><I>IF</I></B> mu * tmid > 3.0 exit and issue <B>ALERT</B> A<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A Crystal and compound unsuitable for non-numerical
+corrections. Product of mu and tmid > 3.0 "</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+When the product of the linear absorption coefficient (mu) and
+the median crystal dimension (_exptl_crystal_size_mid) is
+greater than 3.0, the application of a numerical or analytical
+absorption correction based on the indexing of the crystal
+faces is considered to be compulsory.  When choosing crystals
+from samples that are likely to fall into this category, one
+should try as far as possible to select a crystal whose faces
+are clearly defined and can readily be indexed.
+If, despite all efforts, a regularly shaped crystal cannot be
+obtained, or the crystal is immersed in oil, and the faces
+cannot be indexed adequately, empirical or multi-scan absorption
+corrections may be acceptable, PROVIDED the experimental and
+predicted values of Tmin and Tmax do not differ significantly.
+
+</font>
+</td>
+</tr>
+</table>    
+
+<b><I>IF</I></b> crystal dimensions are in the wrong order, issue General <B>ALERT</B><br />
+<TT>&nbsp;&nbsp;&nbsp;"Crystal dimensions are not in the correct order. Correcting and
+continuing."</TT><br />
+
+<b><I>IF</I></b> crystal given as circular/spherical, issue General <B>ALERT</B><br />
+<TT>&nbsp;&nbsp;&nbsp;"Crystal is circular/spherical. Crystal dimensions set as twice
+the given radius."</TT><br />
+
+<b><I>IF</I></b> _exptl_absorpt_correction_type is note set as none, bit Tmin/Tmax not given, issue <B>ALERT</B>A<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A Tmin and Tmax not reported, even though the correction
+is not set as 'none'"</TT><br />
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600"> 
+If no absorption correction was applied, set
+_exptl_absorpt_correction_type to 'none', otherwise give the
+appropriate values for _exptl_absorpt_correction_T_min and
+_exptl_absorpt_correction_T_max
+</font>
+</td>
+</tr>
+</table>  
+                                           
+<br />
+<B><I>IF</I></B> _exptl_absorpt_correction_type ~ "psi-scan"<br />
+<B><I>OR</I></B> "empirical"<br />
+<B><I>OR</I></B> "multi-scan"<br />
+<B><I>OR</I></B> "refdelf"<br />
+<B><I>OR</I></B> "analytical"<br />
+<B><I>OR</I></B> "numerical"<br />
+<B><I>OR</I></B> "gaussian"<br />
+<B><I>OR</I></B> "none"<br />
+<br />
+<b><I>CALCULATE</I></b><br />
+<br />
+Tmax(shape) = EXP(-tmin * mu)<br />
+Tmin(shape) = EXP(-temx * mu)<br />
+Tmin(shape)'= EXP(-tmax * mu)<br />
+<br />
+where temx = MAX{tmid, MIN[(1.2*tmid), tmax]}<br />
+<br />
+Tmax(angle) = 1.0<br />
+Tmin(angle) = TAB(_diffrn_reflns_theta_max, mu*tmid)<br />
+TAB=Lookup value for angular factor<br />
+<br />
+
+
+<table cellpadding="4">
+<tr valign="top">
+<td>mu*tmid</td><td>MoK\a</td><td>CuK\a</td></tr>
+<tr valign="top">
+<td>0.0</td><td>1.00</td><td>1.00</td></tr>
+<td>0.5</td><td>1.01</td><td>1.05</td></tr>
+<td>1.0</td><td>1.04</td><td>1.15</td></tr>
+<td>1.5</td><td>1.09</td><td>1.25</td></tr>
+<td>2.0</td><td>1.15</td><td>1.5</td></tr>
+<td>2.5</td><td>1.25</td><td>1.9</td></tr>
+<td>3.0</td><td>1.40</td><td>2.5</td></tr>
+</table>
+
+<br />
+Tmax(exp) = Tmax(shape) * Tmax(angle)<br />
+Tmin(exp) = Tmin(shape) * Tmin(angle)<br />
+Tmin(exp)'= Tmin(shape)'/ Tmin(angle)<br />
+<br />
+RT(rep) = Tmax(rep) / Tmin(rep)<br />
+RT(exp) = Tmax(exp) / Tmin(exp)<br />
+RT(exp)'= Tmax(exp) / Tmin(exp)'<br />
+<br />
+RR = RT(exp) / RT(rep)<br />
+RR'= RT(exp)'/ RT(rep)<br />
+<br />
+<B><I>TEST</I></B><br />
+<br />
+<B><I>IF</I></B> _exptl_absorpt_correction_type ~ "refdelf"<br />
+<B><I>OR</I></B> "empirical"<br />
+<B><I>OR</I></B> "psi-scan"<br />
+<B><I>OR</I></B> "multi-scan"<br />
+<b><I>THEN</I></b><br />
+<B><I>IF</I></B> RR' < 0.50 <B><I>OR</I></B> RR > 2.00 issue <B>ALERT</B> A (1)<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A The ratio of expected to reported Tmax/Tmin(RR') is < 0.50<br />
+Please check that your absorption correction is appropriate."</TT> <B><I>OR</I></B><br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A The ratio of expected to reported Tmax/Tmin(RR) is > 2.00<br />
+Please check that your absorption correction is appropriate."</TT><br />
+<B><I>IF</I></B> RR' < 0.75 <B><I>OR</I></B> RR > 1.50 issue <B>ALERT</B> B (1)<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert B The ratio of expected to reported Tmax/Tmin(RR') is < 0.75<br />
+Please check that your absorption correction is appropriate."</TT> <B><I>OR</I></B><br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert B The ratio of expected to reported Tmax/Tmin(RR) is > 1.50<br />
+Please check that your absorption correction is appropriate."</TT><br />
+<B><I>IF</I></B> RR' < 0.90 <B><I>OR</I></B> RR > 1.10 issue <B>ALERT</B> C (1)<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert C The ratio of expected to reported Tmax/Tmin(RR') is < 0.90<br />
+Please check that your absorption correction is appropriate."</TT> <B><I>OR</I></B><br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert C The ratio of expected to reported Tmax/Tmin(RR) is > 1.10<br />
+Please check that your absorption correction is appropriate."</TT><br />
+<br />
+<b><I>ELSE</I></b> <B><I>IF</I></B> _exptl_absorpt_correction_type ~ "numerical"<br />
+<B><I>OR</I></B> "analytical"<br />
+<B><I>OR</I></B> "gaussian"<br />
+<b><I>THEN</I></b><br />
+<B><I>IF</I></B> RR' < 0.50 <B><I>OR</I></B> RR > 2.00 issue General <B>ALERT</B><br />
+<TT>&nbsp;&nbsp;&nbsp;"The ratio of expected to reported Tmax/Tmin(RR') is < 0.50<br />
+Please check that your absorption correction is appropriate."</TT> <B><I>OR</I></B><br />
+<TT>&nbsp;&nbsp;&nbsp;"The ratio of expected to reported Tmax/Tmin(RR) is > 2.00<br />
+Please check that your absorption correction is appropriate."</TT><br />  
+<B><I>IF</I></B> RR' < 0.75 <B><I>OR</I></B> RR > 1.50 issue General <B>ALERT</B><br />
+<TT>&nbsp;&nbsp;&nbsp;"The ratio of expected to reported Tmax/Tmin(RR') is < 0.75<br />
+Please check that your absorption correction is appropriate."</TT> <B><I>OR</I></B><br />
+<TT>&nbsp;&nbsp;&nbsp;"The ratio of expected to reported Tmax/Tmin(RR) is > 1.50<br />
+Please check that your absorption correction is appropriate."</TT><br />  
+<B><I>IF</I></B> RR' < 0.90 <B><I>OR</I></B> RR > 1.10 issue General <B>ALERT</B><br />
+<TT>&nbsp;&nbsp;&nbsp;"The ratio of expected to reported Tmax/Tmin(RR') is < 0.90<br />
+Please check that your absorption correction is appropriate."</TT> <B><I>OR</I></B><br />
+<TT>&nbsp;&nbsp;&nbsp;"The ratio of expected to reported Tmax/Tmin(RR) is > 1.10<br />
+Please check that your absorption correction is appropriate."</TT><br />  
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+Alerts concerning the ratio of expected to reported Tmax/Tmin(RR')
+indicate that the range of transmission factors given in the CIF is
+either smaller or larger than that predicted from the given crystal
+dimensions.  This means that some reflection intensities will be
+over or under-corrected for absorption effects.
+<p>
+Confusion often arises here because the experimental and predicted
+values of Tmax are given on a different scale.  This of itself is
+unimportant.  If one normalises the experimental Tmax so that it is
+set equal to the predicted Tmax, then the discrepancy will be
+highlighted by the significant difference between the experimental
+and predicted values of Tmin.
+<p>
+Alerts of this nature need to be addressed carefully.  First
+check that the crystal dimensions given in the CIF do represent
+the actual crystal dimensions as closely as possible.  Inaccuracies
+here can lead to a poor prediction of Tmin &amp; Tmax and give rise
+to these alerts.  It should normally be possible to estimate the
+crystal dimensions to 2 decimal places.  Rough estimates to only
+1 decimal place may be too inaccurate to provide reliable estimates
+of Tmin &amp; Tmax.
+  <p>                 
+If the crystal dimensions are appropriate, then the correctness of
+the absorption correction itself needs to be checked.  If an
+analytical or numerical correction has been applied, have the crystal
+faces been indexed as accurately and fully as possible and have
+distances of these faces from a central point been measured as
+accurately as possible?
+<p>
+If a psi-scan correction has been applied, were sufficient reflections
+used to adequately define the absorption surface?  One needs to ensure
+that the chosen psi-scan reflections were not also suffering from
+secondary extinction or the Renninger effect. If discrepancies in the
+spread of the Tmin &amp; Tmax values remain, consider the alternative of
+applying a numerical or analytical absorption correction.  Even if the
+crystal is only weakly absorbing, numerical and analytical corrections
+are still the most reliable and realistic method.
+<p>
+If the multi-scan method (e.g. SADABS) has been employed and there are
+discrepancies in the spread of the Tmin &amp; Tmax values, one needs to
+be sceptical of the correction, particularly if the experimental Tmin is
+much smaller than predicted as this implies that an overly extreme
+correction is being applied to some reflections.  Absorption effects
+due to the glue  or glass fibre (which should never be too thick) are
+usually negligible and should not give rise to excessive ranges of
+Tmin &amp; Tmax.
+<p>
+Corrections of the DIFABS type should normally be avoided if at all
+possible.  Where such corrections are employed, discrepancies between
+the calculated and experimental values of Tmin &amp; Tmax which give rise
+to alerts of this kind will not be accepted unless they can be precisely
+justified.
+                       
+
+</font>
+</td>
+</tr>
+</table>     
+<br />
+<b><I>ELSE</I></b> <B><I>IF</I></B> _exptl_absorpt_correction_type ~ "none"<br />
+<br />
+<b><I>THEN</I></b><br />
+<B><I>IF</I></B> RT(exp) > 1.30 issue <B>ALERT</B> A (2)<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A The ratio of Tmax/Tmin expected RT(exp) is > 1.30
+An absorption correction should be applied."</TT><br />
+<B><I>IF</I></B> RT(exp) > 1.20 issue <B>ALERT</B> B (2)<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert B The ratio of Tmax/Tmin expected RT(exp) is > 1.30
+An absorption correction should be applied."</TT><br />
+<B><I>IF</I></B> RT(exp) > 1.10 issue <B>ALERT</B> C (2)<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert C The ratio of Tmax/Tmin expected RT(exp) is > 1.30
+An absorption correction should be applied."</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You have indicated that an absorption correction has not been
+applied (exptl_absorpt_correction_type 'none').  However, the
+predicted values of Tmin &amp; Tmax, based on the crystal dimensions
+given in the CIF, are sufficently unequal that absorption effects
+appear to be significant.  Therefore, the application of a suitable
+absorption correction would appear to be required.
+
+Also check that the crystal dimensions given in the CIF do represent
+the actual crystal dimensions as closely as possible.  Inaccuracies
+here can lead to a poor prediction of Tmin &amp; Tmax and give rise
+to these alerts.  It should normally be possible to estimate the
+crystal dimensions to 2 decimal places.  Rough estimates to only
+1 decimal place may be too inaccurate to provide reliable estimates
+of Tmin &amp; Tmax.                                                    
+
+</font>
+</td>
+</tr>
+</table>
+           
+<br />
+<b>SCALE</b><br />
+<br />
+<B><I>IF</I></B> _exptl_absorpt_correction_type ~ "refdelf"<br />
+<B><I>OR</I></B> "empirical"<br />
+<B><I>OR</I></B> "psi-scan"<br />
+<B><I>OR</I></B> "multi-scan"<br />
+<br />
+<B><I>AND</I></B> <B><I>IF</I></B> Tmax(exp)/Tmax(rep) < 0.95 <b><I>AND</I></b> > 1.05<br />
+<br />
+<b><I>THEN</I></b><br />
+Tmax(scl) = Tmax(exp)<br />
+Tmin(scl) = Tmax(exp) / RT(rep)<br />
+<br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+[[ For printed publication the reported T values will be replaced by the
+scaled T values. Since the ratio of scaled T's is identical to the
+ratio of reported T values, the scaling does not imply a change to the
+absorption corrections used in the study. It simply places the published
+T values on an absolute scale with respect to the crystal dimensions
+and the crystal mu value. In this way the T values conform to their
+definition, and the reader is able to easily deduce the relative
+importance of absorption corrections to the study.]]<br />
+</font>
+</td>
+</tr>
+</table>  
+<br />
+-->
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="ABSTY01"></a>
+<b>PROC-NAME</b>: <b>ABSTY01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _exptl_absorpt_correction_type is one of the
+recognised keywords.<br/>
+<br/>
+<b>CHECKLIST</b>:<ul><li>   none        (none applied)<br/>
+            <li> analytical  (analytical from crystal shape)<br/>
+             <li>integration (integration from crystal shape)<br/>
+             <li>numerical   (numerical from crystal shape)<br/>
+             <li>gaussian    (Gaussian from crystal shape)<br/>
+             <li>empirical   (psi-scan of intensities)<br/>
+             <li>psi-scan    (psi-scan of intensities)<br/>
+             <li>multi-scan  (symmetry-related measurements)<br/>
+             <li>refdelf     (refined from delta-F)<br/>
+             <li>sphere      (spherical)<br/>
+             <li>cylinder    (cylindrical)<br/>
+</ul>
+Otherwise issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The absorption correction doesn't match a standard keyword"</tt><br/>
+<br/>
+<b><i>IF</i></b> extra text has been entered issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Extra text has been found in the _exptl_absorpt_correction_type
+field, which should be only a single keyword. A literature
+citation should be included in the _exptl_absorpt_process_details
+field."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+Use ONLY one of the specified keywords and no other text under
+_exptl_absorpt_correction_type.  Note that psi-scans should be
+indicated as 'psi-scan' and not as '\f-scan'.  The citation should
+be in parentheses in the usual citation format.
+<p>
+Example:<br/>
+_exptl_absorpt_correction_type  psi-scan<br/>
+_exptl_absorpt_process_details '(North et al., 1968)'
+</font>
+</td>
+</tr>
+</table> 
+
+ <br/></ul>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="ABSTY02"></a>
+<b>PROC-NAME</b>: <b>ABSTY02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _exptl_absorpt_correction_type contains
+some reference text.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _exptl_absorpt_correction_type !~ 'Ref:'<br/>
+<b><i>OR</i></b> _exptl_absorpt_process_details is missing<br/>
+issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C An _exptl_absorpt_correction_type has been given without
+a literature citation. This should be contained in the
+_exptl_absorpt_process_details field."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+A literature citation to the absorption correction method must
+be provided.  However, do not append this to the keyword given
+with _exptl_absorpt_correction_type.  There is a separate data
+name entry for the citation which is _exptl_absorpt_process_details.
+The citation should be in parentheses in the usual citation format.
+<p>
+Example:<br/>
+_exptl_absorpt_correction_type  psi-scan<br/>
+_exptl_absorpt_process_details '(North et al., 1968)'<br/>
+
+
+</font>
+</td>
+</tr>
+</table> 
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CELLK01"></a>
+<b>PROC-NAME</b>: <b>CELLK01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _cell_measurement_temperature has the
+correct units ie. Kelvin rather than Celsius.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _cell_measurement_temperature &lt; 25<br/>
+issue <b>ALERT</b> C (may be in Celsius units).<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Check that the cell measurement temperature is in Kelvin."</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+Check that the temperature has been given in the correct units, i.e. Kelvin.
+
+</font>
+</td>
+</tr>
+</table>      
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CELLT01"></a>
+<b>PROC-NAME</b>: <b>CELLT01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _cell_measurement_theta_min is less than
+_cell_measurement_theta_max.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _cell_measurement_theta_min &gt;= _cell_measurement_theta_max<br/>
+issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The minimum theta value cannot exceed the maximum value."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The minimum theta value cannot exceed the maximum value.  Either
+there is a typographical error or the values under
+_cell_measurement_theta_min and _cell_measurement_theta_max have
+accidentally been reversed.<br/>
+
+</font>
+</td>
+</tr>
+</table> 
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CELLV01"></a>
+<b>PROC-NAME</b>: <b>CELLV01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _cell_volume matches _cell_length_
+and _cell_angle_ values.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+S = { _cell_angle_alpha + _cell_angle_beta + _cell_angle_gamma } / 2<br/>
+<br/>
+VOL = _cell_length_a * _cell_length_b * _cell_length_c * 2 *<br/>
+SQRT { SIN [S] * SIN [S - _cell_angle_alpha ] * SIN [S - _cell_angle_beta ] * SIN [S - _cell_angle_gamma ] }<br/>
+<br/>
+RV = _cell_volume / VOL<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> RV is 0.999 &lt;&gt; 1.001 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The supplied cell volume differs from that calculated from
+the cell parameters. Ratio outside the range 0.999 &lt; &gt; 1.001"</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+There is a discrepancy between the unit cell volume given in the CIF
+and that calculated from the unit cell dimensions given in the CIF.
+Check the volume and cell dimensions for typographical errors.
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CELLV02"></a>
+<b>PROC-NAME</b>: <b>CELLV02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _cell_volume su matches _cell_length_
+and _cell_angle_ su values.<br/>
+<br/>
+<b>PROCEDURE</b>: (Ref: Giacovazzo <i>Fundamentals of Crystallography</i> p.122)<br/>
+<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+CSA = COSINE [ _cell_angle_alpha ]<br/>
+CSB = COSINE [ _cell_angle_beta ]<br/>
+CSG = COSINE [ _cell_angle_gamma ]<br/>
+<br/>
+SA = SINE [ _cell_angle_alpha ]<br/>
+SB = SINE [ _cell_angle_beta ]<br/>
+SG = SINE [ _cell_angle_gamma ]<br/>
+<br/>
+A1 = (su of a)/_cell_length_a<br/>
+A2 = (su of b)/_cell_length_b<br/>
+A3 = (su of c)/_cell_length_c<br/>
+<br/>
+B1 = SA*(CSA-CSB*CSG)*(su of alpha)<br/>
+B2 = SB*(CSB-CSA*CSG)*(su of beta)<br/>
+B3 = SG*(CSG-CSA*CSB)*(su of gamma)<br/>
+<br/>
+CV = [ ( _cell_length_a * _cell_length_b * _cell_length_c )**4 / (_cell_volume)**2 ]<br/>
+<br/>
+SUVOL =  SQRT {<br/>
+(_cell_volume)**2 * (A1**2 + A2**2 + A3**2)<br/>
++ CV*(B1**2 + B2**2 +B3**2)}<br/>
+<br/>
+DSUV = |{su of cell volume} - SUVOL |<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> DSUV &gt; 8 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The supplied cell volume s.u. differs from that
+calculated from the cell parameter s.u.'s by &gt; 8"</tt><br/>
+   DSUV &gt; 4 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The supplied cell volume s.u. differs from that
+calculated from the cell parameter s.u.'s by &gt; 4"</tt><br/>
+   DSUV &gt; 2 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The supplied cell volume s.u. differs from that
+calculated from the cell parameter s.u.'s by &gt; 2"</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+There is a discrepancy between the standard uncertainty (s.u.) for
+the unit cell volume given in the CIF and that calculated from the
+s.u.s of the unit cell dimensions given in the CIF.
+Check the volume and cell dimension s.u.s for typographical errors
+(rule of '19' applies). 
+
+</font>
+</td>
+</tr>
+</table>
+        
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CELLZ01"></a>
+<b>PROC-NAME</b>: <b>CELLZ01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the cell contents calculated from
+_chemical_formula_sum and _cell_formula_units_Z
+matches that from the atom sites present in the _atom_site_ list
+and the _symmetry_ information. <br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>SUMMATION</i></b><br/>
+<br/>
+(1) For each atomic species in the _chemical_formula_sum string, calculate
+the number of atoms in the cell using the _chemical_formula_sum counts
+and the _cell_formula_units_Z.<br/>
+<br/>
+(2) For each atomic species in the _atom_site_ list, calculate, using the
+_atom_site_occupancy value and the symmetry site-multiplicity value
+(generated from NSYM), the number of atoms in the cell.  <br/>
+<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+DN = [cell contents from (1)] - [cell contents from (2)] for each atom type
+<p>
+SUMDN = sum of DN for ALL atom species
+<p>
+<b><i>TEST</i></b>
+<p>
+<b><i>IF</i></b> atom counts in (1) differ from those declared in the _atom_type_
+list (if present) issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"WARNING: Cell contents from the formula and atom_type data differ!"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+There is a discrepancy between the total number of each element
+in the unit cell calculated from Z&nbsp;*&nbsp;_chemical_formula_sum and
+that given in the loop structure:<br/>
+loop_<br/>
+&nbsp;    _atom_type_symbol<br/>
+&nbsp;    _atom_type_description<br/>
+&nbsp;    _atom_type_number_in_cell
+<p>
+Check that the entries under _cell_formula_units_Z,
+_chemical_formula_sum and in the above loop are given correctly and
+completely. _chemical_formula_sum must correspond with the
+true sum of all elements in all distinct moieties present, including
+any solvent and all H atoms, and not the contents implied by the model
+if there are differences due to the omission of a few H atoms or
+solvent atoms.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z and _chemical_formula_sum.
+<p>
+_chemical_formula_sum must also be in the correct format (e.g. do
+not use subscript formatting: C10 H20 is correct, C~10~ H~20~ is not).
+
+</font>
+</td>
+</tr>
+</table> 
+<b><i>IF</i></b>  H-M space group mismatches Hall symbol issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Input H-M symbol mismatch with Hall symbol"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+Check that the entries given under _symmetry_space_group_name_H-M
+and _symmetry_space_group_name_Hall refer to the same space group
+and setting and do not have typographical errors.  Note that space
+group symbols under _symmetry_space_group_name_H-M should not
+have typesetting formatting included (e.g. subscripts).
+<p>
+Example:<br/>
+The following is the strictly correct way to represent space group 14.<br/>
+_symmetry_space_group_name_H-M &nbsp;&nbsp;   'P 1 21/c 1'<br/>
+<p>
+Also interpreted correctly by CHECKCIF is:<br/>
+_symmetry_space_group_name_H-M &nbsp;&nbsp;   'P 21/c'<br/>
+<p>
+Incorrect are:<br/>
+_symmetry_space_group_name_H-M &nbsp;&nbsp;   'P 2(1)/c'<br/>
+_symmetry_space_group_name_H-M &nbsp;&nbsp;   'P 2~1~/c'<br/>
+
+</font>
+</td>
+</tr>
+</table>
+           
+<p>
+<b><i>IF</i></b>  SUMDN &gt; 0.05 issue the General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Difference between formula and atom_site contents detected."</tt>
+<p>
+<b><i>AND THEN</i></b>
+<p>
+<b><i>IF</i></b>  SUMDN &lt;  0.5 issue the General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"ALERT: Check formula stoichiometry or atom site occupancies."</tt>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+There is a difference between the atom count derived from
+_chemical_formula_sum and from the _atom_site_ list (i.e
+the list of atomic coordinates).  Check that _chemical_formula_sum
+is given correctly and in the correct format (e.g. do not use
+subscript formatting: C10 H20 is correct, C~10~ H~20~ is not).
+<p>
+Of course, _chemical_formula_sum must correspond with the
+true sum of all elements in all distinct moieties present, including
+any solvent and all H atoms, and not the contents implied by the model
+if there are differences due to the omission of a few H atoms or
+solvent atoms.  In this case, this message can be ignored.  However,
+be sure that the model is indeed otherwise complete and that no elements
+have been misassigned.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z and _chemical_formula_sum.
+<p>
+_chemical_formula_sum must also be in the correct format (e.g. do
+not use subscript formatting: C10 H20 is correct, C~10~ H~20~ is not).
+<p>
+Also check that the atom site occupancy is correct for the
+atomic coordinates otherwise a mismatch may be encountered [e.g
+an atom on a 2-fold axis normally has a site occupancy of 1.0
+(but a multiplicity of 0.5)].  Furthermore, the site occupancy
+for disordered atomic sites should always sum to 1.0 when all of
+the alternative disordered sites are considered. 
+
+</font>
+</td>
+</tr>
+</table>  
+<p>
+<b><i>IF</i></b> DN for Hydrogen atoms &gt; 0.5 issue the General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"WARNING: H atoms missing from atom site list. Is this intentional?"</tt>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+H atoms must be included in the model as far as possible.
+Exceptions might be where the H atoms cannot be located and
+their positions cannot otherwise be calculated or predicted
+from geometrical considerations.  For example, with solvent
+or coordinated water H atoms or in severely disordered groups
+or solvent molecules. 
+</font>
+</td>
+</tr>
+</table>    
+<p>
+<b><i><i>ELSE</i></i></b> issue the General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"ALERT: Large difference may be due to symmetry error - see SYMMG tests."</tt>
+<p>
+</blockquote>
+<hr>
+<a name="CHEMS01"></a>
+<b>PROC-NAME</b>: <b>CHEMS01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _chemical_formula_sum is properly
+constructed. i.e. C H followed by alphabetic.<br/>
+<br/>
+<b>PROCEDURE</b>: <br/>
+<br/>
+Read the _chemical_formula_sum and check that the formula is
+in the order, carbon count, hydrogen count followed by the
+other elements in alphabetic order.<br/>
+
+<b><i>IF</i></b> _chemical_formula_sum contains an invalid character then issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The sum formula contains an invalid character."</tt><br/>
+<b><i>IF</i></b> _chemical_formula_sum contains more than one moiety then issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The sum formula contains more than one moiety."</tt><br/>
+<b><i>IF</i></b> _chemical_formula_sum contains an invalid element symbol then issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The sum formula contains an invalid element symbol."</tt><br/>
+<b><i>IF</i></b> _chemical_formula_sum contains elements in the wrong order then issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The sum formula contains elements in the wrong order.<br/>
+  Sequence must be C, H, then alphabetical for organics or metal-organics."</tt><br/>
+ <b>OR</b><br/>
+  <tt>&nbsp;&nbsp;&nbsp;"Alert B The sum formula contains elements in the wrong order.<br>
+      Sequence must alphabetical for inorganics."</tt>
+  <br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The _chemical_formula_sum must contain just one sequence of
+elements (i.e. not separated into moieties) in the order
+C, H, then alphabetical.  Do not use any special formatting
+characters, such as subscripts (e.g. C10 H20 is correct,
+C~10~ H~20~ is not).  There is no space between an element and
+its count, but there is a space before the next element.
+Enclose the string in quotes.
+<p>
+Example:<br/>
+_chemical_formula_sum &nbsp;&nbsp;   'C18 H19 N7 O8 S'<br/>
+
+</font>
+</td>
+</tr>
+</table>     
+<br/>
+<!------------------------------------------------------------------------------>
+<hr>
+<a name="CHEMS02"></a>
+<b>PROC-NAME</b>: <b>CHEMS02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the stated category _publ_requested_category
+is consistent with the chemical formula of the compound.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<ol>
+<li> If compound contains no C then inorganic.<br/>
+<li> If compound contains C but no H, probably inorganic.<br/>
+<li> If compound contains C, H and a metal then metalorganic.<br/>
+<li> If compound contains C, H and no metal then organic.<br/>
+</ol>
+
+<b><i>IF</i></b> the _publ_requested_category doesn't match the deduced category then
+issue a General <b>ALERT</b> for author to cross check<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Please check that you have entered the correct
+_publ_requested_category classification of your compound;
+FI or CI for inorganic; FM or CM for metal-organic;
+FO or CO for organic."</tt>
+<br/> 
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CHEMW01"></a>
+<b>PROC-NAME</b>: <b>CHEMW01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _chemical_formula_weight matches that
+calculated for the _chemical_formula_sum .<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>SUMMATION</i></b><br/>
+<br/>
+(1) match the element symbols in _chemical_formula_sum<br/>
+with values for _atom_type_symbol [NOT USED]<br/>
+<br/>
+(2) multiply the number of atoms in _chemical_formula_sum<br/>
+by the mass for this element<br/>
+<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+RW = _chemical_formula_weight / SUM of (2)<br/>
+DW = | _chemical_formula_weight - SUM of (2)|<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> RW  <br/>
+0.90 &lt;&gt; 1.10 issue <b>ALERT</b> A (&gt; 10% difference)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The ratio of given/expected molecular weight as calculated
+from the _chemical_formula_sum lies outside
+the range 0.90 &lt;&gt; 1.10 "</tt><br/>
+0.95 &lt;&gt; 1.05 issue <b>ALERT</b> B (&gt; 5% difference)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The ratio of given/expected molecular weight as calculated
+from the _chemical_formula_sum lies outside
+the range 0.95 &lt;&gt; 1.05 "</tt><br/>
+0.99 &lt;&gt; 1.01 issue <b>ALERT</b> C (&gt; 1% difference)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The ratio of given/expected molecular weight as calculated
+from the _chemical_formula_sum lies outside
+the range 0.99 &lt;&gt; 1.01 "</tt><br/>
+<br/>
+<b><i>IF</i></b> DW &gt; 1.0 and category is FO, FM, CO or CM<br/>
+issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The difference between the given and expected weight for
+compound is greater 1 mass unit. Check that all hydrogen
+atoms have been taken into account."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The formula weight given in the CIF differs from that calculated using
+the formula in _chemical_formula_sum.  Check that (a) you have calculated
+the formula weight correctly and (b) that _chemical_formula_sum is
+correctly and fully specified.  Remember that _chemical_formula_sum and
+_chemical_formula_weight must correspond with the true sum of all elements
+in all distinct moieties present, including any solvent and all H atoms,
+and not the contents implied by the model if there are differences due
+to the omission of a few H atoms or solvent atoms.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z, _chemical_formula_sum and the formula weight.
+<p>
+_chemical_formula_sum must also be in the correct format (e.g. do not
+use subscript formatting: C10 H20 is correct, C~10~ H~20~ is not).  
+
+</font>
+</td>
+</tr>
+</table>
+                 
+<hr>
+<a name="CHEMW03"></a>
+<b>PROC-NAME</b>: <b>CHEMW03</b> Type_2<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _chemical_formula_weight matches that
+calculated for the atomic content data from the two lists, _atom_site_ 
+and _atom_type_, using the number of formula units per cell and the 
+number of symmetry equivalent positions {NSYM from procedure SM}.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>SUMMATION</i></b><br/>
+<br/>
+(1) Match the element symbol with the _atom_site_label in the 
+_atom_site_ list  and sum the atomic weights for all sites,
+multiplying by the _atom_site_occupancy value and the symmetry 
+site-multiplicity value (generated from NSYM).<br/>
+<br/>
+(2) Additionally, if the _atom_type_ list is present in the CIF,
+sum the atomic weights for the
+_atom_type_number_in_cell for each element.<br/>
+<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+XX = SUM of (1)[or (2)] / _cell_formula_units_Z<br/>
+<br/>
+WT = XX * NSYM<br/>
+<br/>
+RC = _chemical_formula_weight / WT<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> RC <br/>
+0.90 &lt;&gt; 1.10 issue <b>ALERT</b> Level A (&gt; 10% difference)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"ALERT: The ratio of given/expected molecular weight as calculated
+from the _atom_site*(or type) data lies outside
+the range 0.90 &lt;&gt; 1.10"</tt><br/>
+0.95 &lt;&gt; 1.05 issue <b>ALERT</b> Level B (&gt; 5% difference)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"WARNING: The ratio of given/expected molecular weight as calculated
+from the _atom_site*(or type) data lies outside
+the range 0.95 &lt;&gt; 1.05   "</tt><br/>
+0.99 &lt;&gt; 1.01 issue <b>ALERT</b> Level C (&gt; 1% difference)<br/>
+<tt>&nbsp;&nbsp;&nbsp;"The ratio of given/expected molecular weight as calculated
+from the _atom_site*(or type) data lies outside
+the range 0.99 &lt;&gt; 1.01"</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The formula weight given in the CIF differs from that calculated using
+the _atom_site_ list (i.e. the list of atomic coordinates).  Check that
+you have calculated the formula weight correctly and that it corresponds
+with the true sum of all elements in all distinct moieties present,
+including any solvent and all H atoms.  This message can be ignored if
+the model is intentionally incomplete due to the omission of a few H atoms
+or solvent atoms.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of _chemical_formula_weight.
+<p>
+However, this alert could also be an indication of overlooked errors
+in the model.  Be sure that the model is indeed as complete as intended
+and that no elements have been misassigned.
+<p>
+Also check that the atom site occupancy is correct for the
+atomic coordinates otherwise a mismatch may be encountered [e.g
+an atom on a 2-fold axis normally has a site occupancy of 1.0
+(but a multiplicity of 0.5)].  Furthermore, the site occupancy
+for disordered atomic sites should always sum to 1.0 when all of
+the alternative disordered sites are considered.
+<p>
+Similarly, this alert could appear if you have given the following
+loop structure:
+<p>
+loop_<br/>
+&nbsp;    _atom_type_symbol<br/>
+&nbsp;    _atom_type_description<br/>
+&nbsp;    _atom_type_number_in_cell<br/>
+<p>
+A discrepancy between the formula weight derived from this list and
+the formula weight given under _chemical_formula_weight may mean that
+the atom counts in the loop are incorrect or that _chemical_formula_weight
+has been incorrectly specified.  Once again, _atom_type_symbol and
+_atom_type_number_in_cell must correspond with the true contents of
+the unit cell, including any solvent and all H atoms.
+
+
+</font>
+</td>
+</tr>
+</table>     
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CRYSC01"></a>
+<b>PROC-NAME</b>: <b>CRYSC01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _exptl_crystal_colour is consistent
+with expected colour code combinations.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> _exptl_crystal_colour != (qualifier)(intensity)(base-colour)<br/>
+issue <b>ALERT</b> C<br/>
+where allowed values are:<br/>
+<br/>
+(qualifier)<br/>
+blank, metallic, lusterous, translucent, fluorescent, clear<br/>
+<br/>
+(intensity)<br/>
+blank, dark, light, intense, pale<br/>
+<br/>
+(base-colour)<br/>
+white, black, blue, violet, red, pink, yellow, gold, silver, bronze, grey,
+orange, green, colourless, brown, purple<br/>
+<p>
+<b><i>IF</i></b> A word has been used that has not been identified as a standard identifier issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The word below has not been recognised as a standard
+identifier."</tt><br/>
+<b><i>IF</i></b> No recognised colour has been given for crystal colour issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C No recognised colour has been given for crystal colour."</tt><br/>
+<b><i>IF</i></b> The identifiers are ordered incorrectly issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C There is an ordering error in _exptl_crystal_colour.
+It should be (QUALIFIER) (INTENSITY) (BASE_COLOUR)."</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_exptl_crystal_colour must be given as a set of specific keywords in the
+following specific order:
+<p>
+(QUALIFIER) (INTENSITY) (BASE_COLOUR)
+<p>
+where (QUALIFIER) and/or (INTENSITY) are optional.  These keywords must be
+chosen from the following list:
+<p>
+(qualifier)
+blank, metallic, lustrous, translucent, fluorescent, clear
+<p>
+(intensity)
+blank, dark, light, intense, pale
+<p>
+(base-colour)
+white, black, blue, violet, red, pink, yellow, gold, silver, bronze, grey,
+orange, green, colourless, brown, purple  
+
+</font>
+</td>
+</tr>
+</table>        
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CRYSR01"></a>
+<b>PROC-NAME</b>: <b>CRYSR01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the radius of the crystal is given for a
+spherical or cylindrical crystal.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+(1) If the _exptl_crystal_description contains either 'cylinder' or
+'sphere' check for a value of _exptl_crystal_size_rad<br/>
+<b><i>IF</i></b> missing then issue <b>ALERT</b> C
+<tt>&nbsp;&nbsp;&nbsp;"Alert C _exptl_crystal_size_rad not in the CIF when expected."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_exptl_crystal_size_rad is not given in the CIF although
+_exptl_crystal_description is given as 'cylinder' or 'sphere'.
+Either give the cylinder or sphere radius or change
+_exptl_crystal_description to another type.  
+
+</font>
+</td>
+</tr>
+</table>     
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CRYSS01"></a>
+<b>PROC-NAME</b>: <b>CRYSS01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _exptl_crystal_size_min value is consistent
+with _exptl_crystal_size_mid and _exptl_crystal_size_max.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _exptl_crystal_size_min &gt; _exptl_crystal_size_mid<br/>
+<b><i>OR</i></b> _exptl_crystal_size_mid &gt; _exptl_crystal_size_max<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The magnitudes of the crystal dimensions do not
+match the min, mid and max definitions"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The magnitudes of the crystal dimensions do not match the min,
+mid and max definitions.  This is usually caused by
+a typographical error when entering the crystal dimensions
+or assigning the greatest dimension to the _exptl_crystal_size_min
+entry and vice versa.
+                                 
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="CRYSS02"></a>
+<b>PROC-NAME</b>: <b>CRYSS02</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that the values of _exptl_crystal_size_* are not
+larger than expected.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+(1) <b><i>IF</i></b> _exptl_crystal_size_min &gt; 0.6 &amp;&amp; _diffrn_radiation_type != neutron<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of _exptl_crystal_size_min is &gt; 0.6"</tt><br/>
+(2) <b><i>IF</i></b> _exptl_crystal_size_mid &gt; 0.8 &amp;&amp; _diffrn_radiation_type != neutron<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of _exptl_crystal_size_mid is &gt; 0.8"</tt><br/>
+(3) <b><i>IF</i></b> _exptl_crystal_size_max &gt; 1.0 &amp;&amp; _diffrn_radiation_type != neutron<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of _exptl_crystal_size_max is &gt; 1.0"</tt><br/>
+
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The crystal must be smaller than size of the incident beam at the
+crystal.  For most diffractometers with fine-focus X-ray tubes and
+monochromated radiation, this size is unlikely to be much greater
+than 0.5 mm.  Note that increasing the collimator diameter will not
+necessarily increase the size of the incident beam at the crystal.
+If the crystal used in the data collection is larger than the
+incident beam, then unpredictable errors in intensities will occur
+due to the varying amounts of the crystal in the beam for different
+reflection positions.  If you obtain an alert about crystal size,
+then data should be collected with a smaller crystal.  For the
+above reasons, it is recommended that crystals be generally smaller
+than 0.5 mm along any edge.
+<p>
+If you used neutrons and obtained an alert about the crystal size, then
+you have forgotten to set _diffrn_radiation_type  'neutron'.  
+
+</font>
+</td>
+</tr>
+</table>      
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DENSD01"></a>
+<b>PROC-NAME</b>: <b>DENSD01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _exptl_crystal_density_diffrn matches
+the _cell_volume and _chemical_formula_weight values<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+DEN = 1.66042 * _chemical_formula_weight * _cell_formula_units_Z / _cell_volume<br/>
+<br/>
+RD = _exptl_crystal_density_diffrn / DEN<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> RD 0.9 &lt;&gt; 1.1 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The ratio of the submitted crystal density and that
+calculated from the formula is outside the range 0.90 &lt;&gt; 1.10 "</tt><br/>
+RD 0.95 &lt;&gt; 1.05 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The ratio of the submitted crystal density and that
+calculated from the formula is outside the range 0.95 &lt;&gt; 1.05 "</tt><br/>
+RD 0.99 &lt;&gt; 1.01 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The ratio of the submitted crystal density and that
+calculated from the formula is outside the range 0.99 &lt;&gt; 1.01 "</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The calculated density given in the CIF differs from that
+calculated using the specified formula weight and the stated number of
+formula units in the unit cell (Z).  Check that (a) you have calculated
+the density correctly and (b) that _chemical_formula_weight and
+_cell_formula_units_Z are correctly specified.  Remember that
+_chemical_formula_weight and the calculated density must correspond with
+the true sum of all elements in all distinct moieties present, including
+any solvent and all H atoms, and not the contents implied by the model
+if there are differences due to the omission of a few H atoms or solvent
+atoms.
+<p>
+If multiple moieties such as solvent are present, or one of the
+moieties possesses or is disordered about a crystallographic symmetry
+element, ensure that the correct ratio of moieties has been allowed for
+in the calculation of Z and _chemical_formula_weight.
+
+</font>
+</td>
+</tr>
+</table> 
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DENSM01"></a>
+<b>PROC-NAME</b>: <b>DENSM01</b> Type_1   <br/>
+<br/>
+<b>PURPOSE</b>: To check that the _exptl_crystal_density_meas is supplied is
+           the _exptl_crystal_density_method is present.<br/>
+<br/>
+<b>PROCEDURE</b>:  <b><i>IF</i></b> _exptl_crystal_density_method != 'none'<br/>
+                                          <b><i>AND</i></b> != 'not measured' <br/>
+                                          <b><i>AND</i></b> != '?'<br/>
+            <b><i>AND</i></b> _exptl_crystal_density_meas  == '?'<br/>
+                                                     issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B _exptl_crystal_density_method is given but no value of
+_exptl_crystal_density_meas is reported."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+You have given the method used to determine the density of the crystal
+under _exptl_crystal_density_method, but have forgotten to specify the
+experimentally measured density under _exptl_crystal_density_meas.
+If you have not actually determined the density experimentally, then
+set _exptl_crystal_density_method to 'not measured'.
+<p>
+The experimentally measured density should not be confused with the
+calculated density derived from the unit cell volume and contents which
+should be specified under _exptl_crystal_density_diffrn.
+
+</font>
+</td>
+</tr>
+</table>        
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DENSX01"></a>
+<b>PROC-NAME</b>: <b>DENSX01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _exptl_crystal_density_meas matches
+the _exptl_crystal_density_diffrn.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+RD = _exptl_crystal_density_diffrn / _exptl_crystal_density_meas<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> RD is 0.80 &lt;&gt; 1.20 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The ratio of the calculated to measured crystal density
+lies outside the range 0.80 &lt;&gt; 1.20"</tt><br/>
+RD is 0.90 &lt;&gt; 1.10 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The ratio of the calculated to measured crystal density
+lies outside the range 0.90 &lt;&gt; 1.10"</tt><br/>
+RD is 0.95 &lt;&gt; 1.05 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The ratio of the calculated to measured crystal density
+lies outside the range 0.95 &lt;&gt; 1.05"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The calculated density given in the CIF differs significantly from the
+experimentally measured density quoted in the CIF.  Check that you have
+measured, calculated and entered the densities correctly and that in your
+calculations you have allowed correctly for all distinct moieties present,
+including any solvent and all H atoms, and not the contents implied by the
+model if there are differences due to the omission of a few H atoms or
+solvent atoms.
+
+</font>
+</td>
+</tr>
+</table>     
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DIFMN01"></a>
+<b>PROC-NAME</b>: <b>DIFMN01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_diff_density_min is less than
+_refine_diff_density_max.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> _refine_diff_density_min &gt;= _refine_diff_density_max<br/>
+issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The minimum difference density cannot exceed the maximum difference density"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+You have given the minimum residual electron density with a value greater
+than the maximum residual electron density.  Check that you have not
+accidentally reversed these values, and that you have not forgotten the
+negative sign for the minimum residual electron density.
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DIFMN02"></a>
+<b>PROC-NAME</b>: <b>DIFMN02</b> Type_2<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_diff_density_min is within expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+DMIN = _refine_diff_density_min<br/>
+DTEST = 0.1 * ZMAX<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> DMIN &lt; -DTEST*2 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The minimum difference density is &lt; -0.1*ZMAX*2.00"</tt><br/>
+&lt; -DTEST issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The minimum difference density is &lt; -0.1*ZMAX*1.00"</tt><br/>
+&lt; -DTEST*.75 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The minimum difference density is &lt; -0.1*ZMAX*0.75"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The minimum residual electron density is more negative
+than normally expected, even after making an allowance for the
+heaviest element in the structure.  This is often an indication
+that (a) the absorption corrections are inadequate; (b) the overall
+quality of the data may be poor, leading to spurious peaks and holes
+of residual electron density; (c) there is twinning which has not
+been allowed for where overlap from the second twin domain (which may
+have been ignored in the data collection) causes errors in the
+intensities of some reflections; (d) the model is incorrect or incomplete
+in terms of incorrect element assignment, missing atoms or unmodelled
+or inadequately modelled disorder or solvent atoms.
+<p>
+If you believe you have eliminated all potential causes of this alert,
+but the minimum residual electron density still remains more negative
+than normally expected, you must specify the name of the nearest atom
+to this minimum and its distance from the minimum.   
+
+</font>
+</td>
+</tr>
+</table>    
+<b><i>IF</i></b> DMIN &gt; 0.0 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The minimum difference density is &gt; 0.0"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The minimum residual electron density should have a negative value.
+Have you forgotten the sign or reversed the minimum and maximum entries?
+
+</font>
+</td>
+</tr>
+</table>  
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DIFMN03"></a>
+<b>PROC-NAME</b>: <b>DIFMN03</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that if _refine_diff_density_min is not within expected
+limits that the adjacent site is identified.<br/>
+<br/>
+<b>PROCEDURE</b>: <br/>
+DMIN = _refine_diff_density_min<br/>
+DTEST = 0.1 * ZMAX<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> DMIN &lt; -DTEST*.75 atom site should be identified.<br/>
+Issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The minimum difference density is &lt; -0.1*ZMAX*0.75
+The relevant atom site should be identified."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The minimum residual electron density is more negative
+than normally expected.  Please specify the name of the nearest atom
+to this minimum and its distance from the minimum.
+
+</font>
+</td>
+</tr>
+</table>     
+
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DIFMX01"></a>
+<b>PROC-NAME</b>: <b>DIFMX01</b> Type_2<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_diff_density_max is within expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+DMAX = _refine_diff_density_max<br/>
+DTEST = 0.1 * ZMAX<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> DMAX &gt; DTEST*2 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The maximum difference density is &gt; 0.1*ZMAX*2.00"</tt><br/>
+&gt; DTEST issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The maximum difference density is &gt; 0.1*ZMAX*1.00"</tt><br/>
+&gt; DTEST*.75 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The maximum difference density is &gt; 0.1*ZMAX*0.75"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The maximum residual electron density is larger
+than normally expected, even after making an allowance for the
+heaviest element in the structure.  This is often an indication
+that (a) the absorption corrections are inadequate; (b) the overall
+quality of the data may be poor, leading to spurious peaks and holes
+of residual electron density; (c) there is twinning which has not
+been allowed for where overlap from the second twin domain (which may
+have been ignored in the data collection) causes errors in the
+intensities of some reflections; (d) the model is incorrect or incomplete
+in terms of incorrect element assignment, missing atoms or unmodelled
+or inadequately modelled disorder or solvent atoms.
+<p>
+If you believe you have eliminated all potential causes of this alert,
+but the maximum residual electron density still remains larger
+than normally expected, you must specify the name of the nearest atom
+to this minimum and its distance from the minimum.
+
+</font>
+</td>
+</tr>
+</table>
+
+<br/>
+<b><i>IF</i></b> DMAX &lt; 0.0 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The maximum difference density is &lt; 0.0"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The maximum residual electron density should have a positive value.
+Have you reversed the minimum and maximum entries?
+
+</font>
+</td>
+</tr>
+</table>
+             
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="DIFMX02"></a>
+<b>PROC-NAME</b>: <b>DIFMX02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that if _refine_diff_density_max is not within expected
+limits that the adjacent site is identified.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+DMAX = _refine_diff_density_max<br/>
+DTEST = 0.1 * ZMAX<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> DMAX &gt; DTEST*.75 atom site should be identified.<br/>
+Issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The minimum difference density is &gt; 0.1*ZMAX*0.75
+The relevant atom site should be identified."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The maximum residual electron density is larger than normally expected.
+Please specify the name of the nearest atom to this maximum and its
+distance from the maximum. 
+
+</font>
+</td>
+</tr>
+</table>
+              
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="FCOEF01"></a>
+<b>PROC-NAME</b>: <b>FCOEF01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: Check that the value of _refine_ls_structure_factor_coef is
+recognised.<br/>
+<br/>
+<b>CHECKLIST</b>:<br/>
+    <ul><li>         Inet       (net intensity)<br/>
+       <li>      Fsqd       (structure factor squared)<br/>
+          <li>   F          (structure factor magnitude)<br/>
+             </ul>
+
+
+Otherwise issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The absorption correction doesn't match a standard keyword"</tt>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+_refine_ls_structure_factor_coef must ONLY be one of the following
+keywords (do not add extra text to this field - e.g. F-squared
+or F^2^ is not correct):
+<ul><li>   Inet
+<li>   Fsqd
+<li>   F
+</ul>
+</font>
+</td>
+</tr>
+</table>  
+
+<b><i>IF</i></b> extra text is found in this field or the keyword is almost correct issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Extra text has been found in the _refine_ls_structure_factor_coef field"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_refine_ls_structure_factor_coef must ONLY be one of the following
+keywords (do not add extra text to this field - e.g. F-squared
+or F^2^ is not correct):
+<ul>
+<li>Inet
+<li>Fsqd
+<li>F 
+</ul>
+</font>
+</td>
+</tr>
+</table>
+
+
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="GOODF01"></a>
+<b>PROC-NAME</b>: <b>GOODF01</b> Type_1/2<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_goodness_of_fit_ref is
+within expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+(Type_2)<br/>
+<b><i>IF</i></b> _refine_ls_goodness_of_fit_ref &lt; 0.4 <b><i>OR</i></b> &gt; 6.0 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The least squares goodness of fit parameter lies
+outside the range 0.40 &lt;&gt; 6.00"</tt><br/>
+&lt; 0.6 <b><i>OR</i></b> &gt; 4.0 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The least squares goodness of fit parameter lies
+outside the range 0.60 &lt;&gt; 4.00"</tt><br/>
+&lt; 0.8 <b><i>OR</i></b> &gt; 2.0 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The least squares goodness of fit parameter lies
+outside the range 0.80 &lt;&gt; 2.00"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+Ideally, the goodness of fit (or standard deviation of an observation
+of unit weight) should be as close to 1.0 as possible.  Values
+that deviate significantly from 1.0 may be an indication of one of the
+following: (a) the model is incorrect or incomplete or
+has been inadequately developed to account for disorder or solvent;
+(b) the reflection data are poor or weak; (c) there is twinning
+which has not been allowed for where overlap from the second twin
+domain (which may have been ignored in the data collection) causes
+errors in the intensities of some reflections; (d) the absorption
+corrections are inadequate; (e) the weighting scheme is inappropriate.
+<p>
+Users of SHELXL should normally obtain goodness of fit values very
+close to 1.0 if none of the above features is relevant.  If this is
+not the case, check that the weighting scheme co-efficients recommended
+by the program have been updated immediately prior to the last refinement
+run.  If only the weights proposed when the model was in an early stage
+of development are used and not subsequently updated, the goodness of fit
+might deviate significantly from 1.0 and the weights should be updated.
+<p>
+Users of other refinement software, particularly older programs or with
+refinement on F, might routinely obtain values for the goodness of fit in
+the range 1.5-2.5.  This is acceptable, but authors need to be satisfied
+that this range for the goodness of fit is normal for good structures
+determined in their laboratory.  However, values for the goodness of fit
+that are significantly smaller than 1.0 are usually a symptom of other
+problems with the data or model.    
+
+</font>
+</td>
+</tr>
+</table>   
+
+<b><i>IF</i></b> _refine_ls_goodness_of_fit_obs has been used issue a General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_refine_ls_goodness_of_fit_obs is an old dataname which has
+been superceded by _refine_ls_goodness_of_fit_ref"</tt> (Type_1)<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_refine_ls_goodness_of_fit_obs.  Please update the item to match the
+currently preferred name of _refine_ls_goodness_of_fit_ref.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly.
+
+</font>
+</td>
+</tr>
+</table>  
+<br/>
+<!------------------------------------------------------------------------------>
+<hr>
+<a name="HYDTR01"></a>
+<b>PROC-NAME</b>: <b>HYDTR01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: Check that the value of _refine_ls_hydrogen_treatment
+is recognised.<br/>
+<br/>
+<b>CHECKLIST</b>:<br/>
+<ul><li>   refall    (all H parameters refined)<br/>
+<li>       refxyz    (only H coordinates refined)<br/>
+<li>       refU      (only H U values refined)<br/>
+<li>       noref     (no H parameters refined)<br/>
+<li>       undef     (H parameters not determined)<br/>
+<li>       constr    (H sites constrained by attached site)<br/>
+<li>       none<br/>
+<li>       mixed
+</ul>
+Otherwise issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The hydrogen treatment doesn't match a standard keyword"</tt><br/>
+n.b. "see text" and "riding" have been allowed even though these do not
+comply with the current CIF-dictionary.<br/>
+<b><i>IF</i></b>
+extra text is found in the field (i.e. over and above the keyword)
+issue a General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Extra text has been found in the _refine_ls_hydrogen_treatment field.
+Explanatory text should be in the _publ_section_refinement field."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_refine_ls_hydrogen_treatment must ONLY be one of the following
+keywords (do not add extra text to this field):<br/>
+<ul>
+<li>  refall<br/>
+<li>  refxyz<br/>
+<li>  refU<br/>
+<li>  noref<br/>
+<li>  undef<br/>
+<li>  constr<br/>
+<li>  none<br/>
+<li>  mixed<br/>
+</ul>
+<p>
+You cannot use multiple keywords to depict a variety of methods - use
+'mixed' instead.
+<p>
+For a riding refinement, use 'constr'.
+<p>
+By default, SHELXL inserts 'mixed' in EVERY case.  Please ensure that
+you edit this item to represent the actual H-atom treatment used.
+<p>
+Additional descriptive text, if required, should be placed in the
+_publ_section_exptl_refinement section.
+
+</font>
+</td>
+</tr>
+</table> 
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="RADNT01"></a>
+<b>PROC-NAME</b>: <b>RADNT01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: Check that the radiation type is recognised.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+(1). Check that the _diffrn_radiation_type contains one of the<br/>
+following.<br/>
+<br/>
+<b>CHECKLIST</b>:	<br/>
+<ul><li>	'Cu K\a'<br/>
+<li>        'Mo K\a'<br/>
+<li>        'Ag K\a'<br/>
+<li>        neutron<br/>
+ <li>       synchrotron<br/>
+</ul>
+Otherwise issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The radiation type doesn't match a standard keyword"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_diffrn_radiation_type must ONLY be one of the following
+keywords (do not add extra text to this field and watch the formatting
+e.g. 'Cu&nbsp;K~\a~' and 'Cu&nbsp;Kalpha' are incorrect, the space before K should
+be present):<br/>
+&nbsp;&nbsp;  'Cu K\a'<br/>
+&nbsp;&nbsp;  'Mo K\a'<br/>
+&nbsp;&nbsp;  'Ag K\a'<br/>
+&nbsp;&nbsp;  'Ga K\a'<br/>
+&nbsp;&nbsp;  neutron<br/>
+&nbsp;&nbsp;  synchrotron<br/>
+<p>
+If you used a less common X-ray source, such as a gold X-ray tube,
+this alert can be ignored.  The keyword 'synchrotron' should be
+used for all work carried out on a beam line. 
+
+</font>
+</td>
+</tr>
+</table>  
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="RADNW01"></a>
+<b>PROC-NAME</b>: <b>RADNW01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _diffrn_radiation_wavelength matches
+the _diffrn_radiation_type.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Cu K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 1.54180<br/>
+<b><i>OR</i></b> _diffrn_radiation_wavelength &lt; 1.54175 } issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The radiation wavelength lies outside the expected range
+for the supplied radiation type. Expected range 1.54175-1.54180"</tt><br/>
+<br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Cu K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 1.54048<br/>
+<b><i>AND</i></b> _diffrn_radiation_wavelength &lt; 1.54057 } issue General <b>ALERT</b> <br/>
+<tt>&nbsp;&nbsp;&nbsp;"The radiation wavelength given implies that Cu K\a1 has
+been used. Please check that this is correct."</tt><br/>
+<br/>
+<br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Mo K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 0.71075<br/>
+<b><i>OR</i></b> _diffrn_radiation_wavelength &lt; 0.71065 } issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The radiation wavelength lies outside the expected range
+for the supplied radiation type. Expected range 0.71075-0.71065"</tt><br/>
+<br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Mo K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 0.70921<br/>
+<b><i>AND</i></b> _diffrn_radiation_wavelength &lt; 0.70931 } issue General <b>ALERT</b> <br/>
+<tt>&nbsp;&nbsp;&nbsp;"The radiation wavelength given implies that Mo K\a1 has
+been used. Please check that this is correct."</tt><br/> 
+<br/>
+<br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Ag K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 0.56085<br/>
+<b><i>OR</i></b> _diffrn_radiation_wavelength &lt; 0.56080 } issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The radiation wavelength lies outside the expected range
+for the supplied radiation type. Expected range 0.56085-0.56080"</tt><br/>
+<br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Ag K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 0.55934<br/>
+<b><i>AND</i></b> _diffrn_radiation_wavelength &lt; 0.55938 } issue General <b>ALERT</b> <br/>
+<tt>&nbsp;&nbsp;&nbsp;"The radiation wavelength given implies that Ag K\a1 has
+been used. Please check that this is correct."</tt><br/>
+<br/>
+<b><i>IF</i></b> _diffrn_radiation_type == 'Ga K\a'<br/>
+<b><i>AND</i></b> {<br/>
+_diffrn_radiation_wavelength &gt; 1.34150<br/>
+<b><i>OR</i></b> _diffrn_radiation_wavelength &lt; 1.34130 } issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The radiation wavelength lies outside the expected range
+for the supplied radiation type. Expected range 1.34130-1.34150"</tt><br/>
+<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+Have you used the correct radiation symbol and the corresponding
+wavelength?  Check for typographical errors, especially if you are
+hand editing an old CIF and changed the wavelength, but forgot the
+radiation symbol or vice-versa.<br/>
+The K(alpha-bar) wavelength should be used.
+
+</font>
+</td>
+</tr>
+</table>  
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="REFLE01"></a>
+<b>PROC-NAME</b>: <b>REFLE01</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that _reflns_threshold_expression contains a
+multiplier which is below the limit.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _reflns_threshold_expression ~ 'I'<br/>
+<b><i>OR</i></b> _reflns_threshold_expression ~ 'F^2^'<br/>
+<b><i>AND</i></b> {<br/>
+_reflns_threshold_expression &gt;= '6' issue <b>ALERT</b> A <br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The _reflns_threshold_multiplier given is &gt;= 6"</tt><br/>
+_reflns_threshold_expression &gt;= '5' issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The _reflns_threshold_multiplier given is &gt;= 5"</tt><br/>
+_reflns_threshold_expression &gt;= '4' issue <b>ALERT</b> C}<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The _reflns_threshold_multiplier given is &gt;= 4"</tt><br/>
+<b><i>OR</i></b><br/>
+<b><i>IF</i></b> _reflns_threshold_expression ~ 'F'<br/>
+<b><i>AND</i></b> {<br/>
+_reflns_threshold_expression &gt;= '12' issue <b>ALERT</b> A <br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The _reflns_threshold_multiplier given is &gt;= 12"</tt><br/>
+_reflns_threshold_expression &gt;= '10' issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The _reflns_threshold_multiplier given is &gt;= 10"</tt><br/>
+_reflns_threshold_expression &gt;= '8' issue <b>ALERT</b> C}<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The _reflns_threshold_multiplier given is &gt;= 8"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The multiplier in _reflns_threshold_expression is used to
+select the significantly intense reflections for use in the
+calculation of the regular R-factor given in _refile_ls_R_factor_gt.
+Older refinement programs, particularly those based on F, may
+use ONLY the intense reflections selected by this criterion.
+Therefore it is highly desirable to keep the multiplier in
+_reflns_threshold_expression as small as possible.  Typically
+a value of 2 or less is used in the expressions 'I&nbsp;&gt;&nbsp;2\s(I)'
+or 'F^2^&nbsp;&gt;&nbsp;2\s(F^2^)', or 4 or less in 'F&nbsp;&gt;&nbsp;4\s(F)'. 
+
+</font>
+</td>
+</tr>
+</table>  
+
+<b><i>IF</i></b> _reflns_threshold_expression is not present issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Test not performed"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You have not specified _reflns_threshold_expression or the text
+cannot be interpreted.  This item is compulsory and should be of
+the form 'I&nbsp;&gt;&nbsp;x\s(I)' or 'F^2^&nbsp;&gt;&nbsp;x\s(F^2^)' or 'F&nbsp;&gt;&nbsp;x\s(F)'.
+<p>
+The multiplier, x, is typically 2 or less.  If you selected zero for
+the multiplier, you still must provide the expression for
+_reflns_threshold_expression; e.g. 'I&nbsp;&gt;&nbsp;0\s(I)' 
+
+</font>
+</td>
+</tr>
+</table> 
+
+<b><i>IF</i></b> _reflns_observed_criterion has been used issue a General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_reflns_observed_criterion is an old dataname which has been
+superceded by _reflns_threshold_expression"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_reflns_observed_criterion.  Please update the item to match the
+currently preferred name of _reflns_threshold_expression.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly.
+
+</font>
+</td>
+</tr>
+</table>  
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="REFLG01"></a>
+<b>PROC-NAME</b>: <b>REFLG01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _reflns_number_gt less than or equal to
+the _diffrn_reflns_number.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _reflns_number_gt &gt; _diffrn_reflns_number<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The number of reflections greater than the sigma threshold
+cannot exceed the total number of reflections measured"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The total number of reflections measured originally by the
+diffractometer should be given under _diffrn_reflns_number.
+Any subsequent set of reflections derived from this must, logically,
+be a subset of the total reflections measured.  Therefore, the reported
+number of reflections for _reflns_number_gt, i.e. those with
+intensity greater than the sigma threshold defined by
+_reflns_threshold_expression, must be less than (or possibly equal to)
+the number given under _diffrn_reflns_number.<br/>
+Check for typographical errors. 
+
+</font>
+</td>
+</tr>
+</table> 
+<b><i>IF</i></b> _reflns_number_observed has been used issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_reflns_number_observed is an old dataname which has been
+superceded by _reflns_number_gt"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_reflns_number_observed.  Please update the item to match the
+currently preferred name of _reflns_number_gt.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly.
+
+</font>
+</td>
+</tr>
+</table>  
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="REFLL01"></a>
+<b>PROC-NAME</b>: <b>REFLL01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _diffrn_reflns_limit_ values are in the
+correct order.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> _diffrn_reflns_limit_h_min &gt;= _diffrn_reflns_limit_h_max issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The minimum h value cannot exceed the maximum h value"</tt><br/>
+<b><i>IF</i></b> _diffrn_reflns_limit_k_min &gt;= _diffrn_reflns_limit_k_max issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The minimum h value cannot exceed the maximum k value"</tt><br/>
+<b><i>IF</i></b> _diffrn_reflns_limit_l_min &gt;= _diffrn_reflns_limit_l_max issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The minimum h value cannot exceed the maximum l value"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+Check that you have not accidentally mistyped or reversed one or
+more of the entries for the maximum and minimum values of h,k,l.
+Note that the limits for the reflection indices should correspond
+with the extremes used for the data collection and not those after
+the data have been merged.
+
+</font>
+</td>
+</tr>
+</table>    
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="REFLT01"></a>
+<b>PROC-NAME</b>: <b>REFLT01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _reflns_number_total is less than or equal to
+the _diffrn_reflns_number.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _reflns_number_total &gt; _diffrn_reflns_number<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The number of symmetry-independent reflections cannot
+exceed the total number of reflections measured"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The total number of reflections measured originally by the
+diffractometer should be given under _diffrn_reflns_number.
+Any subsequent set of reflections derived from this must, logically,
+be a subset of the total reflections measured.  Therefore, the reported
+number of unique reflections given with _reflns_number_total must be
+less than (or possibly equal to) the number given under
+_diffrn_reflns_number.  Check for typographical errors.
+
+</font>
+</td>
+</tr>
+</table>    
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="REFLT02"></a>
+<b>PROC-NAME</b>: <b>REFLT02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _reflns_number_total is greater than or equal to
+the _reflns_number_gt.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _reflns_number_total &lt; _reflns_number_gt<br/>
+issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The number of reflections greater than the sigma threshold
+cannot exceed the number of symmetry-independent reflections"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The total number of symmetry-unique reflections, including all
+reflections considered to be "unobserved", but excluding
+systematically absent reflections, should be given under
+_reflns_number_total.  If Friedel-related reflections are being
+treated as independent observations in order to utilise the effects
+of anomalous dispersion, _reflns_number_total should correspond
+with the total number of these independent reflections.
+Normally, one uses just these independent reflections
+during refinement and any subsequent set of reflections derived from
+this must, logically, be a subset of the total unique reflections.
+Therefore, the reported number of reflections for _reflns_number_gt,
+i.e. those with intensity greater than the sigma threshold defined by
+_reflns_threshold_expression, must normally be less than (or possibly
+equal to) the number given under _reflns_number_total.
+<p>
+Check for typographical errors and/or that you have merged the
+equivalent reflections correctly before refinement.
+<p>
+An exception to this requirement may occur if data from a
+non-merohedrally twinned crystal is employed, as this
+may result in more than one entry in the reflection file for a
+given set of h,k,l indices (e.g. data read into SHELXL with HKLF 5).
+As a result, more reflections may be used in the refinement than
+the apparent number of unique reflections.
+<p>
+A second exception might be if you deliberately choose not to merge
+symmetry equivalent reflections before the refinement.  This procedure
+is not recommended and its use should be specifically mentioned under
+_publ_section_exptl_refinement.
+
+</font>
+</td>
+</tr>
+</table> 
+<b><i>IF</i></b> _reflns_number_observed has been used issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_reflns_number_observed is an old dataname which has been
+superceded by _reflns_number_gt"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_reflns_number_observed.  Please update the item to match the
+currently preferred name of _reflns_number_gt.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly.
+
+</font>
+</td>
+</tr>
+</table>   
+<br/>
+<!------------------------------------------------------------------------------->
+<!--
+<HR>
+<a name=REFLT03></a>
+<B>PROC-NAME</B>: <b>REFLT03</b> Type_1/3/4<br />
+<br />
+<B>PURPOSE</B>: To check that _reflns_number_total is close to that expected
+for the cell volume, symmetry and theta max.<br />
+<br />
+<B>PROCEDURE</B>:<br />
+<br />
+<b><I>CALCULATE</I></b><br />
+<br />
+S = SIN [_diffrn_reflns_theta_max] / _diffrn_radiation_wavelength<br />
+<br />
+NREF = The number of the reflections in the SYMMETRY-UNIQUE portion of 
+reciprocal space out to a maximum of S. All symmetry absent reflections
+have been removed from this count.
+<p>
+NREFRAT = _reflns_number_total / NREF<br />
+<p>
+NREF%   = NREFRAT * 100
+<p>
+NFRIED  = MAX ( _reflns_number_total - NREF, 0)
+<p>
+NFDRAT  = NFRIED / NREF
+<br />
+<p>
+<B>TEST_1 :</B> Type_1<br />
+In the calculation of NREF the maximum and minumum h,k,l indices in the 
+in the unque portion of reciprocal space are saved. These are compared
+with the _diffrn_reflns_limit_ values in the CIF. If the estimated 
+maximum h,k,l values do not match either the CIF _max or the absolute
+_min values issue a General <b>ALERT</b><br />
+<TT>&nbsp;&nbsp;&nbsp;"ALERT: Expected hkl max differ from CIF values"</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The maximum (or minimum) limits of h, k and l given in the CIF do not
+correspond with those caclculated using the theta(max) value stated
+under _diffrn_reflns_theta_max.<br />
+Check that theta(max) has been given correctly.  If so, it may be
+that the h,k,l index limits set during the data collection did not
+correspond correctly with the limits required to ensure that at least
+all possible unique reflections up to the specified theta(max) were
+collected.  If one or more of the index limits was set to a too small
+value, truncation of the data will have occurred and the data should be
+recollected.  This problem sometimes occurs, especially with older
+diffractometers, when the index limits and theta(max) must be set
+independently by hand and the operator forgets to check both settings.
+
+</font>
+</td>
+</tr>
+</table>  
+<B>TEST_2 : </B> Type_3 (centrosymmetric), Type_1 (non-centrosymmetric)<br />
+Test the completeness of the reflection count in the symmetry unique 
+portion of reciprocal space.
+<p>
+<B><I>IF</I></B> NREF% <br />
+< 85 issue <B>ALERT</B> A<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A: < 85% complete (theta max?)"</TT><br />
+< 90 issue <B>ALERT</B> B<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert B: < 90% complete (theta max?)"</TT><br />
+< 95 issue <B>ALERT</B> C<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert C: < 95% complete"</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The total number of symmetry-unique reflections, including all
+reflections considered to be "unobserved", but excluding
+systematically absent reflections, should be given under
+_reflns_number_total.  If Friedel-related reflections are being
+treated as independent observations in order to utilise the effects
+of anomalous dispersion, _reflns_number_total should correspond
+with the total number of these independent reflections.
+<p>
+The expected number of unique reflections is calculated from your
+reported theta(max).  You should first check that theta(max) has indeed
+been reported correctly.
+<p>
+It is essential that, as far as possible, at least all possible unique
+reflections have been recorded up to the chosen theta(max).  Severe
+deficiencies in this regard should be rectified by recollecting the data.
+<p>
+If you do not know why your data are incomplete, it can sometimes be
+instructive to examine the reflection file by using the ASYM-VIEW
+option of PLATON (requires the SHELXL format .hkl or .fcf file).  This
+will highlight the missing reflections in each layer of the data.
+Missing reflections that occur in strips or inner regions of the layers
+suggest that an incorrect data collection strategy was used or that there
+was some other problem with the data collection.  E.g. incorrect h,k,l
+limits causing truncation in one or more directions, premature termination
+of the data collection, loss of X-rays during part of the data collection.
+One accidental cause of incompleteness is to choose the wrong axis to scan
+completely with monoclinic space groups (e.g. collecting +h, +/-k, +l
+reflections when b is the unique axis).
+<p>
+Another reason for having incomplete data can be that your (old) data
+reduction program is discarding reflections with negative intensity, so
+that only those with positive intensity are retained in the data set and
+reported under _reflns_number_total.  In this case, you should update or
+replace your data reduction program so that this does not occur.
+<p>
+If you are using a serial diffractometer (scintillation counter),
+there is usually no reason that the data should not be virtually 100%
+complete and severe incompleteness should be investigated carefully.
+Low temperature devices can sometimes be a hindrance, but should not
+lead to a large fraction of incomplete data.
+<p>
+With CCD detectors, one must ensure that the data collection strategy is
+sufficient to cover all unique reflections.  An additional scan set at a
+different chi or omega setting may be required to ensure that the data set
+is complete.
+<p>
+For diffractometers with only one circle (e.g. the fixed phi circle on the
+Stoe IPDS and Mar Research IP systems, data completeness can be more
+problematic.  One method for mimimising incompleteness is to ensure that
+the crystal is mounted such that a crystal axis is NOT coincident with
+the phi axis (i.e. make sure your crystals are mounted in a skew
+orientation).
+<p> 
+People who use CCD or IP detectors may find that just the high angle
+reflections are incomplete.  This occurs with rectangular apertures because
+the corners of the detector will record to higher angles that the mid
+points of the sides.  In such cases it will be found that the data are
+essentially 100% complete at a lower theta value.  This information should
+be incorporated into the CIF by correctly filling out the following two
+data items which specify the theta value at which the data are essentially
+100% complete and the actual completeness at this theta value:
+<p>
+_diffrn_reflns_theta_full<br />
+_diffrn_measured_fraction_theta_full<br />
+<p>
+One means of obtaining estimates for the above two items is to use the ACTA
+instruction in SHELXL, together with its optional parameter.  If a value is
+specified for 2theta on this instruction, this value will be used to
+correctly fill in the above two entries in the CIF.  This does not
+truncate the data during refinement.
+<p>
+Example:<br />
+We have measured to theta(max) = 28.0 deg. with 92% completeness,<br />
+but the data are virtually 100% complete to 26.3 deg.<br />
+Using ACTA 52.6 will produce the following in the CIF:<br />
+<p>
+_diffrn_reflns_theta_max      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         28.0<br />
+_diffrn_measured_fraction_theta_max  &nbsp;&nbsp;  0.920<br />
+_diffrn_reflns_theta_full     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         26.3<br />
+_diffrn_measured_fraction_theta_full  &nbsp;&nbsp; 0.997<br />
+
+</font>
+</td>
+</tr>
+</table> 
+<p>
+If the space group is centrosymmetric also test if the expected 
+reflection count is exceeded <i>(perhaps because symmetry absent or 
+equivalent reflections were mistakenly counted)</i>. Type_3<br />
+<B><I>IF</I></B> NREF% <br />
+> 115 issue <B>ALERT</B> A<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert A: > 15% excess reflns - sys abs data present?"</TT><br />
+> 110 issue <B>ALERT</B> B<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert B: > 10% excess reflns - sys abs data present?"</TT><br />
+> 105 issue <B>ALERT</B> C<br />
+<TT>&nbsp;&nbsp;&nbsp;"Alert C: > 5% excess reflns - sys abs data present?"</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The total number of symmetry-unique reflections, including all
+reflections considered to be "unobserved", but excluding
+systematically absent reflections, should be given under
+_reflns_number_total.  If Friedel-related reflections are being
+treated as independent observations in order to utilise the effects
+of anomalous dispersion, _reflns_number_total should correspond
+with the total number of these independent reflections.
+<p>
+The expected number of unique reflections is calculated from your
+reported theta(max).  You should first check that theta(max) has indeed
+been reported correctly.
+<p>
+Having excess numbers of reflections is an indication that you
+have not or have incorrectly merged symmetry-equivalent reflections,
+or that you have included the systematically absent reflections in your
+count of unique reflections.
+<p>
+Check for typographical errors and/or that you have merged the
+equivalent reflections correctly before refinement.
+<p>
+An exception to this requirement may occur if data from a
+non-merohedrally twinned crystal is employed, as this
+may result in more than one entry in the reflection file for a
+given set of h,k,l indices (e.g. data read into SHELXL with HKLF 5).
+As a result, more reflections may be used in the refinement than
+the apparent number of unique reflections.
+<p>
+A second exception might be if you deliberately choose not to merge
+symmetry equivalent reflections before the refinement.  This procedure
+is not recommended and its use should be specifically mentioned under
+_publ_section_exptl_refinement. 
+
+</font>
+</td>
+</tr>
+</table> 
+<br />
+
+<p>
+<B>TEST_3 :</B> Type_4<br />
+For noncentrosymmetric structures, test if the _reflns_number_total count
+includes any Friedel-related reflections, and estimate how may and what
+fraction they are of the symmetry-unique count NREF. The test is divided
+into "heavy atom" structures (heavier atoms than Si are present) and "light
+atom" structures. The light-atom test includes the radiation used in order
+to establish if anomalous scattering is sufficient to permit
+the reliable determination of the absolute structure.
+<p>
+<B><I>IF</I></B> Z > Si .and. NFDRAT < 0.5 issue a General <b>ALERT</b>
+<br />
+<TT>&nbsp;&nbsp;&nbsp;"WARNING: Large fraction of Friedel related reflns needed to determine 
+absolute structure."</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+If the structure is non-centrosymmetric with atoms HEAVIER than silicon
+then it is expected that Friedel pairs will be used in the refinement
+and that the absolute structure will be determined experimentally,
+even if one or more chiral centres in the molecule are already
+unambiguously known from the chemistry or synthesis of the compound.
+If the heaviest element present is S, P or Cl, then it is strongly
+recommended that the Friedel opposites of all symmetry-unique reflections
+be included in the data set.  The proportion of Friedel related
+reflections required decreases with the increasing atomic weight of
+the heaviest element that is present, but for medium weight elements,
+it is recommended that at least 50% of the potential Friedel
+related reflections have been recorded.  The more Friedel pairs that are
+present in the data set, the smaller will be the s.u. for the absolute
+structure parameter (Flack's x).
+<p>
+If the structure is non-centrosymmetric with atoms HEAVIER than Silicon
+the following two line items must be present in the CIF:
+<p>
+ &nbsp;  _refine_ls_abs_structure_details<br />
+ &nbsp;  _refine_ls_abs_structure_Flack
+<p>
+Add the number of Friedel pairs used in the refinement to the
+_refine_ls_abs_structure_details line so that it looks like:
+<p>
+&nbsp; _refine_ls_abs_structure_details &nbsp;  'Flack&nbsp;(1983),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).]
+
+</font>
+</td>
+</tr>
+</table>
+
+<p>
+<B><I>IF</I></B> Z &gt; Si .and. NFDRAT > 0.5 issue a General <B>ALERT</B><br />
+<TT>&nbsp;&nbsp;&nbsp;"Please check that the estimate of the number of Friedel pairs is
+correct. If it is not, please give the correct count in the
+_publ_section_exptl_refinement section of the submitted CIF."</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+If the structure is non-centrosymmetric with atoms HEAVIER than silicon
+the following two line items must be present in the CIF:
+<p>
+ &nbsp;  _refine_ls_abs_structure_details<br />
+ &nbsp;  _refine_ls_abs_structure_Flack
+<p>
+We have estimated the number of Friedel related reflections in your data
+set from a comparison of your value of _reflns_number_total with the
+theoretical number calculated for the symmetry-unique portion of
+reciprocal space out to your stated theta(max).  We ask you to check
+our estimate and correct as necessary.  Then add the number of Friedel
+pairs used in the refinement to the _refine_ls_abs_structure_details
+line so that it looks like:
+<p>
+&nbsp; _refine_ls_abs_structure_details &nbsp;  'Flack&nbsp;(1983),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).] 
+
+</font>
+</td>
+</tr>
+</table>  
+
+
+
+<B><I>IF</I></B> Z < Si .and. radiation is CuKa .and. NFDRAT < 0.5 issue a General <B>ALERT</B>
+<br />
+<TT>&nbsp;&nbsp;&nbsp;"WARNING: CuKa measured Friedel data can be used to determine absolute 
+structure in a light-atom study only if the Friedel fraction is large."</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+As you only have a light atom structure (heaviest element lighter than
+silicon), anomalous dispersion effects are very small, even with Cu
+radiation.  The reliability of the absolute structure determination will
+be improved if as many Friedel pairs of reflections as possible are
+present in the data set.  Your current data set appears to contain less
+than 50% of the total potential Friedel related reflections that are
+possible up to your stated theta(max) and the absolute structure
+determination is probably unreliable (i.e. the value of the absolute
+structure parameter is meaningless because of its large s.u. value).
+If you are attempting to draw any conclusions about the absolute structure
+from the crystallographic data, then it is strongly recommended that the
+Friedel opposites of all symmetry-unique reflections be included in the
+data set.  A recollection of your data is therefore probably warranted.
+<p>
+If the structure is non-centrosymmetric with only atoms LIGHTER than
+silicon, but you believe that the crystallographic experiment has
+successfully determined the absolute structure, the following two line
+items must be present in the CIF:
+<p>
+ &nbsp;  _refine_ls_abs_structure_details<br />
+ &nbsp;  _refine_ls_abs_structure_Flack
+<p>
+We have estimated the number of Friedel related reflections in your data
+set from a comparison of your value of _reflns_number_total with the
+theoretical number calculated for the symmetry-unique portion of
+reciprocal space out to your stated theta(max).  We ask you to check
+our estimate and correct as necessary.  Then add the number of Friedel
+pairs used in the refinement to the _refine_ls_abs_structure_details
+line so that it looks like:
+<p>
+&nbsp; _refine_ls_abs_structure_details &nbsp;  'Flack&nbsp;(1983),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).]
+<p>
+If no useful absolute structure parameter can be refined (i.e. the
+value of the absolute structure parameter is meaningless because of
+its large s.u. value), authors should consider merging Friedel-pair
+reflections before final refinement, and stating this in the
+_publ_section_exptl_refinement section of the CIF, along with the
+meaningless absolute structure parameter value (and s.u. value)
+obtained from any refinement with Friedel pairs, as justification of
+the merging of Friedel-pair data.  Users of SHELXL-97 can merge
+Friedel-pair data with the MERG 3 instruction.   
+
+</font>
+</td>
+</tr>
+</table> 
+
+<p></b>
+<B><I>IF</I></B> Z < Si .and. radiation is MoKa .and. NFDRAT > 0.05 issue a General <B>ALERT</B>
+<br />
+<TT>&nbsp;&nbsp;&nbsp;"ALERT: MoKa measured Friedel data cannot be used to determine absolute 
+structure in a light-atom study EXCEPT under VERY special conditions."</TT><br />
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+With non-centrosymmetric structures and Mo radiation, if no atoms
+heavier than Si are present, the DELTA-f'' terms in the scattering
+factor expression are very small.  In such cases, if no useful absolute
+structure parameter can be refined (i.e. the value of the absolute
+structure parameter is meaningless because of its large s.u. value),
+authors should consider merging Friedel-pair reflections before final
+refinement, and stating this in the _publ_section_exptl_refinement
+section of the CIF, along with the meaningless absolute structure
+parameter value (and s.u. value) obtained from any refinement with
+Friedel pairs, as justification of the merging of Friedel-pair data.
+Users of SHELXL-97 can merge Friedel-pair data with the MERG 3
+instruction.
+
+</font>
+</td>
+</tr>
+</table> 
+-->
+<br/></b>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="REFNR01"></a>
+<b>PROC-NAME</b>: <b>REFNR01</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that the ratio of _refine_ls_number_reflns and
+_refine_ls_number_parameters is acceptable.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+S = SIN [_diffrn_reflns_theta_max] / _diffrn_radiation_wavelength<br/>
+<br/>
+RRRT = _refine_ls_number_reflns / _reflns_number_total<br/>
+<br/>
+RRTP = _refine_ls_number_reflns / _refine_ls_number_parameters<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> S &lt; 0.59 <b><i>OR</i></b> RRRT &lt; 0.95<br/>
+<br/>
+<b><i>IF</i></b> CENTROSYMMETRIC<br/>
+RRTP &lt; 10 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Ratio of reflections to parameters is &lt; 10 for a
+centrosymmetric structure"</tt><br/>
+RRTP &lt; 8 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Ratio of reflections to parameters is &lt; 8 for a
+centrosymmetric structure"</tt><br/>
+RRTP &lt; 6 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A Ratio of reflections to parameters is &lt; 6 for a
+centrosymmetric structure"</tt><br/>
+<br/>
+<b><i>IF</i></b> NON-CENTROSYMMETRIC<br/>
+<b><i>IF</i></b> ZMAX &gt; 18<br/>
+RRTP &lt; 10 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Ratio of reflections to parameters is &lt; 10 for a non-centrosymmetric structure, where ZMAX &gt; 18"</tt><br/>
+RRTP &lt; 8 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Ratio of reflections to parameters is &lt; 8 for a non-centrosymmetric structure, where ZMAX &gt; 18"</tt><br/>
+RRTP &lt; 6 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A Ratio of reflections to parameters is &lt; 6 for a non-centrosymmetric structure, where ZMAX &gt; 18"</tt><br/>
+<b><i>ELSE</i></b><br/>
+RRTP &lt; 8 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Ratio of reflections to parameters is &lt; 8 for a non-centrosymmetric structure, where ZMAX &lt; 18"</tt><br/>
+RRTP &lt; 6 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Ratio of reflections to parameters is &lt; 6 for a non-centrosymmetric structure, where ZMAX &lt; 18"</tt><br/>
+RRTP &lt; 4 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A Ratio of reflections to parameters is &lt; 4 for a non-centrosymmetric structure, where ZMAX &lt; 18"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+<!-- Wording changed accurate to precision 12.09.2001 -->
+The ratio of reflections used in the refinement to refined parameters
+(the r/p ratio) is important for ensuring precise atomic and
+geometric parameters.  Higher r/p ratios generally improve the precision.
+<p>
+It is expected that for centrosymmetric space groups, the r/p
+ratio should be at least 10:1.  This also applies for
+non-centrosymmetric space groups when an element heavier than chlorine
+is present, because the heavy atom usually improves the diffracting
+power of the sample to an extent that makes it worthwhile to collect
+additional high angle data and thereby obtain higher r/p ratios.
+<p>
+For non-centrosymmetric space groups when only elements lighter than
+argon are present, it is expected that the r/p ratio should be at least
+8:1.
+<p>
+If you are having difficulty obtaining a suitable r/p ratio, consider
+the following:<br/>
+(a) Was theta(max) set high enough for the measurement?  A theta(max)
+of 25 deg. for Mo radiation or 67 deg. for Cu radiation is the
+minimum requirement, but use higher theta(max) values if the crystal
+diffracts sufficiently.<br/>
+(b) Consider using a low temperature measurement to improve the
+diffracting power and then collect to a higher theta(max).<br/>
+(c) Check that the data are complete to your chosen theta(max)
+and that segments of the unique reflections are not missing.
+If data completeness is an issue leading to a low r/p ratio,
+you will receive a separate validation alert about that.<br/>
+(d) Check that you are using all (or as many as feasible) of
+your reflection data in the refinement.  If weak reflections are
+being omitted with a sigma threshold cutoff, such as the criterion
+defined under _reflns_threshold_expression (this may be particularly
+relevant for refinements based on F), then you should consider reducing
+the cutoff threshold as far as possible, or, preferably, use all
+reflections in the refinement.<br/>
+(e) Reduce the number of refined parameters by, for example, not
+refining H-atoms, using restraints or constraints, or refining highly
+disordered or ill-behaved atoms isotropically.
+<p>
+Note that if you have measured data to at least sin(theta)/lambda
+of 0.6 (theta(max) = 25 deg. for Mo radiation; theta(max) = 67 deg.
+for Cu radiation) and you have used all available unique reflections
+in the refinement, the reflection/parameter test is not applied,
+because it is considered that you have measured an appropriate
+quantity of data and that you have made the best possible use of that
+data.
+<p>
+Also note that with light atom non-centrosymmetric structures where
+anomalous dispersion effects are insignificant, it is unwise to
+attempt to use unmerged Friedel-related reflections simply to boost
+the r/p ratio.         
+
+</font>
+</td>
+</tr>
+</table> 
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="RFACG01"></a>
+<b>PROC-NAME</b>: <b>RFACG01</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_R_factor_gt is within
+expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> _refine_ls_R_factor_gt &gt; 0.20 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The value of the R factor is &gt; 0.20"</tt><br/>
+&gt; 0.15 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of the R factor is &gt; 0.15"</tt><br/>
+&gt; 0.10 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The value of the R factor is &gt; 0.10"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The value of _refine_ls_R_factor_gt is equivalent to the
+conventional R-factor and when calculated using a threshold of
+2sigma(I) in _reflns_threshold_expression, values less than 0.07
+are normally expected.  Higher values should be accompanied by
+a suitable explanation in the _publ_section_exptl_refinement section.
+However, authors should first ensure that there are not overlooked
+problems associated with the data or the model.  Elevated values for
+_refine_ls_R_factor_gt may be indicative of a need to recollect the
+data from a crystal of higher quality or to improve or correct the
+model.  Consider the following:<br/>
+(a) The absorption corrections are inadequate or inappropriate.<br/>
+(b) The overall quality of the data may be poor due to the crystal
+quality.<br/>
+(c) There is untreated twinning either in the form of unconsidered
+merohedral twinning or where overlap from the second twin domain in
+non-merohedral twins (which may have been ignored in the data
+collection) causes errors in the intensities of some reflections.<br/>
+(d) The model is incorrect or incomplete in terms of incorrect element
+assignment, missing atoms or unmodelled or inadequately modelled
+disorder or solvent atoms.
+
+</font>
+</td>
+</tr>
+</table>    
+<b><i>IF</i></b> _refine_ls_R_factor_obs has been used issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_refine_ls_R_factor_obs is an old dataname which has been
+superceded by _refine_ls_R_factor_gt"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_refine_ls_R_factor_obs.  Please update the item to match the
+currently preferred name of _refine_ls_R_factor_gt.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly.
+
+</font>
+</td>
+</tr>
+</table>      
+
+<b><i>IF</i></b> neither _refine_ls_R_factor_gt or _refine_ls_R_factor_obs are present issue Gerneral <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Test not performed.
+_refine_ls_R_factor_gt is not present."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+It is compulsory to report the conventional R-factor under the
+item _refine_ls_R_factor_gt.  This data name is not present in
+your CIF or has not been assigned a value.  Please insert the
+data item with an apropriate value.
+
+</font>
+</td>
+</tr>
+</table>   
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="RFACR01"></a>
+<b>PROC-NAME</b>: <b>RFACR01</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_wR_factor_ref is within
+expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> _refine_ls_wR_factor_ref &gt; 0.45 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The value of the weighted R factor is &gt; 0.45"</tt><br/>
+&gt; 0.35 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of the weighted R factor is &gt; 0.35"</tt><br/>
+&gt; 0.25 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The value of the weighted R factor is &gt; 0.25"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The value of _refine_ls_wR_factor_ref should normally be considerably
+less than 0.20.  Higher values should be accompanied by
+a suitable explanation in the _publ_section_exptl_refinement section.
+However, authors should first ensure that there are not overlooked
+problems associated with the data or the model.  Elevated values for
+_refine_ls_wR_factor_ref may be indicative of a need to recollect the
+data from a crystal of higher quality or to improve or correct the
+model.  Consider the following:<br/>
+(a) The absorption corrections are inadequate or inappropriate.<br/>
+(b) The overall quality of the data may be poor due to the crystal
+quality.<br/>
+(c) The crystal is very weakly diffracting, so that a large proportion
+of essentially "unobserved" reflections are being used in the refinement.
+You should consider using a better crystal or a data collection at low
+temperature and/or, if the compound is organic, using Cu radiation.<br/>
+(d) There is untreated twinning either in the form of unconsidered
+merohedral twinning or where overlap from the second twin domain in
+non-merohedral twins (which may have been ignored in the data
+collection) causes errors in the intensities of some reflections.<br/>
+(e) The model is incorrect or incomplete in terms of incorrect element
+assignment, missing atoms or unmodelled or inadequately modelled
+disorder or solvent atoms.
+
+</font>
+</td>
+</tr>
+</table>
+<b><i>IF</i></b> _refine_ls_wR_factor_obs has been used issue a General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_refine_ls_wR_factor_obs is an old dataname which has been
+superceded by _refine_ls_wR_factor_ref"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_refine_ls_wR_factor_obs.  Please update the item to match the
+currently preferred name of _refine_ls_wR_factor_ref.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly. 
+</font>
+</td>
+</tr>
+</table>  
+<b><i>IF</i></b> neither _refine_ls_wR_factor_ref or _refine_ls_wR_factor_obs are present issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Test not performed.
+_refine_ls_wR_factor_ref is not present."</tt><br/>  
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+It is compulsory to report the weighted R-factor under the
+item _refine_ls_wR_factor_ref.  This data name is not present in
+your CIF or has not been assigned a value.  Please insert the
+data item with an appropriate value.      
+
+</font>
+</td>
+</tr>
+</table>   
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="RINTA01"></a>
+<b>PROC-NAME</b>: <b>RINTA01</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that _diffrn_reflns_av_R_equivalents is within
+expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> _diffrn_reflns_av_R_equivalents &gt; 0.20 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The value of Rint is greater than 0.20"</tt><br/>
+&gt; 0.15 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of Rint is greater than 0.15"</tt><br/>
+&gt; 0.10 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The value of Rint is greater than 0.10"</tt><br/>
+&lt; 0.0 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The value of Rint is less than 0.0"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The value of _diffrn_reflns_av_R_equivalents should normally be
+considerably less than 0.10.  Higher values should be accompanied by
+a suitable explanation in the _publ_section_exptl_refinement section.
+However, authors should first ensure that there are not overlooked
+problems associated with the data or the space group.  Elevated
+values for _diffrn_reflns_av_R_equivalents may be indicative of a
+need to recollect the data from a crystal of higher quality or that
+there is a problem with the data treatment.  Consider the following:<br/>
+(a) The absorption corrections are inadequate or inappropriate.<br/>
+(b) The overall quality of the data may be poor due to the crystal
+quality.<br/>
+(c) The crystal is very weakly diffracting, so that a large proportion
+of essentially "unobserved" reflections are being used in the refinement.
+You should consider using a better crystal or a data collection at low
+temperature and/or, if the compound is organic, using Cu radiation.
+(d) You are working in the wrong crystal system or Laue group.<br/>
+(e) You have only a very small number of equivalent reflections, which
+may lead to artificially high values of _diffrn_reflns_av_R_equivalents
+<p>
+Note that if _diffrn_reflns_av_sigmaI/netI is also large, the quality
+of the data should be considered to be suspect. 
+
+
+</font>
+</td>
+</tr>
+</table> 
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="SHFSU01"></a>
+<b>PROC-NAME</b>: <b>SHFSU01</b> Type_2<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_shift/su_max is within expected limits.<br/>
+
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> |_refine_ls_shift/su_max| &gt; 0.20 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The absolute value of parameter shift to su ratio &gt; 0.20"</tt><br/>
+&gt; 0.10 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The absolute value of parameter shift to su ratio &gt; 0.10"</tt><br/>
+&gt; 0.05 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The absolute value of parameter shift to su ratio &gt; 0.05"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+An elevated value for the largest parameter shift/s.u. is indicative
+that proper convergence of the refinement has not yet been achieved.
+Additional cycles of refinement are usually sufficient to achieve
+adequate convergence and remove this alert.  In disordered or otherwise
+poorly behaved structures, many additional cycles may be required before
+a suitable level of convergence has been achieved.  Any parameters that
+remain constantly oscillating should be detailed in the
+_publ_section_exptl_refinement section.  You should also consider
+whether appropriate restraints might help to stabilise ill-defined
+and oscillating parameters.
+</font>
+</td>
+</tr>
+</table>
+<b><i>IF</i></b> _refine_ls_shift/esd_max has been used issue General <b>ALERT</b><br/>
+<tt>&nbsp;&nbsp;&nbsp;"_refine_ls_shift/esd_max is an old dataname which has been
+superceded by _refine_ls_shift/su_max"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You are using an "old-fashioned", but still legal data name:
+_refine_ls_shift/esd_max.  Please update the item to match the
+currently preferred name of refine_ls_shift/su_max.
+To ease this problem for the future, it is recommended that you upgrade
+or modify your CIF generating software accordingly. 
+
+</font>
+</td>
+</tr>
+</table>    
+<b><i>IF</i></b> neither _refine_ls_shift/su_max or _refine_ls_shift/esd_max has been used issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Test not performed. _refine_ls_shift/su_max is not present."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+It is compulsory to report the largest parameter shift/s.u. value
+in the final refinement cycle under the item _refine_ls_shift/su_max.
+This data name is not present in your CIF or has not been assigned
+a value.  Please insert the data item with an appropriate value.
+
+</font>
+</td>
+</tr>
+</table>  
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="STRDE01"></a>
+<b>PROC-NAME</b>: <b>STRDE01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_abs_structure_details is present if
+necessary.<br/>
+<br/>
+<b>PROCEDURE</b>: <br/>
+<br/>
+(1) For NON-CENTROSYMMETRIC structures only, _refine_ls_abs_structure_details
+should be present if a Flack parameter is given.<br/>
+Otherwise issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;" Alert B A value for _refine_ls_abs_structure_flack has been given,
+without an explanation in the _refine_ls_abs_structure_details
+field."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You have entered a value for Flack's absolute structure parameter (or
+the software has automatically entered one for you because you have a
+non-centrosymmetric space group).
+<p>
+If the absolute structure parameter is meaningless because the
+compound is a weak anomalous scatterer (i.e. no atom heavier than
+Si is present), it is best to remove the absolute structure parameter
+from the CIF.
+<p>
+If the absolute structure parameter is meaningful, then you have
+forgotten to provide appropriate reference details under
+_refine_ls_abs_structure_details.  For example:
+<p>
+&nbsp; _refine_ls_abs_structure_details &nbsp;&nbsp; 'Flack&nbsp;(1983),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).] 
+
+</font>
+</td>
+</tr>
+</table>
+(2) For NON-CENTROSYMMETRIC structures only, _refine_ls_abs_structure_details
+should be present if a Rogers parameter is given.<br/>
+Otherwise issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B A value for _refine_ls_abs_structure_rogers has been given,
+without an explanation in the _refine_ls_abs_structure_details
+field."</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+You have entered a value for Rogers' absolute structure parameter (or
+the software has automatically entered one for you because you have a
+non-centrosymmetric space group).
+<p>
+If the absolute structure parameter is meaningless because the
+compound is a weak anomalous scatterer, it is best to remove the
+absolute structure parameter from the CIF.
+<p>
+If the absolute structure parameter is meaningful, then you have
+forgotten to provide appropriate reference details under
+_refine_ls_abs_structure_details.  For example:
+<p>
+&nbsp; _refine_ls_abs_structure_details  'Rogers&nbsp;(1981),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).]
+<p>
+Note that the use of Rogers' absolute structure parameter cannot cope
+with merohedral twins or cases where there is a partial mix of
+enantiomers.  It is recommended that you refine using Flack's
+absolute structure parameter instead.
+
+</font>
+</td>
+</tr>
+</table>     
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="STRVA01"></a>
+<b>PROC-NAME</b>: <b>STRVA01</b> Type_2/4<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_abs_structure_flack is within expected
+limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+FLACK = _refine_ls_abs_structure_flack<br/>
+SFLACK = su of _refine_ls_abs_structure_flack<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> FLACK &gt; 0.7 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Chirality of atom sites is inverted?"</tt> Type_2<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The correct absolute structure has been defined by the atomic
+coordinates if _refine_ls_abs_structure_flack is close to 0.0
+(and the s.u. is sufficiently small).
+If _refine_ls_abs_structure_flack is close to 1.0, the
+incorrect enantiomer is being modelled and the atomic coordinates
+should be inverted and refined again.
+<p>
+In cases of intermediate values of _refine_ls_abs_structure_flack,
+and you believe that a merohedral twin or a partial mix of
+enantiomers is present, choose the configuration that gives the
+lowest value for _refine_ls_abs_structure_flack.
+<p>
+Note that if the s.u. of the Flack parameter is large, e.g. greater
+than or equal to 0.3,
+one cannot confidently derive the absolute structure from the data,
+because, within the 3sigma confidence limits, the full range of
+possible values of the Flack parameter are plausible.  In such cases,
+even if the Flack parameter itself is close to 0.0, no conclusions
+about the absolute structure are justified.  This will usually be
+the case if the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).  If a heavy atom is present,
+but the s.u. is still large, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.
+<p>
+If the absolute structure parameter is meaningless because the
+compound is a weak anomalous scatterer, it is best to remove the
+absolute structure parameter from the CIF.
+<p>
+If the absolute structure parameter is meaningful, please also
+provide appropriate reference details under
+_refine_ls_abs_structure_details.  For example:
+<p>
+&nbsp; _refine_ls_abs_structure_details  'Flack&nbsp;(1983),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).]
+
+</font>
+</td>
+</tr>
+</table> 
+<b><i>ELSE IF</i></b> FLACK &gt; 0.3 <b><i>AND</i></b> FLACK &lt; 0.7 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Flack test results are ambiguous."</tt> Type_4<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The correct absolute structure has been defined by the atomic
+coordinates if _refine_ls_abs_structure_flack is close to 0.0
+(and the s.u. is sufficiently small).
+<p>
+In cases of intermediate values of _refine_ls_abs_structure_flack,
+a merohedral twin or a partial mix of enantiomers may be present
+and this fact should be discussed in the manuscript.  However,
+intermediate values might also be obtained when the absolute
+structure parameter is essentially meaningless because the
+compound is a weak anomalous scatterer.
+<p>
+Note that if the s.u. of the Flack parameter is large, e.g. &gt; 0.3,
+one cannot confidently derive the absolute structure from the data,
+because, within the 3sigma confidence limits, the full range of
+possible values of the Flack parameter are plausible.  In such cases,
+even if the Flack parameter itself is close to 0.0, no conclusions
+about the absolute structure are justified.  This will usually be
+the case if the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).  If a heavy atom is present,
+but the s.u. is still large, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.
+<p>
+If the absolute structure parameter is meaningless because the
+compound is a weak anomalous scatterer, it is best to remove the
+absolute structure parameter from the CIF.
+<p>
+If the absolute structure parameter is meaningful, please also
+provide appropriate reference details under
+_refine_ls_abs_structure_details.  For example:
+<p>
+&nbsp; _refine_ls_abs_structure_details  'Flack&nbsp;(1983),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).]
+
+
+</font>
+</td>
+</tr>
+</table> 
+<b><i>ELSE IF</i></b> FLACK &lt; -0.2 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Flack parameter is too small."</tt> Type_4<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The value of _refine_ls_abs_structure_flack is well outside the expected
+range of 0.0-1.0.  This may mean that there is some systematic error in
+the model or data, or that the absolute structure parameter is meaningless
+because the compound is a weak anomalous scatterer.  In the latter case,
+the s.u. of the Flack parameter is also usually large and it is best to
+remove the absolute structure parameter from the CIF.  If a heavy atom
+is present in the compound, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.  If
+_refine_ls_abs_structure_flack is still out of range, the quality of
+the data and/or the correctness of the model could be checked carefully.
+
+
+</font>
+</td>
+</tr>
+</table> 
+<b><i>ELSE IF</i></b> SFLACK &gt; 0.5 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Flack test results are meaningless."</tt> Type_4<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+If the s.u. of the Flack parameter is large, e.g. &gt; 0.3,
+one cannot confidently derive the absolute structure from the data,
+because, within the 3sigma confidence limits, the full range of
+possible values of the Flack parameter are plausible.  In such cases,
+even if the Flack parameter itself is close to 0.0, no conclusions
+about the absolute structure are justified.  This will usually be
+the case if the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).  If a heavy atom is present,
+but the s.u. is still large, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.
+<p>
+If the absolute structure parameter is meaningless because the
+compound is a weak anomalous scatterer, it is best to remove the
+absolute structure parameter from the CIF. 
+
+
+</font>
+</td>
+</tr>
+</table> 
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="STRVA02"></a>
+<b>PROC-NAME</b>: <b>STRVA02</b> Type_2/3/4<br/>
+<br/>
+<b>PURPOSE</b>: To check that _refine_ls_abs_structure_rogers is within expected
+limits.<br/>
+<br/>
+<b>PROCEDURE</b>: <br/>
+ROGERS = _refine_ls_abs_structure_rogers<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<b><i>IF</i></b> ABS(ROGERS) &gt; 1.2 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Rogers value is too large"</tt> Type_3<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The value of _refine_ls_abs_structure_rogers is well outside the expected
+range of -1.0 to 1.0.  This may mean that there is some systematic error in
+the model or data, or that the Rogers parameter is meaningless
+because the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).  In the latter case,
+it is best to remove the Rogers parameter from the CIF.  If a heavy atom
+is present in the compound, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.  If
+_refine_ls_abs_structure_rogers is still out of range, the quality of
+the data and/or the correctness of the model could be checked carefully.
+
+</font>
+</td>
+</tr>
+</table>
+<b><i>IF</i></b> ROGERS &gt; -0.5 <b><i>AND</i></b> ROGERS &lt; 0.5 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Rogers value is inconclusive"</tt> Type_4<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The correct absolute structure has been defined by the atomic
+coordinates if _refine_ls_abs_structure_rogers is close to 1.0
+(range -1.0 to 1.0)
+<p>
+In cases of intermediate values of _refine_ls_abs_structure_rogers,
+a merohedral twin or a partial mix of enantiomers may be present
+and this fact should be discussed in the manuscript.  However,
+intermediate values might also be obtained when
+_refine_ls_abs_structure_rogers is essentially meaningless because
+the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).
+<p>
+If the value for _refine_ls_abs_structure_rogers is meaningless because
+the compound is a weak anomalous scatterer, it is best to remove
+_refine_ls_abs_structure_rogers from the CIF.  This will usually be
+the case if no atom heavier than Si is present.
+<p>
+If the value for _refine_ls_abs_structure_rogers is meaningful and
+a heavy atom is present, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.
+Please also provide appropriate reference details under
+_refine_ls_abs_structure_details.  For example:
+<p>
+&nbsp; _refine_ls_abs_structure_details&nbsp;  'Rogers&nbsp;(1981),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is
+used (MERG 3 forces Friedel pairs to be merged before use).]
+
+</font>
+</td>
+</tr>
+</table>
+<b><i>IF</i></b> ROGERS &lt; -1.2 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Rogers value is too low"</tt> Type_3<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The value of _refine_ls_abs_structure_rogers is well outside the expected
+range of -1.0 to 1.0.  This may mean that there is some systematic error in
+the model or data, or that the Rogers parameter is meaningless
+because the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).  In the latter case,
+it is best to remove the Rogers parameter from the CIF.  If a heavy atom
+is present in the compound, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.  If
+_refine_ls_abs_structure_rogers is still out of range, the quality of
+the data and/or the correctness of the model could be checked carefully.
+
+</font>
+</td>
+</tr>
+</table>
+<b><i>IF</i></b> ROGERS &lt; -0.5 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Rogers value suggests reverse chirality"</tt> Type_2<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The correct absolute structure has been defined by the atomic
+coordinates if _refine_ls_abs_structure_rogers is close to 1.0
+(range -1.0 to 1.0).  If _refine_ls_abs_structure_rogers is close
+to -1.0, the incorrect enantiomer is being modelled and the
+atomic coordinates should be inverted and refined again.
+<p>
+In cases of intermediate values of _refine_ls_abs_structure_rogers,
+a merohedral twin or a partial mix of enantiomers may be present
+and this fact should be discussed in the manuscript.  Choose the
+configuration that gives the value of _refine_ls_abs_structure_rogers
+closest to 1.0.  However, intermediate values might also be obtained
+when _refine_ls_abs_structure_rogers is essentially meaningless
+because the compound is a weak anomalous scatterer (i.e. no
+atom heavier than Si is present).
+<p>
+If the value for _refine_ls_abs_structure_rogers is meaningless because
+the compound is a weak anomalous scatterer, it is best to remove
+_refine_ls_abs_structure_rogers from the CIF.  This will usually be
+the case if no atom heavier than Si is present.
+<p>
+If the value for _refine_ls_abs_structure_rogers is meaningful and
+a heavy atom is present, you should ensure that a significant
+fraction (ideally all) of the Friedel opposites of the symmetry
+unique reflections have been included in the data set.
+Please also provide appropriate reference details under
+_refine_ls_abs_structure_details.  For example:
+<p>
+&nbsp; _refine_ls_abs_structure_details&nbsp;  'Rogers&nbsp;(1981),&nbsp;XXXX&nbsp;Friedel&nbsp;pairs'
+<p>
+and replace the XXXX with the actual number of Friedel pairs used
+in the refinement. [An easy way to determine the number of Friedel
+pairs is to look at the difference between the number of unique
+reflections used in SHELXL when a MERG2 and MERG 3 instruction is 
+used (MERG 3 forces Friedel pairs to be merged before use).]
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="SYMMG01"></a>
+<b>PROC-NAME</b>: <b>SYMMG01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _symmetry_space_group_name_H-M value
+is recognised as a legitimate symmetry symbol.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+(1) ATTACH list of <a href="./symmetry_checklist.html">H-M symbols</a>, in all settings (e.g.
+'symmap' STAR-format file of R Grosse-Kunstleve)<br/>
+<br/>
+(2) SEARCH for a match of _symmetry_space_group_name_H-M
+with an entry in the list.<br/>
+<br/>
+(3) EXTRACT the space group number of the matched symbol.<br/>
+<br/>
+(4) EXTRACT the number of symmetry equivalent positions.<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> (2) fails, issue <b>ALERT</b> A that symbol unrecognied.<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A Unrecognised _symmetry_space_group_name_H-M"</tt><br/>
+<br/>
+<b><i>IF</i></b> the number from (3) != _symmetry_space_group_number,<br/>
+issue an <b>ALERT</b> A of mismatch.<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A _symmetry_space_group_number does not match H-M symbol"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The space group symbol given under _symmetry_space_group_name_H-M is
+missing, or it cannot be recognised and/or does not correspond with
+the space group number given under symmetry_space_group_number.
+<p>
+Note that this message usually means that you have incorrectly formatted
+the space group symbol.  Do not insert subscript formatting or parentheses
+in the space group symbol.  You must leave spaces between symbols
+referring to different axes.
+<p>
+Examples for _symmetry_space_group_name_H-M:
+<p>
+<table>
+<tr>
+<td><font color="#666600">Correct</td>          <td><font color="#666600">Incorrect</td></tr>
+<tr><td><font color="#666600">'P 21 21 21'</td> <td><font color="#666600">'P2~1~2~1~2~1~' or 'P212121'</td></tr>
+<tr><td><font color="#666600">'P 1 21/c 1' ['P21/c' allowed, but]<br/>[not strictly correct]</td><td><font color="#666600">'P2(1)/c'</td></tr>
+<tr><td><font color="#666600">'P 2/n 2/n 2/n (origin at -1)'</td><td> </td></tr>
+<tr><td><font color="#666600">'R -3 2/m'</td><td> </td></tr>
+</table>
+<p>
+Note that the H-M symbol does not necessarily contain complete
+information about the symmetry and the space-group origin.
+If used always supply the FULL symbol from International Tables
+for Crystallography, Vol. A (1992) and indicate the origin and
+the setting if it is not implicit. If there is any doubt that
+the equivalent positions can be uniquely deduced from this symbol
+specify the _symmetry_equiv_pos_as_xyz *_Hall data items as well.
+
+</font>
+</td>
+</tr>
+</table>   
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="SYMMG02"></a>
+<b>PROC-NAME</b>: <b>SYMMG02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _symmetry_space_group_name_H-M given is
+consistent with the _symmetry_equiv_pos_as_xyz if given.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+(1). Search the symmap file to produce a Hall symbol from the
+H-M symbol. Generate the xyz from this and convert back into
+a H-M symbol via the Hall symbol and symmap file.<br/>
+(2). Generate a H-M symbol from the xyz via the Hall symbol and
+symmap file.<br/>
+(3). xcheck the H-M symbols generated from (1) and (2).
+<br/>
+SUMMARY:<br/>
+    h-m --&gt; (symmap) --&gt; hall --&gt; xyz --&gt; hall --&gt; (symmap) --&gt; h-m<br/>
+                         hall --&gt; xyz --&gt; hall --&gt; (symmap) --&gt; h-m<br/>
+                                  xyz --&gt; hall --&gt; (symmap) --&gt; h-m<br/>
+<br/>
+<b><i>IF</i></b> h-m and hall are inconsistent issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The _symmetry_equiv_pos_as_xyz values are in consistent
+with the H-M symbol given"</tt><br/><br/>
+<b><i>IF</i></b> the number of _symmetry_equiv_pos_as_xyz positions does not match the number expected for the given space group issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The number of _symmetry_equiv_pos_as_xyz positions in the CIF
+does not match the number expected for this space group"</tt><br/><br/>
+<b><i>IF</i></b> _symmetry_equiv_pos_as_xyz loop is not present issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A _symmetry_equiv_pos_as_xyz not in the CIF"</tt><br/><br/>
+<b><i>IF</i></b> _symmetry_equiv_pos_as_xyz loop is incorrectly formatted issue <b>ALERT</b> B<br/>
+with an appropriate message, e.g. <br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The denominator for a fractional translation has been
+omitted."</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B More than one identity symop (x,y,z) detected."</tt><br/>
+etc,.....<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The space group symbol given under _symmetry_space_group_name_H-M
+cannot be matched with the space group symmetry operators given under
+_symmetry_equiv_pos_as_xyz.
+<p>
+Check that you have fully and correctly specified and formatted both
+_symmetry_space_group_name_H-M and _symmetry_equiv_pos_as_xyz and that
+they both refer to the SAME space group and the SAME setting of the
+axes.
+<p>
+_symmetry_equiv_pos_as_xyz must include ALL symmetry operators for
+the space group concerned, including the identity x,y,z, all those
+related by a centre of inversion and all those related by a
+non-primitive lattice operation.
+<p>
+Example:<br/>
+loop_<br/>
+&nbsp;    _symmetry_equiv_pos_as_xyz<br/>
+&nbsp;&nbsp;    'x, y, z'<br/>
+&nbsp;&nbsp;    '-x, y+1/2, -z+1/2'<br/>
+&nbsp;&nbsp;    '-x, -y, -z'<br/>
+&nbsp;&nbsp;    'x, -y+1/2, z+1/2'<br/>
+<p>
+The space group symbol must not include subscript formatting or
+parentheses.  You must leave spaces between symbols referring to
+different axes.
+<p>
+Examples for _symmetry_space_group_name_H-M:
+<p>
+<table>
+<tr>
+<td><font color="#666600">Correct</td>          <td><font color="#666600">Incorrect</td></tr>
+<tr><td><font color="#666600">'P 21 21 21'</td> <td><font color="#666600">'P2~1~2~1~2~1~' or 'P212121'</td></tr>
+<tr><td><font color="#666600">'P 1 21/c 1' ['P21/c' allowed, but]<br/>[not strictly correct]</td><td><font color="#666600">'P2(1)/c'</td></tr>
+<tr><td><font color="#666600">'P 2/n 2/n 2/n (origin at -1)'</td><td> </td></tr>
+<tr><td><font color="#666600">'R -3 2/m'</td><td> </td></tr>
+</table>
+<p>        
+Note that the H-M symbol does not necessarily contain complete
+information about the symmetry and the space-group origin.
+If used always supply the FULL symbol from International Tables
+for Crystallography, Vol. A (1992) and indicate the origin and
+the setting if it is not implicit. If there is any doubt that
+the equivalent positions can be uniquely deduced from this symbol
+specify the _symmetry_equiv_pos_as_xyz *_Hall data items as well.
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="SYMMS01"></a>
+<b>PROC-NAME</b>: <b>SYMMS01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _symmetry_cell_setting matches one of
+the keywords.<br/>
+<br/>
+<b>CHECKLIST</b>:	<br/>
+<ul><li>	triclinic<br/>
+<li>	monoclinic<br/>
+<li>	orthorhombic<br/>
+<li>	tetragonal<br/>
+<li>	rhombohedral<br/>
+<li>	trigonal<br/>
+<li>	hexagonal<br/>
+<li>	cubic<br/>
+</ul>
+Otherwise issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The _symmetry_cell_setting doesn't match one of the standard keywords"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_symmetry_cell_setting must ONLY be one of the following keywords
+(do not add extra text to this field - e.g. 'monoclinic&nbsp;C-centred'
+or 'rhombohedral&nbsp;-&nbsp;hexagonal&nbsp;setting' are incorrect):
+<ul><li>  triclinic
+<li>  monoclinic
+<li>  orthorhombic
+<li>  tetragonal
+<li>  rhombohedral
+<li>  trigonal
+<li>  hexagonal
+<li>  cubic
+</ul>
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="SYMMS02"></a>
+<b>PROC-NAME</b>: <b>SYMMS02</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the _symmetry_cell_setting is consistent
+with the _cell_length_ and _cell_angle_ values.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'triclinic'<br/>
+<b><i>AND</i></b> { _cell_length_a == _cell_length_b<br/>
+<b><i>OR</i></b> _cell_length_a == _cell_length_c<br/>
+<b><i>OR</i></b> any _cell_angle values == 90. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should not be equal for a triclinic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and c should not be equal for a triclinic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B No unit-cell angle should be equal to 90 for a triclinic cell"</tt><br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'monoclinic'<br/>
+<b><i>AND</i></b> { _cell_length_a == _cell_length_b<br/>
+<b><i>OR</i></b> _cell_length_a == _cell_length_c<br/>
+<b><i>OR</i></b> all _cell_angle_ values == 90.<br/>
+<b><i>OR</i></b> two _cell_angle_ values != 90. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should not be equal for a monoclinic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and c should not be equal for a monoclinic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B All angles should not be 90 for a monoclinic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Two angles should be 90 for a monoclinic cell"</tt><br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'orthorhombic'<br/>
+<b><i>AND</i></b> { _cell_length_a == _cell_length_b<br/>
+<b><i>OR</i></b> _cell_length_a == _cell_length_c<br/>
+<b><i>OR</i></b> all _cell_angle_ values != 90. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should not be equal for a orthorhombic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and c should not be equal for a orthorhombic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B At least one angle should be 90 for an orthorhombic cell"</tt><br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'tetragonal'<br/>
+<b><i>AND</i></b> { _cell_length_a != _cell_length_b<br/>
+<b><i>OR</i></b> all _cell_angle_ values != 90. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should be equal for a tetragonal cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B All angles should be 90 for a tetragonal cell"</tt><br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'rhombohedral'<br/>
+<b><i>AND</i></b> { _cell_length_a != _cell_length_b<br/>
+<b><i>OR</i></b> _cell_length_a != _cell_length_c<br/>
+<b><i>OR</i></b> _cell_angle_alpha != _cell_length_beta<br/>
+<b><i>OR</i></b> _cell_angle_alpha != _cell_length_gamma<br/>
+<b><i>OR</i></b> _cell_angle_ values == 90. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should be equal for a rhombohedral cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and c should be equal for a rhombohedral cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Cell angles alpha and beta should be equal for a rhombohedral cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Cell angles alpha and gamma should be equal for a rhombohedral cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B All angles should not be 90 for a rhombohedral cell"</tt><br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'trigonal' <b><i>OR</i></b> 'hexagonal'<br/>
+<b><i>AND</i></b> { _cell_length_a != _cell_length_b<br/>
+<b><i>OR</i></b> _cell_angle_alpha != 90.<br/>
+<b><i>OR</i></b> _cell_angle_beta != 90.<br/>
+<b><i>OR</i></b> _cell_angle_gamma != 120. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should be equal for a trigonal/hexagonal cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Cell angla alpha should be 90 for a trigonal/hexagonal cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Cell angla beta should be 90 for a trigonal/hexagonal cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B Cell angle gamma should be 120 for a trigonal/hexagonal cell"</tt><br/>
+<br/>
+<b><i>IF</i></b> _symmetry_cell_setting == 'cubic'<br/>
+<b><i>AND</i></b> { _cell_length_a != _cell_length_b<br/>
+<b><i>OR</i></b> _cell_length_a != _cell_length_c<br/>
+<b><i>OR</i></b> all _cell_angle_ values != 90. } issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and b should be equal for a cubic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The unit-cell lengths a and c should be equal for a cubic cell"</tt><br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B All angles should be 90 for a cubic cell"</tt><br/>
+<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The unit cell parameters do not seem to be consistent with the
+expected constraints implied by the crystal system specified
+under _symmetry_cell_setting.  Check that the crystal system
+has been correctly specified and that the unit cell parameters
+have been constrained where necessary.
+<p>
+For example, a monoclinic unit cell should not be specified with an
+angle of 89.98 deg. for an angle that should be exactly 90 deg due to
+the symmetry requirements.  Such unit cell parameters should be
+constrained to appropriate values during the unit cell refinement.
+Similarly, a tetragonal unit cell should have identical values for
+the lengths of the a and b axes.
+<p>
+Of course, it is possible that two unit cell axes coincidentally have
+virtually equal lengths in a low symmetry crystal system or that a
+monoclinic structure has a beta angle that is indistinguishable from
+90.0 deg.  In such cases, these alerts can be ignored.
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="SYMOP01"></a>
+<b>PROC-NAME</b>: <b>SYMOP01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: To check that the symmetry operators are given in the correct CIF
+format.
+<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+EXTRACT the symmetry operators for each of the following datanames.<br/>
+_geom_bond_site_symmetry_1, _geom_bond_site_symmetry_2<br/>
+_geom_contact_site_symmetry_1, _geom_contact_site_symmetry_2<br/>
+_geom_angle_site_symmetry_1, _geom_angle_site_symmetry_2, _geom_angle_site_symmetry_3<br/>
+_geom_torsion_site_symmetry_1, _geom_torsion_site_symmetry_2, _geom_torsion_site_symmetry_3, _geom_torsion_site_symmetry_4<br/>
+_geom_hbond_site_symmetry_D, _geom_hbond_site_symmetry_H, _geom_hbond_site_symmetry_A<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+If the symmetry operator is not of the form defined in the CIF dictionary (e.g. 1_555, 3) then<br/>
+issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A Wrong symmetry operator for _geom_bond_site_symmetry_2"</tt><br/><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+
+The correct form for the symmetry code is described below. The most common error 
+is the use of symmetry codes such as those used in PLATON (of the form 54502).<br/>
+
+   The symmetry code of each atom site as the symmetry-equivalent
+   position number 'n' and the cell translation number 'klm'.
+   These numbers are combined to form the code 'n klm' or n_klm.
+   The character string n_klm is composed as follows:<br/>
+
+   n refers to the symmetry operation that is applied to the
+   coordinates stored in <a href="https://web.archive.org/web/20240927030403/http://www.iucr.org/iucr-top/cif/cifdic_html/1/cif_core.dic/Iatom_site_fract_.html" class="itemlink">_atom_site_fract_x</a>, <a href="https://web.archive.org/web/20240927030403/http://www.iucr.org/iucr-top/cif/cifdic_html/1/cif_core.dic/Iatom_site_fract_.html" class="itemlink">_atom_site_fract_y</a>
+   and <a href="https://web.archive.org/web/20240927030403/http://www.iucr.org/iucr-top/cif/cifdic_html/1/cif_core.dic/Iatom_site_fract_.html" class="itemlink">_atom_site_fract_z</a>. It must match a number given in
+   <a href="https://web.archive.org/web/20240927030403/http://www.iucr.org/iucr-top/cif/cifdic_html/1/cif_core.dic/Ispace_group_symop_id.html" class="itemlink">_space_group_symop_id</a>.
+
+
+   k, l and m refer to the translations that are subsequently
+   applied to the symmetry-transformed coordinates to generate
+   the atom used in calculating the bond. These translations
+   (x,y,z) are related to (k,l,m) by the relations
+        k = 5 + x
+        l = 5 + y
+        m = 5 + z
+   By adding 5 to the translations, the use of negative numbers
+   is avoided.
+
+</p>
+<b>Examples:</b><br/><br/>
+<table width="100%"><tr class="cifexample"><td width="50%"><tt class="cifexample">.</tt>
+</td><td width="50%"><i>no symmetry or translation to site</i>
+</td></tr></table>
+<table width="100%"><tr class="cifexample"><td width="50%"><tt class="cifexample">4</tt>
+</td><td width="50%"><i>4th symmetry operation applied</i>
+</td></tr></table>
+<table width="100%"><tr class="cifexample"><td width="50%"><tt class="cifexample">7_645</tt>
+</td><td width="50%"><i>7th symm. posn.; +a on x; -b on y</i>
+</td></tr></table>
+</font>
+</td>
+</tr>
+</table>   
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="THETM01"></a>
+<b>PROC-NAME</b>: <b>THETM01</b> Type_3<br/>
+<br/>
+<b>PURPOSE</b>: To check that _diffrn_reflns_theta_max is greater than
+expected limits.<br/>
+<br/>
+<b>PROCEDURE</b>:<br/>
+<b><i>CALCULATE</i></b><br/>
+<br/>
+S = SIN [_diffrn_reflns_theta_max] / _diffrn_radiation_wavelength<br/>
+<br/>
+<b><i>TEST</i></b><br/>
+<br/>
+<b><i>IF</i></b> S &lt; 0.55 issue <b>ALERT</b> A<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The value of sine(theta_max)/wavelength is less than 0.550"</tt><br/>
+&lt; 0.575 issue <b>ALERT</b> B<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert B The value of sine(theta_max)/wavelength is less than 0.575"</tt><br/>
+&lt; 0.59 issue <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C The value of sine(theta_max)/wavelength is less than 0.590"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+The Commission on Journals has determined that setting the maximum
+sin(theta)/lambda for measurements to at least 0.6 is both optimal and
+achievable for most structural studies.  The extent of the data not
+only affects the ratio of measurements to refined parameters and hence
+the accuracy of the atomic and geometric parameters, but also
+the reliability of the angular dependent terms, such as Uijs.
+<p>
+It is unlikely that any submitted CIF which contains the results of
+a data collection with a lower theta(max) will be accepted for
+publication unless there are exceptional circumstances.  Old data
+claimed to have been collected when less stringent criteria were
+in place will not be excepted.
+<p>
+You should routinely set your diffractometer so that a theta(max)
+of 25 deg. for Mo radiation or 67 deg. for Cu radiation is the
+minimum that is achieved.  If the crystal diffracts sufficiently well,
+it is strongly recommended that theta(max) is set to an even higher
+value.
+<p>
+It is understood that there may be little point in collecting
+background "noise" when a weakly diffracting crystal gives no
+detectable diffraction above theta values well below our required limit.
+In such a case, you should first ensure that you have conscientiously
+undertaken all possible steps to ensure that the experiment has been able
+to extract the best diffracting power from your sample.  To this end, all
+of the following options should have been exhausted:
+<p>
+(a) The best possible crystal has been sought and utilised for the data
+collection.  If the crystal was small or of poor quality, are you sure
+that a better or bigger one cannot be obtained?  The chosen crystal may
+have been the best one in the batch, but had enough effort and patience
+really been expended in the crystallisation attempt?  Often, lack of
+experience, impatience or unwillingness to try another crystallisation
+technique or solvent leads to the experimentalist abandoning
+crystallisation attempts before the optimal conditions have been found.
+Before you blame the crystal quality, be sure that you have convinced
+yourself that nothing further can be done in this direction.
+<p>
+(b) Use low temperature measurements to enhance the reflection
+intensities and the extent of the "observed" data.
+<p>
+(c) For organic compounds, try data collection with Cu radiation,
+which significantly enhances the reflection intensities.
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<!------------------------------------------------------------------------------->
+<hr>
+<a name="WEIGH01"></a>
+<b>PROC-NAME</b>: <b>WEIGH01</b> Type_1<br/>
+<br/>
+<b>PURPOSE</b>: Check that the value of _refine_ls_weighting_scheme
+is recognised.<br/>
+<br/>
+<b>CHECKLIST</b>:<ul> <li>  sigma    (based on measured intensity su's)<br/>
+       <li>     calc     (calculated weights applied)<br/>
+</ul>
+<br/>
+issue <b>ALERT</b> A if scheme isn't recognised or is set to unit weights(*).<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert A The weighting scheme doesn't match one of the standard keywords"</tt><br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_refine_ls_weighting_scheme must be included in the CIF.  Use
+one of the following keywords (do not add extra text to this
+field - e.g. including the weighting equation is not correct):
+<ul><li>  sigma
+<li>  calc
+</ul>
+Note that although unit weights are allowed for in the CIF dictionary,
+structures refined with unit weights are not acceptable.
+<p>
+The equation for the weighting scheme must be given under
+_refine_ls_weighting_details.
+<p>
+Example:<br/>
+&nbsp;_refine_ls_weighting_scheme&nbsp;&nbsp;&nbsp;&nbsp;calc<br/>
+&nbsp;_refine_ls_weighting_details<br/>
+'w=1/[\s^2^(Fo^2^)+(0.0544P)^2^+0.1452P]&nbsp;where&nbsp;P=(Fo^2^+2Fc^2^)/3'
+
+</font>
+</td>
+</tr>
+</table>
+<br/>
+<b><i>IF</i></b>
+extra text is found in the field (i.e. over and above the keyword)
+issue an <b>ALERT</b> C<br/>
+<tt>&nbsp;&nbsp;&nbsp;"Alert C Extra text has been found in the
+_refine_ls_weighting_scheme field. This should be in the
+_refine_ls_weighting_details field."</tt>
+<br/>
+<table>
+<tr>
+<td width="2%">
+</td>
+<td>
+<font color="#666600">
+_refine_ls_weighting_scheme must be included in the CIF.  Use
+one of the following keywords (do not add extra text to this
+field - e.g. including the weighting equation is not correct):
+<ul><li>  sigma
+<li>  calc
+</ul>
+The equation for the weighting scheme must be given under
+_refine_ls_weighting_details.
+<p>
+Example:<br/>
+&nbsp;_refine_ls_weighting_scheme&nbsp;&nbsp;&nbsp;&nbsp;calc<br/>
+&nbsp;_refine_ls_weighting_details<br/>
+'w=1/[\s^2^(Fo^2^)+(0.0544P)^2^+0.1452P]&nbsp;where&nbsp;P=(Fo^2^+2Fc^2^)/3' 
+<p>
+Note that although unit weights are allowed for in the CIF dictionary,
+structures refined with unit weights are not acceptable.
+
+</font>
+</td>
+</tr>
+</table>
+* Unit weights are legal in the CIF-dictionary but are not acceptable for Acta
+Crystallographica submissions.
+<br/>
+<br/>  </div><!-- end div main -->
+  <div id="side"><div class="side_box">
+<div id="editorialboardlinks"><h3>How to prepare your paper</h3><ul>
+          <!-- CIF and other stuff -->	
+	
+	
+	<!-- General pages -->          <li><a href="/web/20240927030403/https://journals.iucr.org/services/wordstyle.html">Microsoft Word template</a></li>
+          <li><a href="/web/20240927030403/https://journals.iucr.org/services/endnotestyle.html">EndNote output style</a></li>  
+
+        </ul>
+ 
+        <!-- Submission -->
+
+        <h3>Submission information</h3>
+	
+	
+	
+
+        <ul>
+	<!-- General pages -->          <li><a href="/web/20240927030403/https://journals.iucr.org/services/submit_general.html">Submit your article</a></li>	  		
+        
+        
+        </ul>
+
+        <h3>After submission</h3>
+
+        <ul>
+          <li><a href="/web/20240927030403/https://journals.iucr.org/services/status.html">Status of your
+          submitted  paper</a></li>
+
+          <li><a href="/web/20240927030403/https://journals.iucr.org/services/getproof.html">Download
+          electronic proofs</a></li>
+
+          <li><a href="/web/20240927030403/https://journals.iucr.org/services/reprints.html">Download
+          electronic reprints</a></li>
+
+          <li><a href="/web/20240927030403/https://journals.iucr.org/services/offprints.html">Order
+          reprints</a></li>
+
+
+        </ul><h3>Journal policies</h3>    <ul>
+      <li><a href="/web/20240927030403/https://journals.iucr.org/services/articlecorrection.html">Correction and retraction policy</a></li>
+
+      <li><a href="/web/20240927030403/https://journals.iucr.org/services/ethicalpublishingpolicy.html">Ethics</a></li>
+
+      <li><a href="/web/20240927030403/https://journals.iucr.org/services/authorrights.html">Author 
+rights</a></li>
+
+      <li><a href="/web/20240927030403/https://journals.iucr.org/services/copyrightpolicy.html">Copyright and licencing policy</a></li>
+	            <li><a href="/web/20240927030403/https://journals.iucr.org/services/oa/openaccess.html">Open access</a></li>
+      <li><a href="/web/20240927030403/https://journals.iucr.org/services/nihpolicy.html">NIH public access 
+policy</a></li>
+
+      <li><a href="/web/20240927030403/https://journals.iucr.org/services/permissions.html">Permissions 
+requests</a></li>
+
+    </ul>
+        
+</div><!-- end div id editorialboardlinks -->
+</div><!-- end div class side_box -->
+<!-- <div class="clear"></div> --><div class="side_box" style="background-color:#b2b2b2;border-radius:5px;border 1px solid #ccc;max-width:365px; ">
+ <style type="text/css">
+            #ads {text-align: center; padding: 20px;}
+            @media (max-width: 800px) {
+                #ads {display: none}
+              }
+
+    
+
+            </style>
+<div id="ads"><a target="_blank" href="https://web.archive.org/web/20240927030403/https://iucrdata.iucr.org/" title="IUCrData"><img alt="Journal logo" class="jicon" style="max-width:20%;margin-right:1em;" src="//web.archive.org/web/20240927030403im_/https://journals.iucr.org/logos/jicons/x_96x112.png"></img></a> <a target="_blank" href="https://web.archive.org/web/20240927030403/https://iucrdata.iucr.org/" title="IUCrData"><span style="color:white; font-size: 200%;font-weight:bold;vertical-align: .5em;">IUCrData</span></a>
+  <div class="clear"></div>
+</div><!-- end div ad-->
+
+</div><!-- end div class side_box --><div class="side_box">
+
+<div style="margin-top: 0.2em; margin-bottom: 0.5em; width: 100%; max-width: 365px; min-width: 75px; border-radius: 5px;">  <a target="_blank" href="https://web.archive.org/web/20240927030403/http://www.iucr.org/people/associates" title="Associates Programme"><img style="margin-bottom: 0.5em; width: 100%; max-width: 365px; min-width: 75px;border-radius: 5px;" src="/web/20240927030403im_/https://journals.iucr.org/logos/adverts/ap_banner.gif" alt="Associates Programme"/></a>
+</div><!-- end ad div -->
+
+</div><!-- end div class side_box --><div class="side_box">
+<div id="editorialboardlinks" style="width: 90%; max-width: 350px;"><h3 style="padding-bottom: .5em;">Explore</h3>
+<script type="text/javascript" src="https://web.archive.org/web/20240927030403js_/https://publcif.iucr.org/widgets/randthumbs/randthumbs.js"></script><div class="RandThumbs_u" style="cursor:move;"></div></div></div>    </div><!-- end div side -->
+  <div class="clear"></div>
+  </div><!-- end div layout_cjo_standard -->
+  </div><!-- end div pagebody --><div id="journalsocialmedia"><table summary="social media" class="socialgen"><tbody><tr><td class="socialtitle">Follow IUCr Journals</td><td class="socialimg"><table summary="formatting" class="button_sgl_table"><tbody><tr><td class="noextraspace"><a href="https://web.archive.org/web/20240927030403/https://www.iucr.org/people/wdc/ealert"><img src="/web/20240927030403im_/https://journals.iucr.org/logos/mail_24.png" title="Sign up for e-alerts" alt="Sign up for e-alerts"/></a></td></tr></tbody></table></td><td class="slink"><a href="https://web.archive.org/web/20240927030403/https://www.iucr.org/people/wdc/ealert" title="Sign up for e-alerts">E-alerts</a></td><td class="socialimg"><table summary="formatting" class="button_sgl_table"><tbody><tr><td class="noextraspace"><a href="https://web.archive.org/web/20240927030403/https://twitter.com/IUCr" target="_blank"><img src="/web/20240927030403im_/https://journals.iucr.org/logos/twitter_24.png" title="Follow IUCr on Twitter" alt="Follow IUCr on Twitter"/></a></td></tr></tbody></table></td><td class="slink"><a href="https://web.archive.org/web/20240927030403/https://twitter.com/IUCr" title="Follow IUCr on Twitter" target="_blank">Twitter</a></td><td class="socialimg"><table summary="formatting" class="button_sgl_table"><tbody><tr><td class="noextraspace"><a href="https://web.archive.org/web/20240927030403/https://www.facebook.com/iucr.org" target="_blank"><img src="/web/20240927030403im_/https://journals.iucr.org/logos/facebook_24.png" title="Follow us on facebook" alt="Follow us on facebook"/></a></td></tr></tbody></table></td><td class="slink"><a href="https://web.archive.org/web/20240927030403/https://www.facebook.com/iucr.org" title="Follow us on facebook" target="_blank">Facebook</a></td><td class="socialimg"><table summary="formatting" class="button_sgl_table"><tbody><tr><td class="noextraspace"><a href="https://web.archive.org/web/20240927030403/https://journals.iucr.org/services/rss.html"><img src="/web/20240927030403im_/https://journals.iucr.org/logos/rss_24.png" title="Sign up for RSS feeds" alt="Sign up for RSS feeds"/></a></td></tr></tbody></table></td><td class="slink"><a href="https://web.archive.org/web/20240927030403/https://journals.iucr.org/services/rss.html" title="Sign up for RSS feeds">RSS</a></td></tr></tbody></table></div><!-- end div journalsocialmedia -->    <hr/>
+      <!-- hr style="margin-top: 2em;"/--><div id="footersearch">
+<form action="//web.archive.org/web/20240927030403/https://scripts.iucr.org/cgi-bin/full_search" method="post" accept-charset="utf-8">
+<div id="fs_search">
+   <table summary="search formatting" id="fs_tfooter" class="center">
+      <tbody>
+         <tr>
+            <td id="fs_tdwords" colspan="2" class="inputWrap">
+               <label for="fs_words">Search IUCr Journals</label>
+               <input name="words" id="fs_words" title="Search IUCr Journals" type="text"/>
+            </td>
+            <td id="fs_tddoi" colspan="2" class="inputWrap">
+               <label for="fs_doi">doi</label><input title="doi" name="doi" id="fs_doi" type="text"/>
+            </td>
+            <td id="fs_tdgo" rowspan="2">
+               <input name="Action" value="GO" id="fs_go" type="submit"/><br/>
+               <a id="fs_advs" href="https://web.archive.org/web/20240927030403/https://scripts.iucr.org/cgi-bin/full_search" title="advanced search" class="link">Advanced search</a>
+            </td>
+         </tr>
+         <tr>  
+            <td id="fs_tdauthor" class="inputWrap">
+               <label for="fs_authorsearch">Author</label>
+               <input title="author" name="authorsearch" id="fs_authorsearch" size="15" type="text"/>
+            </td>
+            <td id="fs_tdjournalList">
+               <select id="fs_journalList" name="journalList" class="toright" size="1" onchange="$(this).css('color','#000');$(this).children().css('color','#666');"><option selected="selected" value="">All journals</option>
+                 <option value="m">IUCrJ</option>
+                 <option value="q">Acta Cryst</option>
+                 <option value="a">Acta Cryst A</option>
+                 <option value="b">Acta Cryst B</option>
+                 <option value="c">Acta Cryst C</option>
+                 <option value="d">Acta Cryst D</option>
+                 <option value="e">Acta Cryst E</option>
+                 <option value="f">Acta Cryst F</option>
+                 <option value="j">J Appl Cryst</option>
+                 <option value="s">J Synchrotron Rad</option>
+                 <option value="x">IUCrData</option>
+               </select>
+           </td>
+           <td id="fs_tdvolume" class="inputWrap">
+              <label for="fs_volumeselect">volume</label><input title="volume" name="volumeselect" size="6" id="fs_volumeselect" type="text"/>
+           </td>
+           <td id="fs_tdpage" class="inputWrap">
+              <label for="fs_fpageselect">page</label><input title="page" name="fpageselect" size="4" id="fs_fpageselect" type="text"/>
+           </td>
+        </tr>
+      </tbody>
+   </table>
+</div>
+</form>  
+</div><!-- end div footersearch --><div id="footer" class="">
+   <div id="ft_linkbar" class="center">
+     Copyright &copy; <a href="https://web.archive.org/web/20240927030403/https://www.iucr.org/" title="International Union of Crystallography">International  Union of Crystallography</a><br/>
+<a href="/web/20240927030403/https://journals.iucr.org/" title="Home">Home</a>
+<a href="/web/20240927030403/https://journals.iucr.org/services/contactus.html" title="Contact us">Contact us</a>
+<a href="/web/20240927030403/https://journals.iucr.org/services/siteindex.html" title="Site index">Site index</a>
+<a href="https://web.archive.org/web/20240927030403/https://www.iucr.org/" title="About us">About us</a>
+<a href="/web/20240927030403/https://journals.iucr.org/services/organizations.html" title="Partners and site credits">Partners and site credits</a> <a href="/web/20240927030403/https://journals.iucr.org/services/help.html" title="Help">Help</a> <a href="/web/20240927030403/https://journals.iucr.org/services/termsofuse.html" title="Terms of use">Terms of use</a><a href="/web/20240927030403/https://journals.iucr.org/services/privacy.html" title="Privacy and cookies">Privacy and cookies</a>   </div>
+   <div id="ft_whoarewe" class="center">
+    The IUCr is a scientific union serving the interests of 
+crystallographers and other scientists employing crystallographic 
+methods.
+    </div>
+  </div><!-- end div footer --></div><!-- end div jpage_gen -->
+
+<script type="text/javascript" src="https://web.archive.org/web/20240927030403js_/https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://web.archive.org/web/20240927030403js_/https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="/web/20240927030403js_/https://journals.iucr.org/javascript/jquery.dotdotdot.min.js" type="text/javascript"></script>
+<script src="/web/20240927030403js_/https://journals.iucr.org/javascript/jquery/jquery.validate.js" type="text/javascript"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("button").click(function(){
+      $(".mathmode").toggle();
+    });
+ });
+</script>
+
+<script src="/web/20240927030403js_/https://journals.iucr.org/javascript/inputmask-1.1.js" type="text/javascript"></script>
+
+
+
+<script src="/web/20240927030403js_/https://journals.iucr.org/javascript/iucrscripts.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+<!--
+$(document).ready(function(){
+if ($("#latest").get(0)) {  myAjax("late", "all", "#latest");
+  myAjax("read", "all", "#latest");
+  myAjax("cited", "all", "#latest");
+  myAjax("high", "all", "#latest");};
+
+if ($("#iucrmessages").get(0)) {   myAjax("mess", "all", "#iucrmessages");}
+if ($("#iucrmeetings").get(0)) {   myAjax("meet", "all", "#iucrmeetings");}
+
+if ($("#highlights").get(0)) {  myAjax("hl", "all", "#highlights");}
+
+});
+
+var addthis_config =
+{
+ ui_click: true,
+ ui_cobrand: "IUCr"
+}
+
+-->
+</script>
+
+
+<script src="/web/20240927030403js_/https://journals.iucr.org/javascript/jquery/tabber-minimized.js" type="text/javascript"></script>
+
+
+
+
+<script type="text/javascript">
+<!--
+$(function(){function e(){for(i=0;i<c.length;i++){var e=c[i].getAttribute(d);if(/crossmark.crossref/.test(e));else for(j=0;j<b.length;j++){var f=b[j];if(f.test(e)){console.log("Inappropriate hard-coded URL: "+f+" in "+c[i].tagName+"/"+d+":"+e);var g=document.getElementsByTagName("body")[0];/journals.working/.test(a)||/journals.test/.test(a)?document.URL.match("journals.test.iucr.org/doc/")||g.setAttribute("bgcolor","#FFFF66"):document.URL.match("journals.test.iucr.org/doc/")||g.setAttribute("bgcolor","#EEEEEE")}}}}var c,d,a=document.location.href,b=[/journals.working/,/vm01.iucr.org/,/platon.iucr.org/,/journals.test/,/infoweb.css/,/publcif.css/];c=document.getElementsByTagName("A"),d="href",e(c,d),c=document.getElementsByTagName("IMG"),d="src",e(c,d),c=document.getElementsByTagName("LINK"),d="href",e(c,d)});
+-->
+</script>
+
+
+<script type="text/javascript" src="/web/20240927030403js_/https://journals.iucr.org/javascript/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="/web/20240927030403js_/https://journals.iucr.org/javascript/reference.js"></script>
+<script type="text/javascript" src="//web.archive.org/web/20240927030403js_/https://journals.iucr.org/javascript/subwindow.js"></script>
+<script type="text/javascript" src="/web/20240927030403js_/https://journals.iucr.org/javascript/contents.js"></script>
+
+<script type="text/javascript" src="/web/20240927030403js_/https://journals.iucr.org/javascript/menus.js"></script>
+
+
+
+
+
+
+
+
+<script type="text/javascript" charset="utf-8" src="//web.archive.org/web/20240927030403js_/https://publcif.iucr.org/widgets/flot/jquery.flot.js"></script><script type="text/javascript" charset="utf-8" src="//web.archive.org/web/20240927030403js_/https://publcif.iucr.org/orcid/js/citeplot.js?v=2024"></script>
+
+
+<!-- The 'IUCRSCR...' comment after this is important and must appear in EVERY page that includes page_javascript_tt.js -->
+<!-- IUCRSCRIPTEND --></body>
+
+<!-- Source TT template: "services/cif/checking/autolist.tt" -->
+</html><!--
+     FILE ARCHIVED ON 03:04:03 Sep 27, 2024 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 13:54:20 May 22, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 0.464
+  exclusion.robots: 0.038
+  exclusion.robots.policy: 0.029
+  esindex: 0.01
+  cdx.remote: 100.552
+  LoadShardBlock: 260.292 (3)
+  PetaboxLoader3.resolve: 775.306 (3)
+  PetaboxLoader3.datanode: 210.724 (4)
+  load_resource: 905.545
+-->

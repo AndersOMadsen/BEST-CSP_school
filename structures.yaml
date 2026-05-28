@@ -1,0 +1,162 @@
+# structures.yaml — per-structure configuration for run_ladder.py
+#
+# Each entry in `structures` defines one source structure.  Edit the `rungs`
+# list to tune the degradation ladder before running.
+#
+# Radiation guidance (from DEGRADATION_PROTOCOL.md):
+#   Mo Kα (~0.71 Å):  d_min typically 0.75–0.80 Å.  Full resolution ladder
+#                      available (d_min 1.0 and 1.2 Å are meaningful rungs).
+#   Cu Kα (~1.54 Å):  d_min typically 0.82–0.84 Å — barely past the Acta limit
+#                      (0.83 Å).  Resolution truncation is a weak lever; lean on
+#                      completeness, wedge, and weak-data rungs instead.
+#
+# Completeness thresholds: <95% → alert C, <90% → B, <85% → A.
+# Target completeness just inside the desired band and confirm from the report.
+#
+# shelx_name: the filename stem for .hkl/.ins/.res/.cif (usually "I", sometimes
+#             differs — check the structure directory).
+# published_cif: the deposited/published CIF in the structure directory.
+#                This is used ONLY as the source of header metadata; it is NOT
+#                submitted to checkCIF.  Keep the filename exact (case-sensitive).
+
+structures:
+
+  # ── Mo Kα ──────────────────────────────────────────────────────────────────
+
+  - id: ej2019
+    path: Good_Structures_and_data/ej2019
+    shelx_name: I
+    published_cif: ej2019.cif
+    radiation: Mo
+    wavelength: 0.71073
+    space_group: "C 2/c"
+    # a, b, c (Å), alpha, beta, gamma (°) — from CELL line in I.ins
+    cell: [15.3925, 23.1494, 15.9075, 90.0, 90.577, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_res_1p0",      op: truncate_resolution,        d_min: 1.0}
+      - {tag: "02_res_1p2",      op: truncate_resolution,        d_min: 1.2}
+      - {tag: "03_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "04_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "05_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      # Absorption: axis [0,1,1] breaks the monoclinic 2/m Laue symmetry so that
+      # Laue-equivalent observations get DIFFERENT transmission factors — this creates
+      # genuine internal inconsistency (Rint rises) and forces ADP distortion.
+      # mu_t is elevated for uranium (high intrinsic absorption at Mo Kα).
+      - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 2.0, axis: [0.0, 1.0, 1.0]}
+
+  - id: hb8120
+    path: Good_Structures_and_data/hb8120
+    shelx_name: I
+    published_cif: hb8210.cif   # note: deposited CIF uses "hb8210" spelling
+    radiation: Mo
+    wavelength: 0.71073
+    space_group: "P 21/n"
+    cell: [8.0892, 9.4942, 13.3505, 90.0, 102.606, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_res_1p0",      op: truncate_resolution,        d_min: 1.0}
+      - {tag: "02_res_1p2",      op: truncate_resolution,        d_min: 1.2}
+      - {tag: "03_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "04_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "05_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+
+  - id: wm5793
+    path: Good_Structures_and_data/wm5793
+    shelx_name: I
+    published_cif: wm5793.cif
+    radiation: Mo
+    wavelength: 0.71073
+    space_group: "P 21 21 21"
+    cell: [7.5173, 12.0316, 13.9292, 90.0, 90.0, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_res_1p0",      op: truncate_resolution,        d_min: 1.0}
+      - {tag: "02_res_1p2",      op: truncate_resolution,        d_min: 1.2}
+      - {tag: "03_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "04_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "05_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+
+  - id: yz2076
+    path: Good_Structures_and_data/yz2076
+    shelx_name: I
+    # Two published CIF files exist; use the journal supplementary one.
+    # If PLATON fires Type_1 alerts about the CIF header on the reference rung,
+    # try yz.cif instead.
+    published_cif: yz2076sup1.cif
+    radiation: Mo
+    wavelength: 0.71073
+    space_group: "P -1"
+    cell: [10.537407, 11.049349, 18.276849, 83.5414, 86.6369, 76.8708]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_res_1p0",      op: truncate_resolution,        d_min: 1.0}
+      - {tag: "02_res_1p2",      op: truncate_resolution,        d_min: 1.2}
+      - {tag: "03_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "04_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "05_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      # Absorption: axis [0,1,1] breaks monoclinic 2/m Laue symmetry.
+      - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+
+  # ── Cu Kα — no resolution-truncation rungs (little headroom past 0.83 Å) ──
+
+  - id: nu2017
+    path: Good_Structures_and_data/nu2017
+    shelx_name: I
+    published_cif: nu2017.cif
+    radiation: Cu
+    wavelength: 1.54184
+    space_group: "P 21/c"
+    cell: [6.9498, 12.3041, 17.4871, 90.0, 97.742, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "02_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "03_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+
+  - id: nx2034
+    path: Good_Structures_and_data/nx2034
+    shelx_name: h200           # NOTE: this structure uses h200.hkl/.ins, not I.*
+    published_cif: nx2034.cif
+    radiation: Cu
+    wavelength: 1.54178
+    space_group: "P 21/c"
+    cell: [15.0296, 3.7601, 21.6148, 90.0, 99.453, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "02_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "03_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+
+  - id: wm2328
+    path: Good_Structures_and_data/wm2328
+    shelx_name: I
+    published_cif: vm2328.cif  # note: deposited CIF uses "vm2328" spelling
+    radiation: Cu
+    wavelength: 1.54178
+    space_group: "P 21 21 21"
+    cell: [8.4412, 14.5051, 17.6477, 90.0, 90.0, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "02_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "03_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
