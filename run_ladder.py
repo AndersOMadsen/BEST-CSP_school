@@ -199,27 +199,38 @@ def step_generate(struct: dict, struct_dir: Path,
 # ── Step 2: SHELXL refinement + sanity gate ───────────────────────────────────
 
 def _check_shelxl_sanity(lst_path: Path, name: str) -> tuple[bool, str]:
-    """Parse SHELXL .lst; return (is_ok, warning_message_or_empty)."""
+    """Parse SHELXL .lst; return (is_ok, warning_message_or_empty).
+
+    CATASTROPHIC means the structure is no longer identifiable — atoms have
+    wandered to nonsensical positions.  A few NPD atoms is NOT catastrophic;
+    it is a valid teaching signal (e.g. poorly-determined ADPs from truncated
+    resolution or near-singular matrix in a wrong space group).
+
+    Catastrophic criteria:
+      1. R1 > 0.50  — refinement is effectively random noise
+      2. Max shift/esd > 10 after the final cycle — atoms still wandering
+      3. SHELXL explicitly reports non-convergence
+    """
     if not lst_path.exists():
         return True, ''
-    text = lst_path.read_text(errors='replace').upper()
-    # Non-positive-definite ADPs.
-    # SHELXL always prints "N atoms NPD" in its summary (N can be 0 = fine).
-    # Only flag when the explicit warning fires OR when N > 0 in that summary.
-    if 'NON-POSITIVE DEFINITE' in text:
-        return False, "non-positive-definite ADPs detected in .lst"
-    import re as _re2
-    m_npd = _re2.search(r'(\d+)\s+ATOMS\s+NPD', text)
-    if m_npd and int(m_npd.group(1)) > 0:
-        return False, f"{m_npd.group(1)} atom(s) with non-positive-definite ADPs"
-    # Diverged R-factor
     import re as _re
+    text = lst_path.read_text(errors='replace').upper()
+
+    # R1 > 0.50 → structure unrecognizable
     m = _re.search(r'R1\s*=\s*([\d.]+)\s+FOR', text)
     if m and float(m.group(1)) > 0.50:
-        return False, f"R1 = {float(m.group(1)):.3f} — refinement diverged (> 0.50)"
-    # SHELXL explicitly says not converged
-    if '** NOT CONVERGED **' in text or 'NOT CONVERGE' in text:
-        return False, "SHELXL reports refinement did not converge"
+        return False, f"R1 = {float(m.group(1)):.3f} — refinement diverged (atoms wandering)"
+
+    # Max shift/esd still large → atoms have not settled
+    m = _re.search(r'MAX\.\s+SHIFT/ESD\s*=\s*([\d.]+)', text)
+    if m and float(m.group(1)) > 10.0:
+        return False, (f"max shift/esd = {float(m.group(1)):.1f} "
+                       f"— atoms still wandering, did not converge")
+
+    # SHELXL explicit non-convergence flag
+    if '** NOT CONVERGED **' in text:
+        return False, "SHELXL reports the refinement did not converge"
+
     return True, ''
 
 
@@ -259,11 +270,15 @@ def step_refine(struct: dict, rung_dir: Path, dry_run: bool = False,
         (rung_dir / 'CATASTROPHIC.txt').write_text(
             "RUNG FLAGGED AS CATASTROPHIC BY SANITY GATE\n"
             f"reason: {warning}\n"
-            "The refinement did not converge to a meaningful result.\n"
-            "Do NOT use this rung for teaching until the issue is resolved.\n"
+            "Atoms have wandered to nonsensical positions — the structure is no\n"
+            "longer identifiable.  Do NOT use this rung for teaching.\n"
+            "Note: a few NPD atoms is NOT catastrophic; NPD is a legitimate\n"
+            "teaching signal (poorly-determined ADPs).\n"
             "Suggested actions:\n"
             "  MS rung: try a different origin shift, or a different structure.\n"
             "  WA rung: try a more conservative element swap (e.g. C↔N not O↔F).\n"
+            "  Data rung: report this as a pipeline bug — data rungs should not\n"
+            "             produce catastrophic failures.\n"
         )
         if is_model_rung:
             return False  # block further pipeline steps for model-error rungs
