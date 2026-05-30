@@ -1,0 +1,53 @@
+{
+  "_note": "INSTRUCTOR: verify these PLAT code ranges against checkcif_reference/checkcif_alerts.json before the course. The ranges are indicative — PLATON alert numbering is not perfectly sequential by family. Use the 'codes' match type for specific high-priority alerts you want to handle precisely.",
+  "default": "Look at the flagged value in the checkCIF output and ask whether it is chemically and physically reasonable. Consult the original paper for context.",
+  "rules": [
+    {
+      "match": "range",
+      "from": "PLAT001",
+      "to": "PLAT019",
+      "pointer": "Data completeness / resolution: check the reported completeness percentage and resolution limit (sinθ/λ) in the checkCIF output. Low completeness can introduce systematic errors in refined parameters. Is any missing data in a systematic region (e.g. a detector blind zone or deliberate cutoff)?"
+    },
+    {
+      "match": "range",
+      "from": "PLAT020",
+      "to": "PLAT029",
+      "pointer": "Missed symmetry (ADDSYM): PLATON detected a possible higher-symmetry space group. Look at the ADDSYM output in checkCIF — which symmetry element is suggested and with what tolerance? Then open the structure in Mercury and compare the molecular packing in the reported setting with what a higher-symmetry model would look like. Is the apparent symmetry real, or are there systematic deviations that rule it out?"
+    },
+    {
+      "match": "range",
+      "from": "PLAT030",
+      "to": "PLAT049",
+      "pointer": "Absolute structure (Flack / Hooft): this is NOT visible as a 3D geometric feature in Mercury. Look at the Flack x parameter and its standard uncertainty in the checkCIF output. A value near 0 supports the reported absolute configuration; near 1 suggests the hand may be inverted; intermediate values may indicate racemic twinning or poor anomalous signal. Check whether the compound has a known stereocentre whose configuration can be independently verified."
+    },
+    {
+      "match": "codes",
+      "codes": ["PLAT005", "PLAT006", "PLAT007"],
+      "pointer": "R-factor / data quality: NOT investigated in Mercury. Compare the R1, wR2, and GooF values reported in checkCIF with the values in the original paper. Also check the data-to-parameter ratio and the number of restraints. A high GooF or large disparity between R1 and wR2 can indicate an unresolved modelling problem."
+    },
+    {
+      "match": "range",
+      "from": "PLAT080",
+      "to": "PLAT099",
+      "pointer": "Hirshfeld rigid-bond test / residual electron density: these alerts are NOT investigated in Mercury. Look at the residual density peaks (largest positive and most negative) in the checkCIF output and, where available, in the structure-factor report. Note where the peaks are located — proximity to a bonded atom suggests a modelling error or missed split site; peaks near a void suggest possible missed solvent."
+    },
+    {
+      "match": "range",
+      "from": "PLAT200",
+      "to": "PLAT299",
+      "pointer": "Displacement parameters (ADPs): open the structure in Mercury, then Display → Ellipsoids and set probability to 50%. Look for non-positive-definite atoms (shown as spheres or negative eigenvalues in checkCIF), unusually elongated (cigar-shaped) ellipsoids, or implausibly large or small Ueq values compared with chemically similar atoms in the same structure."
+    },
+    {
+      "match": "range",
+      "from": "PLAT300",
+      "to": "PLAT499",
+      "pointer": "Molecular geometry (bond lengths and angles): measure the flagged bond or angle in Mercury (right-click on the bond or atom sequence → Measure distance / Measure angle). Compare with chemically expected values for this functional group — are the numbers reasonable for the stated atom types, or do they suggest a mis-assigned atom or a disorder that was not modelled?"
+    },
+    {
+      "match": "range",
+      "from": "PLAT500",
+      "to": "PLAT599",
+      "pointer": "Formula / atom count / hydrogen placement: check the molecular formula and atom count in the checkCIF output against the reported formula in the paper. Discrepancies in H-atom count are common when H atoms are added by riding model; discrepancies in non-H atoms are more serious and may indicate a missing or misassigned atom."
+    }
+  ]
+}

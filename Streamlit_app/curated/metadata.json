@@ -1,0 +1,44 @@
+[
+  {
+    "label": "placeholder-01",
+    "title": "Case 01",
+    "pathology_category": "Data quality (inflated R-factor)",
+    "teaching_note_file": "teaching_notes/placeholder-01.md",
+    "source_route": "synthetic-degraded",
+    "citation": "Placeholder — instructor replaces with real citation",
+    "doi": "10.0000/placeholder-01",
+    "deposited_id": "COD 0000001",
+    "cif_file": "cif/placeholder-01.cif",
+    "fcf_file": "fcf/placeholder-01.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [1, 2, 3, 4, 5, 6]
+  },
+  {
+    "label": "placeholder-02",
+    "title": "Case 02",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/placeholder-02.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": "Placeholder — instructor replaces with real citation",
+    "doi": "10.0000/placeholder-02",
+    "deposited_id": "COD 0000002",
+    "cif_file": "cif/placeholder-02.cif",
+    "fcf_file": null,
+    "sf_report_file": null,
+    "assigned_groups": [1]
+  },
+  {
+    "label": "placeholder-03",
+    "title": "Case 03",
+    "pathology_category": "Missed symmetry",
+    "teaching_note_file": "teaching_notes/placeholder-03.md",
+    "source_route": "SI",
+    "citation": "Placeholder — instructor replaces with real citation",
+    "doi": "10.0000/placeholder-03",
+    "deposited_id": "COD 0000003",
+    "cif_file": "cif/placeholder-03.cif",
+    "fcf_file": null,
+    "sf_report_file": null,
+    "assigned_groups": [2, 3]
+  }
+]

@@ -2,10 +2,14 @@ import streamlit as st
 import pandas as pd
 import requests
 import io
+import json
+import re
+import anthropic
 from pathlib import Path
 
 # Always resolve asset paths relative to this file, regardless of working directory
 ASSETS = Path(__file__).parent / "assets"
+CURATED = Path(__file__).parent / "curated"
 
 # ── Page configuration ─────────────────────────────────────────────────────────
 st.set_page_config(
@@ -79,6 +83,65 @@ RENAME = {
 
 # Columns shown in the results table (others kept for deep-dive but hidden)
 TABLE_COLS = ["COD ID", "Formula", "Space group", "Cell volume (Å³)", "Z", "Z′"]
+
+# ── checkCIF Tutor constants ───────────────────────────────────────────────────
+
+TUTOR_MODEL = "claude-opus-4-6"
+
+# PLAT numeric ranges for which the structure-factor report is relevant.
+# (residual density, R-factors/data quality, completeness/resolution, absolute structure)
+# Geometry and ADP alerts (200–499) are NOT in this list — Mercury, not SF report.
+_SF_RELEVANT_RANGES = [(1, 19), (30, 49), (80, 99)]
+
+TUTOR_SYSTEM_PROMPT = """\
+You are a teaching assistant in a one-day graduate crystallography course on
+structure validation. The students are PhD-level chemists and pharmacists who
+have just learned the basics of the X-ray experiment. They are using
+checkCIF/PLATON to validate published crystal structures, and they come to you
+when they don't understand an alert.
+
+Your job is to help them understand what an alert means — never to tell them
+whether a structure is good or bad. That judgement is the entire point of their
+exercise, and you must not do it for them.
+
+You will be given, for the alert(s) the student is asking about: the official
+checkCIF description, and an "evidence pointer" telling you where a student should
+look to investigate this kind of alert. Base your explanation on these. Do not
+invent the meaning of an alert code; if you have not been given a definition for
+it, say so.
+
+When a student asks about an alert:
+1. Translate the official description into plain language — what the test checks
+   for, and what real problem it's designed to catch. The official text is
+   written for experts; your job is to make it land for a curious newcomer.
+2. Note what the severity level (A/B/C) signifies in general terms.
+3. Point them toward the right evidence for this alert type, using the evidence
+   pointer. Be specific. Crucially: not every alert is investigated in a
+   structure viewer. Geometry and displacement-parameter alerts are seen in
+   Mercury; residual-density, data-quality, and absolute-structure alerts are
+   investigated in the checkCIF output and the structure-factor report, NOT in
+   Mercury. Send them to the place the evidence actually lives.
+4. End with one concrete question that pushes them to look at that evidence and
+   reason about it themselves.
+
+If the alert is one the structure-factor report speaks to (residual density,
+R-factors, completeness, resolution, merging statistics), and a report is
+available, you may draw on it. For alerts about molecular geometry or
+displacement parameters, ignore the structure-factor report — it is not relevant
+and would only distract.
+
+Hard rules:
+- Never state or imply whether the structure is trustworthy, correct,
+  publishable, or "bad." If asked directly, redirect: "That's exactly what you're
+  here to decide — what does the evidence tell you?"
+- Keep chemistry central: many alerts are raised by statistics but resolved by
+  chemical reasoning. Nudge toward "is this chemically sensible?"
+- Be brief. One short explanation plus one good question beats a wall of text.
+
+Your tone is that of a patient senior colleague who is delighted the student is
+curious, and who has complete confidence they can work it out themselves with the
+right nudge.\
+"""
 
 
 # ── Helper functions ───────────────────────────────────────────────────────────
@@ -228,6 +291,271 @@ def show_table(df: pd.DataFrame, sort_by: str, tab_id: str, ascending: bool = Fa
         """)
 
 
+# ── Curated-area helpers ───────────────────────────────────────────────────────
+
+@st.cache_data
+def load_curated_metadata():
+    """Return list of curated structure records, or None if metadata.json is absent."""
+    meta_path = CURATED / "metadata.json"
+    if not meta_path.exists():
+        return None
+    with open(meta_path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+@st.cache_data
+def load_evidence_pointers():
+    """Return evidence-pointer rules dict, or a minimal default if file is absent."""
+    ep_path = CURATED / "evidence_pointers.json"
+    if not ep_path.exists():
+        return {
+            "default": "Look at the relevant value in the checkCIF output and ask whether it is chemically/physically reasonable.",
+            "rules": [],
+        }
+    with open(ep_path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _get_secret(key: str, default=None):
+    """Return st.secrets[key] or default; never raises."""
+    try:
+        return st.secrets[key]
+    except Exception:
+        return default
+
+
+@st.cache_data
+def load_alert_index() -> dict:
+    """Load checkcif_alerts.json and return a dict keyed by alert code."""
+    json_path = Path(__file__).parent / "checkcif_reference" / "checkcif_alerts.json"
+    with open(json_path, encoding="utf-8") as f:
+        data = json.load(f)
+    return {a["code"]: a for a in data["alerts"]}
+
+
+def parse_alert_codes(text: str) -> list[dict]:
+    """
+    Extract {code, severity} pairs from pasted checkCIF text.
+
+    Handles four formats:
+      1. PLAT029_ALERT_1_C ...  (standard PLATON/IUCr underscore format, severity present)
+      2. PLAT029 ALERT 1 C ...  (space-separated variant, severity present)
+      3. PLAT029 ...            (bare code with PLAT prefix, no severity)
+      4. 029_ALERT_1_C ...      (code without PLAT prefix — some checkCIF variants)
+
+    Returns deduplicated list; first occurrence of each code wins for severity.
+    """
+    seen: dict[str, str | None] = {}
+
+    # Pattern 1 & 2: full PLAT+code+ALERT+severity  (underscore or space separated)
+    for m in re.finditer(
+        r"PLAT\s*(\d{3,4})\s*[_ ]\s*ALERT\s*[_ ]\s*\d+\s*[_ ]\s*([ABCG])\b",
+        text,
+        re.IGNORECASE,
+    ):
+        code = f"PLAT{m.group(1).zfill(3)}"
+        if code not in seen:
+            seen[code] = m.group(2).upper()
+
+    # Pattern 3: bare PLAT prefix only  — PLAT029 or PLAT 029
+    for m in re.finditer(r"PLAT\s*(\d{3,4})", text, re.IGNORECASE):
+        code = f"PLAT{m.group(1).zfill(3)}"
+        if code not in seen:
+            seen[code] = None
+
+    # Pattern 4: code without PLAT prefix but followed by ALERT keyword
+    # e.g. "029_ALERT_1_C" or "029 ALERT 1 C"  — seen in some checkCIF output variants
+    for m in re.finditer(
+        r"\b(\d{3,4})\s*[_ ]\s*ALERT\s*[_ ]\s*\d+\s*[_ ]\s*([ABCG])\b",
+        text,
+        re.IGNORECASE,
+    ):
+        code = f"PLAT{m.group(1).zfill(3)}"
+        if code not in seen:
+            seen[code] = m.group(2).upper()
+
+    return [{"code": code, "severity": sev} for code, sev in seen.items()]
+
+
+def lookup_evidence_pointer(code: str, ep_data: dict) -> str:
+    """Return the evidence-pointer string for a PLAT code using the rules in ep_data."""
+    num_match = re.search(r"\d+", code)
+    if not num_match:
+        return ep_data.get("default", "")
+    num = int(num_match.group())
+    for rule in ep_data.get("rules", []):
+        if rule["match"] == "codes" and code in rule["codes"]:
+            return rule["pointer"]
+        if rule["match"] == "range":
+            lo = int(re.search(r"\d+", rule["from"]).group())
+            hi = int(re.search(r"\d+", rule["to"]).group())
+            if lo <= num <= hi:
+                return rule["pointer"]
+    return ep_data.get("default", "Look at the relevant value in the checkCIF output.")
+
+
+def is_sf_report_relevant(code: str) -> bool:
+    """Return True if the SF report is relevant to investigating this PLAT code."""
+    num_match = re.search(r"\d+", code)
+    if not num_match:
+        return False
+    num = int(num_match.group())
+    return any(lo <= num <= hi for lo, hi in _SF_RELEVANT_RANGES)
+
+
+def _load_sf_report(record: dict) -> str | None:
+    """Return the text of the structure-factor report for a curated record, or None."""
+    sf_file = record.get("sf_report_file")
+    if not sf_file:
+        return None
+    path = CURATED / sf_file
+    if not path.exists():
+        return None
+    return path.read_text(encoding="utf-8")
+
+
+def render_tutor(context_label: str, structure_factor_report: str | None = None):
+    """
+    Render the checkCIF Tutor UI: text_area input, Explain/Clear buttons, chat history.
+    context_label distinguishes conversation histories across call sites.
+    structure_factor_report is passed to the model only for SF-relevant alert families.
+    """
+    hist_key = f"_tutor_hist_{context_label}"
+    if hist_key not in st.session_state:
+        st.session_state[hist_key] = []
+
+    # Display existing conversation turns
+    for msg in st.session_state[hist_key]:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["display"])
+
+    # Input widgets
+    pasted = st.text_area(
+        "Paste one or more checkCIF alert lines:",
+        height=130,
+        key=f"_tutor_input_{context_label}",
+        placeholder="e.g.  PLAT029_ALERT_1_C  or  Alert level A / PLAT213 ...",
+    )
+    col_explain, col_clear = st.columns([3, 1])
+    with col_explain:
+        explain = st.button("Explain this", key=f"_tutor_explain_{context_label}")
+    with col_clear:
+        if st.button("Clear conversation", key=f"_tutor_clear_{context_label}"):
+            st.session_state[hist_key] = []
+            st.rerun()
+
+    if not (explain and pasted.strip()):
+        return
+
+    # ── Parse + lookup ─────────────────────────────────────────────────────────
+    alerts = parse_alert_codes(pasted)
+    if not alerts:
+        st.warning(
+            "No PLAT alert codes found. The tutor looks for codes like **PLAT029** "
+            "or **PLAT029_ALERT_1_C** — paste the alert lines directly from the "
+            "checkCIF output page, not just the description text."
+        )
+        with st.expander("Show what was pasted (helps diagnose the format)"):
+            st.code(pasted, language=None)
+        return
+
+    alert_idx = load_alert_index()
+    ep_data = load_evidence_pointers()
+
+    context_lines: list[str] = []
+    sf_needed = False
+
+    for a in alerts:
+        code, severity = a["code"], a["severity"]
+        rec = alert_idx.get(code)
+        if rec:
+            sev_str = f"  Severity level: {severity}" if severity else "  Severity level: not specified in pasted text"
+            context_lines += [
+                f"Code: {code}",
+                sev_str,
+                f"  Official description: {rec['description']}",
+            ]
+        else:
+            context_lines.append(f"Code: {code} — definition not found in the reference database.")
+
+        pointer = lookup_evidence_pointer(code, ep_data)
+        context_lines.append(f"  Evidence pointer: {pointer}")
+        context_lines.append("")
+
+        if is_sf_report_relevant(code):
+            sf_needed = True
+
+    context_block = "\n".join(context_lines).strip()
+
+    # Build enriched API message (includes looked-up context; not shown in chat bubble)
+    enriched = (
+        "The student has pasted the following checkCIF alert text:\n\n"
+        "---\n"
+        f"{pasted}\n"
+        "---\n\n"
+        "Looked-up context for the extracted alert codes:\n\n"
+        f"{context_block}\n"
+    )
+    if sf_needed and structure_factor_report:
+        enriched += f"\nStructure-factor report (available for this structure):\n\n{structure_factor_report}\n"
+
+    # Add user turn to history and display it
+    st.session_state[hist_key].append({"role": "user", "display": pasted, "content": enriched})
+    with st.chat_message("user"):
+        st.markdown(pasted)
+
+    # ── API call ───────────────────────────────────────────────────────────────
+    try:
+        api_key = st.secrets["ANTHROPIC_API_KEY"]
+    except (KeyError, FileNotFoundError):
+        api_key = None
+
+    if not api_key:
+        st.error(
+            "Tutor unavailable: `ANTHROPIC_API_KEY` is not set in `.streamlit/secrets.toml`. "
+            "The COD search tabs and curated file downloads still work."
+        )
+        st.session_state[hist_key].pop()
+        return
+
+    api_messages = [{"role": m["role"], "content": m["content"]} for m in st.session_state[hist_key]]
+
+    try:
+        client = anthropic.Anthropic(api_key=api_key)
+        with st.chat_message("assistant"):
+            with client.messages.stream(
+                model=TUTOR_MODEL,
+                max_tokens=1024,
+                system=TUTOR_SYSTEM_PROMPT,
+                messages=api_messages,
+            ) as stream:
+                response_text = st.write_stream(stream.text_stream)
+
+        st.session_state[hist_key].append(
+            {"role": "assistant", "display": response_text, "content": response_text}
+        )
+    except Exception as exc:
+        st.error(
+            f"Tutor unavailable: {exc}. "
+            "The COD search tabs and curated file downloads still work."
+        )
+        st.session_state[hist_key].pop()
+
+
+# ── One-time session-state initialisation ─────────────────────────────────────
+if "reveal_unlocked" not in st.session_state:
+    st.session_state["reveal_unlocked"] = bool(_get_secret("REVEAL_ENABLED", False))
+if "selected_group" not in st.session_state:
+    st.session_state["selected_group"] = None
+if "instructor_view" not in st.session_state:
+    st.session_state["instructor_view"] = False
+if "_blind_mode_default" not in st.session_state:
+    # Read once at startup; never re-read from secrets during the session
+    st.session_state["_blind_mode_default"] = bool(_get_secret("BLIND_MODE_DEFAULT", True))
+if "blind_mode" not in st.session_state:
+    st.session_state["blind_mode"] = st.session_state["_blind_mode_default"]
+
+
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.image(str(ASSETS / "bestcsp-logo.png"), use_container_width=True)
@@ -243,6 +571,63 @@ It is a teaching aid — **not** a quality-ranking system.
 All conclusions require reading the original paper and checking the data.
         """
     )
+    # ── Course setup ──────────────────────────────────────────────────────────
+    st.markdown("---")
+    st.markdown("### Course setup")
+
+    # Group selector — always visible; controls which curated cases are shown
+    _group_choice = st.selectbox(
+        "Group",
+        options=["— Select your group —"] + [f"Group {i}" for i in range(1, 7)],
+        key="_sidebar_group",
+    )
+    st.session_state["selected_group"] = (
+        int(_group_choice.split()[-1])
+        if _group_choice.startswith("Group")
+        else None
+    )
+
+    # Reveal gate — passphrase input shown only while not yet unlocked
+    _reveal_passphrase = _get_secret("REVEAL_PASSPHRASE", "")
+    _passphrase_configured = bool(_reveal_passphrase)
+
+    if not st.session_state["reveal_unlocked"]:
+        if _passphrase_configured:
+            _entered = st.text_input(
+                "Instructor passphrase",
+                type="password",
+                key="_reveal_passphrase_input",
+                placeholder="Instructor passphrase",
+                label_visibility="collapsed",
+            )
+            if _entered and _entered == _reveal_passphrase:
+                st.session_state["reveal_unlocked"] = True
+                st.rerun()
+
+    # Instructor controls — visible only after passphrase is entered
+    if st.session_state["reveal_unlocked"]:
+        st.success("Instructor access active")
+        st.session_state["instructor_view"] = st.checkbox(
+            "Instructor view: show all groups",
+            key="_instructor_view_cb",
+        )
+        # In-session non-blind override (only offered when the deploy default is blind)
+        if st.session_state["_blind_mode_default"]:
+            _nonblind_override = st.checkbox(
+                "Show pathology category inline (this session)",
+                key="_nonblind_override_cb",
+            )
+        else:
+            _nonblind_override = False
+    else:
+        st.session_state["instructor_view"] = False
+        _nonblind_override = False
+
+    # Derive blind_mode for this render; stored so tab4 can read it
+    st.session_state["blind_mode"] = (
+        st.session_state["_blind_mode_default"] and not _nonblind_override
+    )
+
     st.markdown("---")
     st.markdown(
         "<p style='text-align:center; font-size:0.8rem; color:#555; margin-bottom:4px'>"
@@ -276,10 +661,12 @@ st.markdown(
     "crystallographic questions. Choose a search type, adjust the filters, and click **Search**."
 )
 
-tab1, tab2, tab3 = st.tabs([
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📦 Large unit cells",
     "🔢 High Z′ structures",
     "📐 Space group P -1",
+    "🎓 Curated structures",
+    "💬 checkCIF Tutor",
 ])
 
 
@@ -451,6 +838,196 @@ Space group P 1 (number 1, no symmetry at all) is different and extremely rare.
         if fobs3 and "flags" in df3.columns:
             df3 = df3[df3["flags"].str.contains("has Fobs", na=False)]
         show_table(df3, sort_by=sort3, tab_id="tab3", ascending=False)
+
+
+# ── Tab 4: Curated structures ──────────────────────────────────────────────────
+with tab4:
+    st.subheader("Curated teaching structures")
+    st.caption(
+        "These structures have been hand-picked for the course. "
+        "Download the files, run CheckCIF, and form your own judgement "
+        "before opening the teaching note."
+    )
+
+    curated_meta = load_curated_metadata()
+
+    if curated_meta is None:
+        st.info(
+            "No curated structures found. To add structures, create "
+            "`curated/metadata.json` in the app directory and populate it "
+            "with structure records — see the README for the schema."
+        )
+    else:
+        # Resolve group / instructor-view state (set by sidebar)
+        _sel_group = st.session_state["selected_group"]       # None or 1–6
+        _reveal_on = st.session_state["reveal_unlocked"]       # bool
+        _instr_view = st.session_state["instructor_view"] and _reveal_on  # defence-in-depth
+
+        # Filter visible cases
+        if _instr_view:
+            visible = curated_meta                             # all cases
+        elif _sel_group is not None:
+            visible = [
+                s for s in curated_meta
+                if _sel_group in s.get("assigned_groups", [])
+            ]
+        else:
+            visible = None                                     # prompt to select group
+
+        if visible is None:
+            st.info("Please select your group in the sidebar to see your cases.")
+        elif len(visible) == 0:
+            st.info(
+                f"No cases are currently assigned to Group {_sel_group}. "
+                "Ask the instructor."
+            )
+        else:
+            # Selectbox: show label only in instructor view
+            if _instr_view:
+                labels = [f"{s['label']} — {s['title']}" for s in visible]
+            else:
+                labels = [s["title"] for s in visible]
+            chosen_idx = st.selectbox(
+                "Select a structure",
+                range(len(labels)),
+                format_func=lambda i: labels[i],
+                key="curated_select",
+            )
+
+            st.markdown("---")
+            s = visible[chosen_idx]
+            _blind = st.session_state["blind_mode"]
+
+            # ── Title ──────────────────────────────────────────────────────────
+            st.markdown(
+                f"<h3 style='color:#253d8e; margin-bottom:4px'>{s['title']}</h3>",
+                unsafe_allow_html=True,
+            )
+            # Pathology category — inline only in non-blind mode
+            if not _blind:
+                st.markdown(f"**Pathology category:** {s['pathology_category']}")
+
+            # ── Download buttons + CheckCIF link ───────────────────────────────
+            col_cif, col_fcf, col_cc = st.columns(3)
+
+            cif_path = CURATED / s["cif_file"]
+            with col_cif:
+                if cif_path.exists():
+                    st.download_button(
+                        label="Download CIF" if not _instr_view else f"Download {s['label']}.cif",
+                        data=cif_path.read_bytes(),
+                        file_name=f"{s['label']}.cif",
+                        mime="text/plain",
+                        key=f"dl_cif_{s['label']}",
+                    )
+                else:
+                    st.caption(f"CIF file not found: {s['cif_file']}")
+
+            with col_fcf:
+                fcf_rel = s.get("fcf_file")
+                if fcf_rel:
+                    fcf_path = CURATED / fcf_rel
+                    if fcf_path.exists():
+                        st.download_button(
+                            label="Download FCF" if not _instr_view else f"Download {s['label']}.fcf",
+                            data=fcf_path.read_bytes(),
+                            file_name=f"{s['label']}.fcf",
+                            mime="text/plain",
+                            key=f"dl_fcf_{s['label']}",
+                        )
+                    else:
+                        st.caption(f"FCF listed but not found: {fcf_rel}")
+                else:
+                    st.caption("No structure factor file for this entry.")
+
+            with col_cc:
+                st.markdown("**Run CheckCIF**")
+                st.markdown("[Open CheckCIF (IUCr)](https://checkcif.iucr.org/)")
+                if s.get("fcf_file"):
+                    st.caption(
+                        "Upload **both** the .cif and .fcf files for a complete "
+                        "check including reflection-data statistics."
+                    )
+                else:
+                    st.caption(
+                        "Upload the .cif file only. Without structure factors, "
+                        "CheckCIF runs geometry checks but skips reflection-data alerts."
+                    )
+
+            # ── Tutor (unaffected by blind_mode or reveal state) ────────────────
+            st.markdown("---")
+            st.markdown("#### Ask the checkCIF Tutor about an alert")
+            render_tutor(
+                context_label=f"curated__{s['label']}",
+                structure_factor_report=_load_sf_report(s),
+            )
+
+            st.markdown("---")
+
+            # ── Hint expander — blind mode only ────────────────────────────────
+            if _blind:
+                with st.expander("Need a hint?"):
+                    st.markdown(f"**Pathology category:** {s['pathology_category']}")
+
+            # ── Teaching note expander ─────────────────────────────────────────
+            # Files under curated/teaching_notes/ are NEVER read when _reveal_on
+            # is False — no other code path touches them.
+            with st.expander("Open only after you've made your call"):
+                if _reveal_on:
+                    note_file = s.get("teaching_note_file")
+                    if note_file:
+                        note_path = CURATED / note_file
+                        if note_path.exists():
+                            st.markdown(note_path.read_text(encoding="utf-8"))
+                        else:
+                            st.warning(
+                                f"No teaching note found at `{note_file}`. "
+                                "Add the file or update `teaching_note_file` in metadata.json."
+                            )
+                    else:
+                        st.info("No teaching note file is specified for this structure.")
+                else:
+                    st.markdown(
+                        "*Teaching notes will be revealed during the group discussion.*"
+                    )
+
+            # ── Instructor badge bar — never shown to students ─────────────────
+            if _instr_view:
+                st.markdown("---")
+                groups = s.get("assigned_groups", [])
+                if groups:
+                    grp_badge = (
+                        "All groups"
+                        if len(groups) == 6
+                        else f"Groups {', '.join(str(g) for g in sorted(groups))}"
+                    )
+                else:
+                    grp_badge = "Unassigned (reserve)"
+                parts = [
+                    f"label: `{s['label']}`",
+                    f"source: {s.get('source_route', '—')}",
+                    f"groups: {grp_badge}",
+                ]
+                if s.get("citation"):
+                    parts.append(f"citation: {s['citation']}")
+                doi = s.get("doi")
+                if doi:
+                    parts.append(f"DOI: [link](https://doi.org/{doi})")
+                if s.get("deposited_id"):
+                    parts.append(f"deposited ID: {s['deposited_id']}")
+                st.caption("Instructor info — " + " · ".join(parts))
+
+
+# ── Tab 5: checkCIF Tutor (standalone) ────────────────────────────────────────
+with tab5:
+    st.subheader("checkCIF Tutor")
+    st.markdown(
+        "Paste one or more alert lines from your checkCIF report below. "
+        "The tutor will explain what each alert means and point you toward "
+        "the right evidence — it will not tell you whether the structure is "
+        "good or bad. That judgement is yours."
+    )
+    render_tutor(context_label="standalone")
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────

@@ -33,3 +33,17 @@ platon.pjn
 platon.sum
 platon.
 platon_pl.res
+
+# Papers directory — copyrighted PDFs, not for version control
+Papers/
+
+# Large logo pack (24 MB) — use BEST-CSP_logos/ instead
+COST_logo_newbranding_pack2021/
+
+# Working trash and session files
+trash/
+claude.resume
+
+# Pipeline — generated structure data (580 MB); track only source code
+Pipeline/Good_Structures_and_data/
+Pipeline/xylitol/

@@ -51,17 +51,17 @@ structures:
     # Note: uranium compound — complex structure, may produce catastrophic rung.
     # Try with hb8120 (simpler organic) first.
     ms_rung:
-      enabled: false
+      enabled: true
       drop_to_subgroup: "Cc"
       shift_to_origin: null
       note: "C2/c → Cc by removing inversion centre (LATT 7 → -7)"
     # WA: instructor must inspect the structure and choose a C↔N pair near the
     # uranium coordination sphere for maximum diagnostic impact.
     wa_rung:
-      enabled: false
+      enabled: true
       swaps:
-        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
-      note: "C↔N swap — fill in atom label after inspecting the structure"
+        - {atom: "O3", from_element: "O", to_element: "S"}
+      note: "O↔S swap — fill in atom label after inspecting the structure"
 
   - id: hb8120
     path: Good_Structures_and_data/hb8120
@@ -84,15 +84,15 @@ structures:
     # ── Model-error rungs ──────────────────────────────────────────────────────
     # MS: P21/n → P21  (recommended: hb8120 is a clean organic, good first test)
     ms_rung:
-      enabled: false
+      enabled: true
       drop_to_subgroup: "P21"
       shift_to_origin: null
       note: "P21/n → P21 by removing inversion centre (LATT 1 → -1)"
     wa_rung:
-      enabled: false
+      enabled: true
       swaps:
-        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
-      note: "C↔N swap — fill in atom label after inspecting the structure"
+        - {atom: "C1", from_element: "C", to_element: "N"}
+      note: "C→N swap at N: N has larger scattering factor, causing unrealistically large ADP"
 
   - id: wm5793
     path: Good_Structures_and_data/wm5793
@@ -121,10 +121,10 @@ structures:
       drop_to_subgroup: "NOT_APPLICABLE"
       note: "P212121 is non-centrosymmetric — MS rung not supported by this generator"
     wa_rung:
-      enabled: false
+      enabled: true
       swaps:
-        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
-      note: "C↔N swap — fill in atom label after inspecting the structure"
+        - {atom: "O1", from_element: "O", to_element: "S"}
+      note: "O↔S swap — fill in atom label after inspecting the structure"
 
   - id: yz2076
     path: Good_Structures_and_data/yz2076
@@ -162,6 +162,84 @@ structures:
       swaps:
         - {atom: "FILL_IN", from_element: "C", to_element: "N"}
       note: "C↔N swap — fill in atom label after inspecting the structure"
+
+  - id: nx2032
+    path: Good_Structures_and_data/nx2032
+    shelx_name: I
+    published_cif: nx2032.cif
+    radiation: Mo
+    wavelength: 0.71073
+    space_group: "P -4 21 c"
+    # a, b, c (Å), alpha, beta, gamma (°) — from CELL line in I.ins
+    cell: [15.2984, 15.2984, 17.8818, 90.0, 90.0, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_res_1p0",      op: truncate_resolution,        d_min: 1.0}
+      - {tag: "02_res_1p2",      op: truncate_resolution,        d_min: 1.2}
+      - {tag: "03_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "04_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "05_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      # Bromine gives elevated absorption at Mo Kα — mu_t raised to 1.2.
+      - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 1.2, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # MS: P-4 2(1)c is already non-centrosymmetric (LATT -1) — inversion removal
+    # not applicable.
+    ms_rung:
+      enabled: false
+      drop_to_subgroup: "NOT_APPLICABLE"
+      note: "P -4 21 c is non-centrosymmetric — MS rung not supported by this generator"
+    wa_rung:
+      enabled: true
+      swaps:
+        - {atom: "Br1", from_element: "Br", to_element: "Cl"}
+      note: "Br present — a Br↔Cl swap gives a strong ADP anomaly; C↔N also viable. Fill in atom label after inspecting."
+
+  - id: jp2026
+    path: Good_Structures_and_data/jp2026
+    shelx_name: I
+    published_cif: jp2026.cif
+    radiation: Mo
+    wavelength: 0.71073
+    space_group: "P b c a"
+    # a, b, c (Å), alpha, beta, gamma (°) — from CELL line in I.ins
+    cell: [7.079, 9.9029, 33.0489, 90.0, 90.0, 90.0]
+    rungs:
+      - {tag: "00_reference",    op: reference}
+      - {tag: "01_res_1p0",      op: truncate_resolution,        d_min: 1.0}
+      - {tag: "02_res_1p2",      op: truncate_resolution,        d_min: 1.2}
+      - {tag: "03_complete_88",  op: reduce_completeness_unique, fraction_remove: 0.12, seed: 1}
+      - {tag: "04_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
+      - {tag: "05_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
+      - {tag: "06_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
+      - {tag: "07_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "08_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
+    # ── Model-error rungs ──────────────────────────────────────────────────────
+    # MS: Pbca (centrosymmetric, LATT 1) → Pca2(1) by removing inversion centre.
+    ms_rung:
+      enabled: true
+      drop_to_subgroup: "Pca2(1)"
+      shift_to_origin: null
+      note: "Pbca → Pca2(1) by removing inversion centre (LATT 1 → -1)"
+    wa_rung:
+      enabled: true
+      swaps:
+        - {atom: "S1", from_element: "S", to_element: "O"}
+      note: "S→O swap at S1: O has smaller scattering factor, causing unrealistically small ADP"
+    # MA: jp2026 is a monohydrate — O1/H1A/H1B are the water molecule.
+    # The water H atoms are free-standing (not in AFIX blocks) so no AFIX
+    # cleanup is needed.  UNIT: O 8→0, H 136→120.
+    # Formula/density in the assembled CIF are preserved from the published
+    # CIF (including water) — the mismatch is an intended diagnostic.
+    ma_rung:
+      enabled: true
+      delete_atoms:
+        - "O1"
+        - "H1A"
+        - "H1B"
+      preserve_formula_fields: true
+      note: "Hydrate water (O1, H1A, H1B) deleted from model; data and chemical formula unchanged"
 
   # ── Cu Kα — no resolution-truncation rungs (little headroom past 0.83 Å) ──
 

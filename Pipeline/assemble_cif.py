@@ -29,6 +29,16 @@ _SHELXL_OWNED_PREFIXES: tuple[str, ...] = (
     '_shelx_res_file',               # embedded SHELXL .res (the model — keep as-is)
     '_shelx_hkl_file',               # embedded SHELXL .hkl (the data — keep as-is)
     '_iucr_refine',                  # IUCr refinement-specific extension tags
+    '_chemical_formula',             # sum formula, moiety, weight — SHELXL recalculates
+                                     # from UNIT/SFAC; for model-error rungs (WA, MS)
+                                     # the published formula is wrong and must not
+                                     # overwrite the SHELXL-computed value
+    '_exptl_crystal_f_000',          # F000 depends on formula; SHELXL recomputes it
+    '_exptl_crystal_density_diffrn', # calculated density = f(MW, Z, V); SHELXL
+                                     # recomputes from modified formula — published
+                                     # value reflects the original composition
+    '_exptl_absorpt_coefficient_mu', # µ depends on elemental composition; changes
+                                     # when atom type is swapped (e.g. O→S, C→N)
 )
 
 
@@ -37,7 +47,8 @@ def _shelxl_owns(tag: str) -> bool:
     return any(tl.startswith(p) for p in _SHELXL_OWNED_PREFIXES)
 
 
-def merge_cif(published_cif: Path, shelxl_cif: Path, output_cif: Path) -> None:
+def merge_cif(published_cif: Path, shelxl_cif: Path, output_cif: Path,
+              published_wins: tuple[str, ...] = ()) -> None:
     """
     Build a PLATON-ready CIF by overlaying published header metadata on top of
     SHELXL refinement output.
@@ -50,6 +61,12 @@ def merge_cif(published_cif: Path, shelxl_cif: Path, output_cif: Path) -> None:
       - Loops are not copied from the published CIF (they are large and belong
         to the refinement result in the SHELXL block).
       - The embedded _shelx_res_file and _shelx_hkl_file are always preserved.
+
+    published_wins: tag prefixes that are forced to come from the published CIF
+      even if they appear in _SHELXL_OWNED_PREFIXES.  Use this for the MA rung
+      where the formula/density must carry the published (water-including) values:
+        published_wins=('_chemical_formula', '_exptl_crystal_density_diffrn',
+                        '_exptl_crystal_f_000', '_exptl_absorpt_coefficient_mu')
 
     Writes the merged document to output_cif (may be the same path as shelxl_cif).
     """
@@ -73,7 +90,8 @@ def merge_cif(published_cif: Path, shelxl_cif: Path, output_cif: Path) -> None:
         if pair is None:
             continue  # skip loops
         tag, value = pair[0], pair[1]
-        if _shelxl_owns(tag):
+        tl = tag.lower()
+        if _shelxl_owns(tag) and not any(tl.startswith(p) for p in published_wins):
             continue  # SHELXL's own result — do not overwrite
         shelx_block.set_pair(tag, value)
 

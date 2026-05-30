@@ -48,12 +48,29 @@ from assemble_cif import merge_cif
 from parse_platon import parse_chk, parse_ckf
 from generate_ms_rung import generate_ms_rung
 from generate_wa_rung import generate_wa_rung
+from generate_ma_rung import generate_ma_rung
 
 # ── tool paths ────────────────────────────────────────────────────────────────
 SHELXL = '/usr/local/bin/shelxl'
 PLATON = '/usr/local/bin/platon'
 
 ALL_STEPS = ('generate', 'refine', 'assemble', 'validate', 'summarize')
+
+_LS_CYCLES   = 50   # refinement cycles for all rungs
+_WGHT_CYCLES = 3    # total SHELXL runs per rung (initial + WGHT-update iterations)
+
+
+def _patch_ls_cycles(ins_text: str) -> str:
+    """Replace L.S. / CGLS cycle count in a SHELXL .ins text."""
+    lines = ins_text.splitlines(keepends=True)
+    out = []
+    for line in lines:
+        parts = line.split()
+        if parts and parts[0].upper() in ('L.S.', 'CGLS'):
+            out.append(f'L.S. {_LS_CYCLES}\n')
+        else:
+            out.append(line)
+    return ''.join(out)
 
 
 # ── rung dispatch ─────────────────────────────────────────────────────────────
@@ -148,7 +165,7 @@ def step_generate(struct: dict, struct_dir: Path,
 
         rung_dir.mkdir(parents=True, exist_ok=True)
         dd.write_hklf4(rung_dir / f"{name}.hkl", data)
-        (rung_dir / f"{name}.ins").write_text(ins_text)
+        (rung_dir / f"{name}.ins").write_text(_patch_ls_cycles(ins_text))
         (rung_dir / 'DEGRADATION.txt').write_text(
             "TEACHING ARTEFACT — DELIBERATELY DEGRADED DATA\n"
             f"source:    {name}   (structure id: {struct['id']})\n"
@@ -193,10 +210,74 @@ def step_generate(struct: dict, struct_dir: Path,
             print(f"          {desc}")
         rung_dirs.append(rung_dir)
 
+    ma_cfg = struct.get('ma_rung', {})
+    if ma_cfg.get('enabled'):
+        tag         = 'ma'
+        rung_dir    = ladder_root / f"rung_{tag}"
+        del_atoms   = ma_cfg.get('delete_atoms', [])
+        print(f"    [ma]  missing-atoms rung — delete: {del_atoms}")
+        if not dry_run:
+            desc = generate_ma_rung(ins_path, hkl_path, rung_dir,
+                                    name, del_atoms, struct['id'])
+            print(f"          {desc}")
+        rung_dirs.append(rung_dir)
+
     return rung_dirs
 
 
 # ── Step 2: SHELXL refinement + sanity gate ───────────────────────────────────
+
+def _read_suggested_wght(res_path: Path) -> list[float] | None:
+    """Return the WGHT parameters SHELXL suggests after the END line in .res.
+
+    SHELXL appends its recommended weighting scheme below the END instruction
+    once per refinement run.  Copying it back to the WGHT line in .ins and
+    re-refining brings the GooF closer to 1 without manual intervention.
+    """
+    past_end = False
+    for line in res_path.read_text(errors='replace').splitlines():
+        parts = line.split()
+        if not parts:
+            continue
+        if parts[0].upper() == 'END':
+            past_end = True
+        elif past_end and parts[0].upper() == 'WGHT':
+            try:
+                return [float(p) for p in parts[1:]]
+            except ValueError:
+                return None
+    return None
+
+
+def _update_ins_wght(ins_path: Path, new_params: list[float]) -> bool:
+    """Replace the WGHT line in .ins with new_params.
+
+    Returns True if any parameter changed by more than 1e-4 (i.e. another
+    SHELXL run is warranted); False if already converged.
+    """
+    lines   = ins_path.read_text().splitlines(keepends=True)
+    out     = []
+    changed = False
+    for line in lines:
+        parts = line.split()
+        if parts and parts[0].upper() == 'WGHT':
+            try:
+                old = [float(p) for p in parts[1:]]
+            except ValueError:
+                old = []
+            if (len(old) != len(new_params)
+                    or any(abs(a - b) > 1e-4 for a, b in zip(old, new_params))):
+                out.append('WGHT    ' +
+                            '    '.join(f'{p:.6f}' for p in new_params) + '\n')
+                changed = True
+            else:
+                out.append(line)
+        else:
+            out.append(line)
+    if changed:
+        ins_path.write_text(''.join(out))
+    return changed
+
 
 def _check_shelxl_sanity(lst_path: Path, name: str) -> tuple[bool, str]:
     """Parse SHELXL .lst; return (is_ok, warning_message_or_empty).
@@ -241,20 +322,33 @@ def step_refine(struct: dict, rung_dir: Path, dry_run: bool = False,
     For model-error rungs (is_model_rung=True) the sanity gate is applied
     and a CATASTROPHIC.txt stamp is written if the refinement is broken.
     """
-    name = struct['shelx_name']
-    cmd  = [SHELXL, name]
+    name     = struct['shelx_name']
+    cmd      = [SHELXL, name]
+    ins_path = rung_dir / f"{name}.ins"
+    res_path = rung_dir / f"{name}.res"
+
     if dry_run:
         print(f"    DRY-RUN: (cd {rung_dir.name} && {' '.join(cmd)})")
         return True
 
-    result = subprocess.run(cmd, cwd=rung_dir,
-                            capture_output=True, text=True, timeout=600)
-    res_path = rung_dir / f"{name}.res"
-    if not res_path.exists():
-        print(f"    ERROR: SHELXL produced no .res for {rung_dir.name}")
-        if result.stdout:
-            print(result.stdout[-2000:])
-        return False
+    for cycle in range(_WGHT_CYCLES):
+        result = subprocess.run(cmd, cwd=rung_dir,
+                                capture_output=True, text=True, timeout=600)
+        if not res_path.exists():
+            print(f"    ERROR: SHELXL produced no .res for {rung_dir.name}")
+            if result.stdout:
+                print(result.stdout[-2000:])
+            return False
+
+        # Update WGHT from the suggestion in .res and re-run, unless this is
+        # the final allowed cycle or the weighting has already converged.
+        if cycle < _WGHT_CYCLES - 1:
+            suggested = _read_suggested_wght(res_path)
+            if suggested is not None and _update_ins_wght(ins_path, suggested):
+                print(f"      WGHT updated — re-running SHELXL "
+                      f"(WGHT cycle {cycle + 1}/{_WGHT_CYCLES - 1})")
+                continue
+        break   # WGHT converged or max cycles reached
 
     # Sanity gate for model-error rungs (and optionally for all)
     lst_path = rung_dir / f"{name}.lst"
@@ -283,6 +377,12 @@ def step_refine(struct: dict, rung_dir: Path, dry_run: bool = False,
         if is_model_rung:
             return False  # block further pipeline steps for model-error rungs
 
+    # Successful run — remove any stale CATASTROPHIC.txt from a previous attempt
+    stale = rung_dir / 'CATASTROPHIC.txt'
+    if stale.exists():
+        stale.unlink()
+        print(f"    (removed stale CATASTROPHIC.txt from previous run)")
+
     return True
 
 
@@ -306,7 +406,20 @@ def step_assemble(struct: dict, rung_dir: Path,
         print(f"    DRY-RUN: merge_cif({pub_cif.name}, {shelxl_cif.name})")
         return True
 
-    merge_cif(pub_cif, shelxl_cif, shelxl_cif)
+    # MA rung: formula/density must carry published (water-including) values —
+    # the mismatch with the modelled atoms is an intended diagnostic.
+    tag = rung_dir.name.removeprefix('rung_')
+    if tag == 'ma' and struct.get('ma_rung', {}).get('preserve_formula_fields'):
+        published_wins: tuple[str, ...] = (
+            '_chemical_formula',
+            '_exptl_crystal_density_diffrn',
+            '_exptl_crystal_f_000',
+            '_exptl_absorpt_coefficient_mu',
+        )
+    else:
+        published_wins = ()
+
+    merge_cif(pub_cif, shelxl_cif, shelxl_cif, published_wins=published_wins)
     return True
 
 
@@ -626,7 +739,7 @@ def main() -> None:
 
         for rung_dir in rung_dirs:
             tag            = rung_dir.name.removeprefix('rung_')
-            is_model_rung  = tag in ('ms', 'wa')
+            is_model_rung  = tag in ('ms', 'wa', 'ma')
             print(f"\n  Rung: {tag}"
                   + ("  [MODEL-ERROR RUNG]" if is_model_rung else ""))
 

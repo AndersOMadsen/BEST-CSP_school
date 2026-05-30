@@ -32,7 +32,10 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from generate_wa_rung import _join_continuations, _is_atom_line, _KEYWORDS
+from generate_wa_rung import (
+    _group_physical_lines, _join_continuations, _is_atom_line, _KEYWORDS,
+    _shelxl_wrap,
+)
 
 
 _SPECIAL_POSITION_THRESHOLD = 0.05  # fractional units; below = inversion centre
@@ -47,6 +50,48 @@ def _frac_dist(a: float, b: float) -> float:
     """Minimum fractional distance along one axis (periodic)."""
     d = abs(a - b) % 1.0
     return min(d, 1.0 - d)
+
+
+def _fix_sof_to_full(sof_str: str) -> str:
+    """Set occupancy to 1.0 for an atom moving off a special position.
+
+    SHELXL SOF encoding: stored_value = (FVAR_index × 10) + occupancy.
+    E.g. "10.50000" → FVAR 1, occ 0.5.  We replace the occupancy with 1.0
+    while keeping the FVAR linkage: → "11.00000".
+    """
+    try:
+        stored = float(sof_str)
+        sign = -1 if stored < 0 else 1
+        fvar_index = int(abs(stored) / 10)
+        return f"{sign * (fvar_index * 10 + 1.0):.5f}"
+    except ValueError:
+        return '11.00000'
+
+
+def _format_inv_atom(
+    label: str,
+    sfac_idx: str,
+    ix: float, iy: float, iz: float,
+    sof: str,
+    u_params: list[str],
+) -> str:
+    """Format an inverted-atom line in SHELXL-compatible style.
+
+    Anisotropic atoms (6 Uij): split after u22 with '=' continuation,
+    continuation line starts with a space (SHELXL requirement).
+    Isotropic atoms: single line.
+    """
+    first = (f"{label:<4}  {sfac_idx}"
+             f"  {ix:.6f}  {iy:.6f}  {iz:.6f}"
+             f"  {sof}")
+    if len(u_params) >= 6:
+        # u11 u22 on line 1; u33 u23 u13 u12 on continuation
+        first += f"  {u_params[0]}  {u_params[1]} ="
+        cont = " " + "  ".join(u_params[2:])
+        return first + "\n" + cont
+    elif u_params:
+        return first + "  " + "  ".join(u_params)
+    return first
 
 
 def generate_ms_rung(
@@ -76,13 +121,13 @@ def generate_ms_rung(
     shift = list(shift_origin) if shift_origin else [0.0, 0.0, 0.0]
 
     raw     = ins_path.read_text().splitlines()
-    logical = _join_continuations(raw)
+    groups  = _group_physical_lines(raw)
+    logical = [g[0] for g in groups]   # for the first pass only
 
     # ── First pass: collect SFAC, LATT, ZERR ─────────────────────────────────
     sfac_elements: list[str] = []
     orig_latt: int | None = None
     z_val: float = 0.0
-    unit_counts: list[float] = []
 
     for line in logical:
         parts = line.split()
@@ -98,11 +143,6 @@ def generate_ms_rung(
                 z_val = float(parts[1])
             except ValueError:
                 pass
-        elif kw == 'UNIT' and len(parts) >= 2:
-            try:
-                unit_counts = [float(p) for p in parts[1:]]
-            except ValueError:
-                pass
 
     if orig_latt is None:
         raise ValueError(f"No LATT line found in {ins_path}")
@@ -112,9 +152,9 @@ def generate_ms_rung(
             f"MS rung (inversion removal) requires a centrosymmetric starting group.")
 
     new_latt = -orig_latt
+    n_sfac = len(sfac_elements)
 
     # ── Collect atom definitions ──────────────────────────────────────────────
-    n_sfac = len(sfac_elements)
     orig_atoms: list[tuple[str, list[str]]] = []  # (label, parts)
     for line in logical:
         parts = line.split()
@@ -160,40 +200,41 @@ def generate_ms_rung(
         sof       = parts[5] if len(parts) > 5 else '11.00000'
         u_params  = parts[6:] if len(parts) > 6 else ['0.05000']
 
-        inv_line = (
-            f"{new_label:<5s} {sfac_idx}"
-            f"  {ix:10.6f}{iy:10.6f}{iz:10.6f}"
-            f"  {sof}"
-            + ('  ' + '  '.join(u_params) if u_params else '')
-        )
-        inverted.append(inv_line)
+        inverted.append(_format_inv_atom(new_label, sfac_idx, ix, iy, iz, sof, u_params))
 
-    # ── Second pass: rewrite .ins ─────────────────────────────────────────────
-    out_lines: list[str] = []
-    for line in logical:
+    special_position_labels: set[str] = set(skipped_special)
+
+    # ── Second pass: rewrite .ins, preserving original physical lines ─────────
+    out_parts: list[str] = []
+
+    for line, phys in groups:
         parts = line.split()
         if not parts:
-            out_lines.append(line)
+            out_parts.append('\n'.join(phys))
             continue
         kw = parts[0].upper()
 
+        if kw in ('L.S.', 'CGLS'):
+            out_parts.append('L.S. 50')
+            continue
+
         if kw == 'TITL':
-            out_lines.append(
+            out_parts.append(
                 f"TITL {name} in {drop_to_subgroup} "
                 f"(TEACHING ARTEFACT — wrong space group from {struct_id})")
             continue
 
         if kw == 'LATT' and len(parts) >= 2:
-            out_lines.append(f"LATT  {new_latt}")
+            out_parts.append(f"LATT  {new_latt}")
             continue
 
         if kw == 'ZERR' and len(parts) >= 2:
             rest = '  '.join(parts[2:])
             try:
                 z_new = float(parts[1]) * 2.0
-                out_lines.append(f"ZERR  {z_new:.2f}  {rest}")
+                out_parts.append(f"ZERR  {z_new:.2f}  {rest}")
             except ValueError:
-                out_lines.append(line)
+                out_parts.append('\n'.join(phys))
             continue
 
         if kw == 'UNIT' and len(parts) >= 2:
@@ -202,22 +243,36 @@ def generate_ms_rung(
                 doubled = '  '.join(
                     str(int(c * 2)) if (c * 2) == int(c * 2)
                     else f"{c * 2:.4f}" for c in counts)
-                out_lines.append(f"UNIT  {doubled}")
+                out_parts.append(f"UNIT  {doubled}")
             except ValueError:
-                out_lines.append(line)
+                out_parts.append('\n'.join(phys))
             continue
 
-        if kw == 'END':
-            # Insert inverted atoms immediately before END
+        if kw == 'HKLF':
+            # Inverted atoms must come BEFORE HKLF — SHELXL stops reading atoms here
             for inv in inverted:
-                out_lines.append(inv)
-            out_lines.append(line)
+                out_parts.append(inv)
+            out_parts.append('\n'.join(phys))
             continue
 
-        out_lines.append(line)
+        # Atoms on inversion centres: the centre is gone in the subgroup,
+        # so occupancy must be corrected to 1.0 (was 0.5 for a 2-fold site).
+        if (_is_atom_line(parts, n_sfac)
+                and parts[0] in special_position_labels
+                and len(parts) >= 6):
+            corrected_sof = _fix_sof_to_full(parts[5])
+            u_params = parts[6:]
+            out_parts.append(_format_inv_atom(
+                parts[0], parts[1],
+                float(parts[2]), float(parts[3]), float(parts[4]),
+                corrected_sof, u_params))
+            continue
+
+        # Unmodified group — write original physical lines verbatim
+        out_parts.append('\n'.join(phys))
 
     # ── Write outputs ─────────────────────────────────────────────────────────
-    (output_dir / f"{name}.ins").write_text('\n'.join(out_lines) + '\n')
+    (output_dir / f"{name}.ins").write_text('\n'.join(out_parts) + '\n')
     shutil.copy2(hkl_path, output_dir / f"{name}.hkl")
 
     desc = (
