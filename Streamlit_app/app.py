@@ -13,7 +13,7 @@ CURATED = Path(__file__).parent / "curated"
 
 # ── Page configuration ─────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="COD Structure Explorer · BEST-CSP",
+    page_title="Structure Validation Explorer · BEST-CSP",
     page_icon=str(ASSETS / "bestcsp-icon.png"),
     layout="wide",
     initial_sidebar_state="expanded",
@@ -563,12 +563,13 @@ with st.sidebar:
     st.markdown("### About this tool")
     st.markdown(
         """
-This app queries the
-[Crystallography Open Database (COD)](https://www.crystallography.net/cod/)
-and surfaces structures that may reward closer inspection.
+This toolkit supports a one-day course on crystal structure validation.
+It has three parts: a **COD search** for finding interesting structures,
+a **curated set** of hand-picked cases with hidden teaching notes, and a
+**checkCIF Tutor** that explains alerts without giving away the answer.
 
 It is a teaching aid — **not** a quality-ranking system.
-All conclusions require reading the original paper and checking the data.
+All conclusions require your own reading of the data.
         """
     )
     # ── Course setup ──────────────────────────────────────────────────────────
@@ -649,24 +650,26 @@ with col_logo:
     st.image(str(ASSETS / "bestcsp-icon.png"), width=80)
 with col_title:
     st.markdown(
-        "<h1 style='color:#253d8e; margin-bottom:0'>COD Crystal Structure Explorer</h1>"
+        "<h1 style='color:#253d8e; margin-bottom:0'>Crystal Structure Validation Explorer</h1>"
         "<p style='color:#b0afd2; font-size:1rem; margin-top:2px; font-weight:600'>"
         "BEST-CSP · COST Action CA22107</p>",
         unsafe_allow_html=True,
     )
 
 st.markdown(
-    "Find crystal structures from the **Crystallography Open Database** that are worth "
-    "a second look — not because they are wrong, but because they raise interesting "
-    "crystallographic questions. Choose a search type, adjust the filters, and click **Search**."
+    "A teaching toolkit for the BEST-CSP graduate crystallography course. "
+    "Search the **Crystallography Open Database** for structures worth a closer look, "
+    "work through **curated cases** with known pathologies, or ask the **checkCIF Tutor** "
+    "when you don't understand an alert. "
+    "The goal is to develop judgement — tools here scaffold it, they don't substitute for it."
 )
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab4, tab5, tab1, tab2, tab3 = st.tabs([
+    "🎓 Curated structures",
+    "💬 checkCIF Tutor",
     "📦 Large unit cells",
     "🔢 High Z′ structures",
     "📐 Space group P -1",
-    "🎓 Curated structures",
-    "💬 checkCIF Tutor",
 ])
 
 
