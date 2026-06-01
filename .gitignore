@@ -44,6 +44,10 @@ COST_logo_newbranding_pack2021/
 trash/
 claude.resume
 
+# Loose working files in the root
+/*.cif
+/reciprocal_space*
+
 # Pipeline — generated structure data (580 MB); track only source code
 Pipeline/Good_Structures_and_data/
 Pipeline/xylitol/
