@@ -51,7 +51,7 @@ structures:
     # Note: uranium compound — complex structure, may produce catastrophic rung.
     # Try with hb8120 (simpler organic) first.
     ms_rung:
-      enabled: true
+      enabled: false  # crazy many errors.
       drop_to_subgroup: "Cc"
       shift_to_origin: null
       note: "C2/c → Cc by removing inversion centre (LATT 7 → -7)"
@@ -60,7 +60,7 @@ structures:
     wa_rung:
       enabled: true
       swaps:
-        - {atom: "O3", from_element: "O", to_element: "S"}
+        - {atom: "O3", from_element: "O", to_element: "Se"}
       note: "O↔S swap — fill in atom label after inspecting the structure"
 
   - id: hb8120
@@ -153,15 +153,23 @@ structures:
     # Recommended as the first MS rung to test: the normal matrix singularity
     # is usually manageable for triclinic structures.
     ms_rung:
-      enabled: false
+      enabled: true
       drop_to_subgroup: "P1"
       shift_to_origin: null
       note: "P-1 → P1 by removing inversion centre (LATT 1 → -1)"
     wa_rung:
-      enabled: false
+      enabled: true
       swaps:
-        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+        - {atom: "Cl1", from_element: "Cl", to_element: "F"}
       note: "C↔N swap — fill in atom label after inspecting the structure"
+    ma_rung:
+      enabled: true
+      delete_atoms:
+        - "O98"
+      preserve_formula_fields: false
+      note: "One oxygen deleted - should give a large peak in the diff density"
+
+
 
   - id: nx2032
     path: Good_Structures_and_data/nx2032
@@ -193,8 +201,14 @@ structures:
     wa_rung:
       enabled: true
       swaps:
-        - {atom: "Br1", from_element: "Br", to_element: "Cl"}
+        - {atom: "O3", from_element: "O", to_element: "Se"}
       note: "Br present — a Br↔Cl swap gives a strong ADP anomaly; C↔N also viable. Fill in atom label after inspecting."
+    ma_rung:
+      enabled: true
+      delete_atoms:
+        - "F2"
+      preserve_formula_fields: false
+      note: "One F deleted - should give a large peak in the diff density"
 
   - id: jp2026
     path: Good_Structures_and_data/jp2026
@@ -238,7 +252,7 @@ structures:
         - "O1"
         - "H1A"
         - "H1B"
-      preserve_formula_fields: true
+      preserve_formula_fields: false
       note: "Hydrate water (O1, H1A, H1B) deleted from model; data and chemical formula unchanged"
 
   # ── Cu Kα — no resolution-truncation rungs (little headroom past 0.83 Å) ──
@@ -322,7 +336,7 @@ structures:
       drop_to_subgroup: "NOT_APPLICABLE"
       note: "P212121 is non-centrosymmetric — MS rung not supported by this generator"
     wa_rung:
-      enabled: false
+      enabled: true
       swaps:
-        - {atom: "FILL_IN", from_element: "C", to_element: "N"}
+        - {atom: "O1", from_element: "O", to_element: "N"}
       note: "C↔N swap — fill in atom label after inspecting the structure"

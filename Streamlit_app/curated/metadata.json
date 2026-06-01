@@ -1,5 +1,21 @@
 [
   {
+    "label": "ej2019_wa",
+    "title": "Case 11",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/ej2019_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/ej2019_wa.cif",
+    "fcf_file": "fcf/ej2019_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      4
+    ]
+  },
+  {
     "label": "hb8120_res1p0",
     "title": "Case 13",
     "pathology_category": "Data quality \u2014 low resolution",
@@ -93,6 +109,166 @@
     "sf_report_file": null,
     "assigned_groups": [
       6
+    ]
+  },
+  {
+    "label": "wm5793_res1p0",
+    "title": "Case 24",
+    "pathology_category": "Data quality \u2014 low resolution",
+    "teaching_note_file": "teaching_notes/wm5793_res1p0.md",
+    "source_route": "synthetic-degraded",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/wm5793_res1p0.cif",
+    "fcf_file": "fcf/wm5793_res1p0.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      5
+    ]
+  },
+  {
+    "label": "wm5793_wa",
+    "title": "Case 32",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/wm5793_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/wm5793_wa.cif",
+    "fcf_file": "fcf/wm5793_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      5
+    ]
+  },
+  {
+    "label": "yz2076_wa",
+    "title": "Case 86",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/yz2076_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/yz2076_wa.cif",
+    "fcf_file": "fcf/yz2076_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      4
+    ]
+  },
+  {
+    "label": "yz2076_ma",
+    "title": "Case 87",
+    "pathology_category": "Missing atoms",
+    "teaching_note_file": "teaching_notes/yz2076_ma.md",
+    "source_route": "synthetic-missing-atoms",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/yz2076_ma.cif",
+    "fcf_file": "fcf/yz2076_ma.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      3
+    ]
+  },
+  {
+    "label": "nx2032_wa",
+    "title": "Case 51",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/nx2032_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/nx2032_wa.cif",
+    "fcf_file": "fcf/nx2032_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      3
+    ]
+  },
+  {
+    "label": "nx2032_ma",
+    "title": "Case 88",
+    "pathology_category": "Missing atoms",
+    "teaching_note_file": "teaching_notes/nx2032_ma.md",
+    "source_route": "synthetic-missing-atoms",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/nx2032_ma.cif",
+    "fcf_file": "fcf/nx2032_ma.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      2
+    ]
+  },
+  {
+    "label": "jp2026_wa",
+    "title": "Case 62",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/jp2026_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/jp2026_wa.cif",
+    "fcf_file": "fcf/jp2026_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      2
+    ]
+  },
+  {
+    "label": "jp2026_ma",
+    "title": "Case 63",
+    "pathology_category": "Missing atoms",
+    "teaching_note_file": "teaching_notes/jp2026_ma.md",
+    "source_route": "synthetic-missing-atoms",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/jp2026_ma.cif",
+    "fcf_file": "fcf/jp2026_ma.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      1
+    ]
+  },
+  {
+    "label": "wm2328_cone3ded",
+    "title": "Case 81",
+    "pathology_category": "Data quality \u2014 systematic gaps (3DED geometry)",
+    "teaching_note_file": "teaching_notes/wm2328_cone3ded.md",
+    "source_route": "synthetic-degraded",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/wm2328_cone3ded.cif",
+    "fcf_file": "fcf/wm2328_cone3ded.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      6
+    ]
+  },
+  {
+    "label": "wm2328_wa",
+    "title": "Case 89",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/wm2328_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/wm2328_wa.cif",
+    "fcf_file": "fcf/wm2328_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      1
     ]
   }
 ]
