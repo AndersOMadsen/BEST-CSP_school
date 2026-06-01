@@ -231,9 +231,10 @@ def apply_selection():
     errors = []
     for r in selected:
         sid = r["structure_id"]
-        for col in ["label", "title", "pathology_category", "assigned_groups"]:
+        for col in ["label", "title", "pathology_category"]:
             if not r.get(col, "").strip():
                 errors.append(f"  Row {r['structure_id']}/{r['rung_tag']}: '{col}' is empty")
+        # assigned_groups may be empty — that means reserve (instructor view only)
     if errors:
         sys.exit("Validation errors — fix these in the CSV before applying:\n" + "\n".join(errors))
 
