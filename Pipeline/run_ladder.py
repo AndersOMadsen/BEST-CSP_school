@@ -129,7 +129,8 @@ def apply_rung_op(cfg: dict, hkl: np.ndarray,
 # ── Step 1: generate rung directories ────────────────────────────────────────
 
 def step_generate(struct: dict, struct_dir: Path,
-                  dry_run: bool = False) -> list[Path]:
+                  dry_run: bool = False,
+                  rungs_filter: set[str] | None = None) -> list[Path]:
     """Write rung_*/ directories with degraded HKL + copied INS + stamp."""
     name = struct['shelx_name']
     hkl_path = struct_dir / f"{name}.hkl"
@@ -153,6 +154,8 @@ def step_generate(struct: dict, struct_dir: Path,
 
     for rung_cfg in struct['rungs']:
         tag      = rung_cfg['tag']
+        if rungs_filter is not None and tag not in rungs_filter:
+            continue
         rung_dir = ladder_root / f"rung_{tag}"
 
         data, desc = apply_rung_op(rung_cfg, hkl, G,
@@ -183,7 +186,7 @@ def step_generate(struct: dict, struct_dir: Path,
     pub_cif  = struct_dir / struct.get('published_cif', '')
 
     ms_cfg = struct.get('ms_rung', {})
-    if ms_cfg.get('enabled'):
+    if ms_cfg.get('enabled') and (rungs_filter is None or 'ms' in rungs_filter):
         tag      = 'ms'
         rung_dir = ladder_root / f"rung_{tag}"
         subgroup = ms_cfg.get('drop_to_subgroup', '?')
@@ -197,7 +200,7 @@ def step_generate(struct: dict, struct_dir: Path,
         rung_dirs.append(rung_dir)
 
     wa_cfg = struct.get('wa_rung', {})
-    if wa_cfg.get('enabled'):
+    if wa_cfg.get('enabled') and (rungs_filter is None or 'wa' in rungs_filter):
         tag      = 'wa'
         rung_dir = ladder_root / f"rung_{tag}"
         sw       = wa_cfg.get('swaps', [])
@@ -211,7 +214,7 @@ def step_generate(struct: dict, struct_dir: Path,
         rung_dirs.append(rung_dir)
 
     ma_cfg = struct.get('ma_rung', {})
-    if ma_cfg.get('enabled'):
+    if ma_cfg.get('enabled') and (rungs_filter is None or 'ma' in rungs_filter):
         tag         = 'ma'
         rung_dir    = ladder_root / f"rung_{tag}"
         del_atoms   = ma_cfg.get('delete_atoms', [])
@@ -695,6 +698,9 @@ def main() -> None:
     ap.add_argument('--steps', nargs='+', choices=ALL_STEPS, default=list(ALL_STEPS),
                     metavar='STEP',
                     help=f"Steps to run (default: all).  Choices: {', '.join(ALL_STEPS)}")
+    ap.add_argument('--rungs', nargs='+', default=None, metavar='RUNG',
+                    help="Rung tags to process (default: all).  "
+                         "E.g.  --rungs ms  or  --rungs ms 01_res_1p0")
     ap.add_argument('--dry-run', action='store_true',
                     help="Print what would run; do not execute SHELXL or PLATON")
     args = ap.parse_args()
@@ -714,7 +720,8 @@ def main() -> None:
             sys.exit(f"ERROR: no structures matching {args.structures!r} "
                      f"in {cfg_path.name}")
 
-    steps = set(args.steps)
+    steps        = set(args.steps)
+    rungs_filter = set(args.rungs) if args.rungs else None
 
     for struct in structs:
         sid = struct['id']
@@ -730,9 +737,14 @@ def main() -> None:
         # Collect rung directories for steps that don't regenerate them
         if 'generate' in steps:
             print("  [generate]")
-            rung_dirs = step_generate(struct, struct_dir, dry_run=args.dry_run)
+            rung_dirs = step_generate(struct, struct_dir,
+                                      dry_run=args.dry_run,
+                                      rungs_filter=rungs_filter)
         else:
             rung_dirs = sorted((struct_dir / 'ladder').glob('rung_*/'))
+            if rungs_filter is not None:
+                rung_dirs = [d for d in rung_dirs
+                             if d.name.removeprefix('rung_') in rungs_filter]
             if not rung_dirs:
                 print("  No rung_*/ directories found — run with --steps generate first")
                 continue
