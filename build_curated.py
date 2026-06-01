@@ -143,6 +143,14 @@ def generate_csv():
     with open(STRUCTURES_YML, encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
+    # Load any existing user-filled values so re-runs don't wipe them
+    existing: dict[tuple, dict] = {}
+    if SELECTION_CSV.exists():
+        with open(SELECTION_CSV, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                key = (row["structure_id"], row["rung_tag"])
+                existing[key] = {c: row.get(c, "") for c in USER_COLUMNS}
+
     rows = []
     for struct in config["structures"]:
         sid        = struct["id"]
@@ -156,12 +164,13 @@ def generate_csv():
             cif_path, fcf_path = _rung_files(struct_dir, tag, shelx)
             stats = summary.get(tag, {})
             rel_cif = str(cif_path.relative_to(ROOT)) if cif_path else ""
+            prev = existing.get((sid, tag), {})
             return {
-                "include":           "",
-                "label":             "",
-                "title":             "",
-                "pathology_category": _OP_TO_PATHOLOGY.get(op, ""),
-                "assigned_groups":   "",
+                "include":           prev.get("include", ""),
+                "label":             prev.get("label", ""),
+                "title":             prev.get("title", ""),
+                "pathology_category": prev.get("pathology_category", "") or _OP_TO_PATHOLOGY.get(op, ""),
+                "assigned_groups":   prev.get("assigned_groups", ""),
                 "structure_id":      sid,
                 "rung_tag":          tag,
                 "rung_type":         _OP_TO_TYPE.get(op, ""),
@@ -170,7 +179,7 @@ def generate_csv():
                 "radiation":         rad,
                 "R1":                stats.get("R1", ""),
                 "wR2":               stats.get("wR2", ""),
-                "Rint":              stats.get("rint", ""),
+                "Rint":              f"{float(stats['rint'])*100:.1f}%" if stats.get("rint") else "",
                 "completeness":      stats.get("completeness", ""),
                 "alerts_A":          stats.get("alerts_A", ""),
                 "alerts_B":          stats.get("alerts_B", ""),
