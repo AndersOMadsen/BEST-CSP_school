@@ -96,7 +96,8 @@ USER_COLUMNS  = ["include", "label", "title", "pathology_category", "assigned_gr
 AUTO_COLUMNS  = [
     "structure_id", "rung_tag", "rung_type", "source_route",
     "space_group", "radiation",
-    "R1", "wR2", "alerts_A", "alerts_B", "alerts_C", "catastrophic",
+    "R1", "wR2", "Rint", "completeness",
+    "alerts_A", "alerts_B", "alerts_C", "catastrophic",
     "cif_path", "fcf_available", "suggested_label",
 ]
 ALL_COLUMNS   = USER_COLUMNS + AUTO_COLUMNS
@@ -169,6 +170,8 @@ def generate_csv():
                 "radiation":         rad,
                 "R1":                stats.get("R1", ""),
                 "wR2":               stats.get("wR2", ""),
+                "Rint":              stats.get("rint", ""),
+                "completeness":      stats.get("completeness", ""),
                 "alerts_A":          stats.get("alerts_A", ""),
                 "alerts_B":          stats.get("alerts_B", ""),
                 "alerts_C":          stats.get("alerts_C", ""),
