@@ -82,7 +82,51 @@ RENAME = {
 }
 
 # Columns shown in the results table (others kept for deep-dive but hidden)
-TABLE_COLS = ["COD ID", "Formula", "Space group", "Cell volume (Å³)", "Z", "Z′"]
+TABLE_COLS = ["COD ID", "Formula", "Space group", "Cell volume (Å³)", "Z", "Z′", "Density (g/cm³)"]
+
+# ── Density helpers ────────────────────────────────────────────────────────────
+# The COD REST API does not return a density field, so density is computed
+# client-side from the formula, Z, and cell volume returned in the JSON.
+# ρ [g/cm³] = Z × M [g/mol] / (V [Å³] × 0.60221)
+
+# IUPAC 2021 standard atomic weights (abbreviated to elements present in COD)
+_AW: dict[str, float] = {
+    "H":1.008,"He":4.003,"Li":6.941,"Be":9.012,"B":10.811,"C":12.011,
+    "N":14.007,"O":15.999,"F":18.998,"Ne":20.180,"Na":22.990,"Mg":24.305,
+    "Al":26.982,"Si":28.086,"P":30.974,"S":32.065,"Cl":35.453,"Ar":39.948,
+    "K":39.098,"Ca":40.078,"Sc":44.956,"Ti":47.867,"V":50.942,"Cr":51.996,
+    "Mn":54.938,"Fe":55.845,"Co":58.933,"Ni":58.693,"Cu":63.546,"Zn":65.38,
+    "Ga":69.723,"Ge":72.630,"As":74.922,"Se":78.971,"Br":79.904,"Kr":83.798,
+    "Rb":85.468,"Sr":87.62,"Y":88.906,"Zr":91.224,"Nb":92.906,"Mo":95.96,
+    "Tc":98.0,"Ru":101.07,"Rh":102.906,"Pd":106.42,"Ag":107.868,"Cd":112.411,
+    "In":114.818,"Sn":118.710,"Sb":121.760,"Te":127.60,"I":126.904,"Xe":131.293,
+    "Cs":132.905,"Ba":137.327,"La":138.905,"Ce":140.116,"Pr":140.908,"Nd":144.242,
+    "Pm":145.0,"Sm":150.36,"Eu":151.964,"Gd":157.25,"Tb":158.925,"Dy":162.500,
+    "Ho":164.930,"Er":167.259,"Tm":168.934,"Yb":173.054,"Lu":174.967,"Hf":178.49,
+    "Ta":180.948,"W":183.84,"Re":186.207,"Os":190.23,"Ir":192.217,"Pt":195.084,
+    "Au":196.967,"Hg":200.592,"Tl":204.383,"Pb":207.2,"Bi":208.980,"Po":209.0,
+    "At":210.0,"Rn":222.0,"Fr":223.0,"Ra":226.0,"Ac":227.0,"Th":232.038,
+    "Pa":231.036,"U":238.029,"Np":237.0,"Pu":244.0,"Am":243.0,"Cm":247.0,
+    "D":2.014,  # deuterium
+}
+
+def _formula_molar_mass(formula_str: str) -> float | None:
+    """
+    Parse a COD formula string such as '- C6 H12 O6 -' and return the
+    molar mass in g/mol, or None if any element is unrecognised.
+    """
+    # Strip leading/trailing dashes and whitespace used as COD delimiters
+    cleaned = formula_str.strip().strip("-").strip()
+    # Match element symbol (1 upper + optional lower) followed by optional count
+    total = 0.0
+    for m in re.finditer(r"([A-Z][a-z]?)(\d+\.?\d*)?", cleaned):
+        sym, count_str = m.group(1), m.group(2)
+        if sym not in _AW:
+            return None
+        total += _AW[sym] * (float(count_str) if count_str else 1.0)
+    return total if total > 0 else None
+
+
 
 # ── checkCIF Tutor constants ───────────────────────────────────────────────────
 
@@ -664,12 +708,13 @@ st.markdown(
     "The goal is to develop judgement — tools here scaffold it, they don't substitute for it."
 )
 
-tab4, tab5, tab1, tab2, tab3 = st.tabs([
+tab4, tab5, tab1, tab2, tab3, tab6 = st.tabs([
     "🎓 Curated structures",
     "💬 checkCIF Tutor",
     "📦 Large unit cells",
     "🔢 High Z′ structures",
     "📐 Space group P -1",
+    "🪶 Density extremes",
 ])
 
 
@@ -1031,6 +1076,105 @@ with tab5:
         "good or bad. That judgement is yours."
     )
     render_tutor(context_label="standalone")
+
+
+# ── Tab 6: Density extremes ───────────────────────────────────────────────────
+with tab6:
+    st.subheader("Structures with unusual density")
+
+    _DENSITY_MODES = {
+        "Low (< 1.0 g/cm³)":  ("low",    None,  1.0,  "Often a sign of unmodelled solvent or void space — the SQUEEZE territory."),
+        "High (> 2.5 g/cm³)": ("high",   2.5,   None, "For all-light-atom organics, surprisingly high density can indicate misassigned heavy atoms or scattering-factor errors."),
+        "Custom range…":       ("custom", None,  None, "Define your own range to explore the density distribution."),
+    }
+
+    d_mode_label = st.radio(
+        "Density filter",
+        list(_DENSITY_MODES.keys()),
+        horizontal=True,
+        key="d_mode",
+    )
+    mode_key, d_lo_preset, d_hi_preset, caption = _DENSITY_MODES[d_mode_label]
+    st.caption(f"*{caption}*")
+
+    if mode_key == "custom":
+        cd1, cd2 = st.columns(2)
+        with cd1:
+            d_lo_input = st.number_input("Min density (g/cm³)", min_value=0.0, value=0.0,
+                                          step=0.1, key="d_lo")
+        with cd2:
+            d_hi_input = st.number_input("Max density (g/cm³)", min_value=0.0, value=5.0,
+                                          step=0.1, key="d_hi")
+        d_lo = d_lo_input if d_lo_input > 0 else None
+        d_hi = d_hi_input if d_hi_input > 0 else None
+    else:
+        d_lo, d_hi = d_lo_preset, d_hi_preset
+
+    dc1, dc2, dc3 = st.columns(3)
+    with dc1:
+        d_vmin = st.number_input(
+            "Minimum cell volume (Å³)",
+            min_value=100, value=500, step=100, key="d_vmin",
+            help="Required — prevents the query from returning an unmanageably large result set.",
+        )
+        if d_vmin < 100:
+            d_vmin = 500
+    with dc2:
+        d_nel_max = st.slider(
+            "Maximum number of elements",
+            min_value=1, max_value=8, value=4, step=1, key="d_nel",
+        )
+    with dc3:
+        d_sg = st.text_input("Space group (optional)", key="d_sg",
+                              placeholder="e.g. P 21/c")
+
+    if st.button("Search", key="btn_density"):
+        # COD JSON endpoint silently returns [] for large result sets, so use
+        # the same CSV path as the other tabs via query_cod(), then compute
+        # density client-side from the Formula, Z, and Cell volume columns.
+        sg_param = f"&spacegroup={d_sg.strip()}" if d_sg.strip() else ""
+        q = f"format=csv&vmin={d_vmin}&strictmin=1&strictmax={d_nel_max}{sg_param}"
+        with st.spinner("Querying COD…"):
+            st.session_state["density_df"] = query_cod(q)
+
+    if "density_df" in st.session_state:
+        df_all = st.session_state["density_df"]
+        if df_all.empty:
+            st.warning("No structures returned. Try relaxing your filters.")
+        else:
+            def _row_density(row) -> float | None:
+                try:
+                    z   = float(row.get("Z") or 0)
+                    vol = float(row.get("Cell volume (Å³)") or 0)
+                    if z <= 0 or vol <= 0:
+                        return None
+                    mw = _formula_molar_mass(str(row.get("Formula") or ""))
+                    if mw is None:
+                        return None
+                    return round((z * mw) / (vol * 0.60221), 3)
+                except (TypeError, ValueError):
+                    return None
+
+            df_all = df_all.copy()
+            df_all["Density (g/cm³)"] = df_all.apply(_row_density, axis=1)
+
+            n_total  = len(df_all)
+            skipped  = int(df_all["Density (g/cm³)"].isna().sum())
+            df_valid = df_all.dropna(subset=["Density (g/cm³)"])
+
+            if d_lo is not None:
+                df_valid = df_valid[df_valid["Density (g/cm³)"] >= d_lo]
+            if d_hi is not None:
+                df_valid = df_valid[df_valid["Density (g/cm³)"] <= d_hi]
+
+            st.info(
+                f"**{len(df_valid)}** of **{n_total}** structures match the density filter."
+                + (f" {skipped} skipped (formula unreadable or missing)." if skipped else "")
+            )
+
+            if not df_valid.empty:
+                show_table(df_valid, sort_by="Density (g/cm³)", tab_id="tab_density",
+                           ascending=(mode_key == "low"))
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
