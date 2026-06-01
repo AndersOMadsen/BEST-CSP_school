@@ -215,6 +215,20 @@ def generate_csv():
                 if row["cif_path"]:
                     rows.append(row)
 
+    # Auto-fill label from suggested_label and assign consecutive case numbers
+    # for any row that is missing them (handles newly added rungs).
+    max_case = 0
+    for r in rows:
+        m = re.search(r"\d+", r.get("title", ""))
+        if r.get("title", "").lower().startswith("case") and m:
+            max_case = max(max_case, int(m.group()))
+    for r in rows:
+        if not r.get("label", "").strip() and r.get("suggested_label", "").strip():
+            r["label"] = r["suggested_label"]
+        if not r.get("title", "").strip():
+            max_case += 1
+            r["title"] = f"Case {max_case:02d}"
+
     with open(SELECTION_CSV, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=ALL_COLUMNS)
         writer.writeheader()
