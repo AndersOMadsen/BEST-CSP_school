@@ -1128,12 +1128,20 @@ with tab6:
         d_sg = st.text_input("Space group (optional)", key="d_sg",
                               placeholder="e.g. P 21/c")
 
+    d_organic = st.checkbox(
+        "Organic structures only (must contain C)",
+        value=True,
+        key="d_organic",
+        help="Recommended — roughly halves the result set and keeps the density anomalies most relevant to small-molecule crystallography.",
+    )
+
     if st.button("Search", key="btn_density"):
         # COD JSON endpoint silently returns [] for large result sets, so use
         # the same CSV path as the other tabs via query_cod(), then compute
         # density client-side from the Formula, Z, and Cell volume columns.
-        sg_param = f"&spacegroup={d_sg.strip()}" if d_sg.strip() else ""
-        q = f"format=csv&vmin={d_vmin}&vmax=1000000&strictmin=1&strictmax={d_nel_max}{sg_param}"
+        sg_param  = f"&spacegroup={d_sg.strip()}" if d_sg.strip() else ""
+        org_param = "&el1=C" if d_organic else ""
+        q = f"format=csv&vmin={d_vmin}&vmax=1000000&strictmin=1&strictmax={d_nel_max}{sg_param}{org_param}"
         with st.spinner("Querying COD…"):
             st.session_state["density_df"] = query_cod(q)
 
