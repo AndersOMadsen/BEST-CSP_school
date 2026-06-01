@@ -286,12 +286,31 @@ def apply_selection():
         src_fcf = src_cif.with_suffix(".fcf")
         has_fcf = src_fcf.exists()
 
-        # Copy and sanitise CIF (replace non-ASCII bytes; em dash → double-dash)
+        # Copy and sanitise CIF:
+        #   1. Replace non-ASCII bytes (em dash → '--', others → '?')
+        #   2. Strip TEACHING ARTEFACT annotations from TITL lines
+        #   3. Remove REM lines that leak pathology hints (Old TITL, SHELXT solution)
         dst_cif = CURATED_DIR / "cif" / f"{label}.cif"
         raw = src_cif.read_bytes()
-        clean = raw.replace(b"\xe2\x80\x94", b"--")          # UTF-8 em dash
-        clean = bytes(b if b < 128 else ord("?") for b in clean)
-        dst_cif.write_bytes(clean)
+        raw = raw.replace(b"\xe2\x80\x94", b"--")
+        raw = bytes(b if b < 128 else ord("?") for b in raw)
+        lines_out = []
+        for line in raw.decode("ascii").splitlines(keepends=True):
+            s = line.rstrip()
+            if s.upper().startswith("TITL"):
+                paren = s.find(" (")
+                if paren != -1:
+                    line = s[:paren] + "\n"
+            if s.upper().startswith("REM"):
+                u = s.upper()
+                if "TEACHING" in u or "ARTEFACT" in u:
+                    continue
+                if "OLD TITL" in u:
+                    continue
+                if "SHELXT SOLUTION" in u:
+                    continue
+            lines_out.append(line)
+        dst_cif.write_bytes("".join(lines_out).encode("ascii"))
         print(f"  Copied CIF  → curated/cif/{label}.cif")
 
         dst_fcf_rel = None

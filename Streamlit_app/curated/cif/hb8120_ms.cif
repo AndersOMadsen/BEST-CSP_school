@@ -427,11 +427,9 @@ _refine_diff_density_min -0.859
 _refine_diff_density_rms 0.101
 _shelx_res_file
 ;
-TITL I in P21 (TEACHING ARTEFACT -- wrong space group from hb8120)
+TITL I in P21
     I.res
     created by SHELXL-2019/3 at 16:03:57 on 30-May-2026
-REM Old TITL mo_B3521_0m in P2(1)/n
-REM SHELXT solution in P2(1)/n: R1 0.214, Rweak 0.016, Alpha 0.044
 REM <I/s> 0.388 for 133 systematic absences, Orientation as input
 REM Formula found by SHELXT: C8 O8 Mg Br2
 CELL 0.71073 8.0892 9.4942 13.3505 90 102.606 90
@@ -533,7 +531,6 @@ HKLF 4
 
 
 
-REM  I in P21 (TEACHING ARTEFACT -- wrong space group from hb8120)
 REM wR2 = 0.1158, GooF = S = 1.025, Restrained GooF = 1.025 for all data
 REM R1 = 0.0433 for 2850 Fo > 4sig(Fo) and 0.0806 for all 4435 data
 REM 300 parameters refined using 1 restraints
