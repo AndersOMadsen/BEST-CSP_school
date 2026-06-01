@@ -1,5 +1,5 @@
 data_placeholder_03
-# PLACEHOLDER — instructor replaces this with a real CIF file.
+# PLACEHOLDER -- instructor replaces this with a real CIF file.
 # This file is here so the app renders the download button during development.
 _cell_length_a                  12.000
 _cell_length_b                  12.000

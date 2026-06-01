@@ -286,9 +286,12 @@ def apply_selection():
         src_fcf = src_cif.with_suffix(".fcf")
         has_fcf = src_fcf.exists()
 
-        # Copy files
+        # Copy and sanitise CIF (replace non-ASCII bytes; em dash → double-dash)
         dst_cif = CURATED_DIR / "cif" / f"{label}.cif"
-        shutil.copy2(src_cif, dst_cif)
+        raw = src_cif.read_bytes()
+        clean = raw.replace(b"\xe2\x80\x94", b"--")          # UTF-8 em dash
+        clean = bytes(b if b < 128 else ord("?") for b in clean)
+        dst_cif.write_bytes(clean)
         print(f"  Copied CIF  → curated/cif/{label}.cif")
 
         dst_fcf_rel = None
