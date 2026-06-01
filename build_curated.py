@@ -139,6 +139,15 @@ def _rung_files(struct_dir: Path, rung_tag: str, shelx_name: str):
 
 # ── Mode 1: generate CSV ───────────────────────────────────────────────────────
 
+def _read_csv(path: Path) -> list[dict]:
+    """Read a CSV file, auto-detecting comma vs semicolon delimiter."""
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        sample = f.read(2048)
+    delim = ";" if sample.count(";") > sample.count(",") else ","
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        return list(csv.DictReader(f, delimiter=delim))
+
+
 def generate_csv():
     with open(STRUCTURES_YML, encoding="utf-8") as f:
         config = yaml.safe_load(f)
@@ -146,10 +155,9 @@ def generate_csv():
     # Load any existing user-filled values so re-runs don't wipe them
     existing: dict[tuple, dict] = {}
     if SELECTION_CSV.exists():
-        with open(SELECTION_CSV, newline="", encoding="utf-8") as f:
-            for row in csv.DictReader(f):
-                key = (row["structure_id"], row["rung_tag"])
-                existing[key] = {c: row.get(c, "") for c in USER_COLUMNS}
+        for row in _read_csv(SELECTION_CSV):
+            key = (row["structure_id"], row["rung_tag"])
+            existing[key] = {c: row.get(c, "") for c in USER_COLUMNS}
 
     rows = []
     for struct in config["structures"]:
@@ -233,10 +241,9 @@ def apply_selection():
     shelx_map = {s["id"]: s.get("shelx_name", "I") for s in config["structures"]}
 
     # Read CSV
-    with open(SELECTION_CSV, newline="", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
+    rows = _read_csv(SELECTION_CSV)
 
-    selected = [r for r in rows if r.get("include", "").strip().lower() == "yes"]
+    selected = [r for r in rows if r.get("include", "").strip().lower() in ("yes", "y", "x", "1", "true")]
     if not selected:
         sys.exit("No rows marked 'include = yes'. Nothing to do.")
 

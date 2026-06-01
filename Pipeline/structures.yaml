@@ -257,7 +257,7 @@ structures:
       - {tag: "02_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
       - {tag: "03_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
       - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
-      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 5.0}
       - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
     # ── Model-error rungs ──────────────────────────────────────────────────────
     ms_rung:
@@ -285,7 +285,7 @@ structures:
       - {tag: "02_complete_80",  op: reduce_completeness_unique, fraction_remove: 0.20, seed: 1}
       - {tag: "03_cone_3ded",    op: remove_cone, tilt_axis: [0.0, 1.0, 0.0], max_tilt_deg: 55.0}
       - {tag: "04_wedge_lowang", op: remove_wedge,               axis: l, frac_low: 0.0, frac_high: 0.30, low_angle_bias: true}
-      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 2.0}
+      - {tag: "05_weak",         op: simulate_weak_data,         sigma_inflate: 5.0}
       - {tag: "06_absorption",   op: inject_absorption_error,    mu_t: 0.8, axis: [0.0, 1.0, 1.0]}
     # ── Model-error rungs ──────────────────────────────────────────────────────
     ms_rung:

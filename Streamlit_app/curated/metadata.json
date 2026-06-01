@@ -1,44 +1,98 @@
 [
   {
-    "label": "placeholder-01",
-    "title": "Case 01",
-    "pathology_category": "Data quality (inflated R-factor)",
-    "teaching_note_file": "teaching_notes/placeholder-01.md",
+    "label": "hb8120_res1p0",
+    "title": "Case 13",
+    "pathology_category": "Data quality \u2014 low resolution",
+    "teaching_note_file": "teaching_notes/hb8120_res1p0.md",
     "source_route": "synthetic-degraded",
-    "citation": "Placeholder — instructor replaces with real citation",
-    "doi": "10.0000/placeholder-01",
-    "deposited_id": "COD 0000001",
-    "cif_file": "cif/placeholder-01.cif",
-    "fcf_file": "fcf/placeholder-01.fcf",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/hb8120_res1p0.cif",
+    "fcf_file": "fcf/hb8120_res1p0.fcf",
     "sf_report_file": null,
-    "assigned_groups": [1, 2, 3, 4, 5, 6]
+    "assigned_groups": [
+      1
+    ]
   },
   {
-    "label": "placeholder-02",
-    "title": "Case 02",
-    "pathology_category": "Atom misassignment",
-    "teaching_note_file": "teaching_notes/placeholder-02.md",
-    "source_route": "synthetic-wrong-atom",
-    "citation": "Placeholder — instructor replaces with real citation",
-    "doi": "10.0000/placeholder-02",
-    "deposited_id": "COD 0000002",
-    "cif_file": "cif/placeholder-02.cif",
-    "fcf_file": null,
+    "label": "hb8120_res1p2",
+    "title": "Case 14",
+    "pathology_category": "Data quality \u2014 low resolution",
+    "teaching_note_file": "teaching_notes/hb8120_res1p2.md",
+    "source_route": "synthetic-degraded",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/hb8120_res1p2.cif",
+    "fcf_file": "fcf/hb8120_res1p2.fcf",
     "sf_report_file": null,
-    "assigned_groups": [1]
+    "assigned_groups": [
+      2
+    ]
   },
   {
-    "label": "placeholder-03",
-    "title": "Case 03",
+    "label": "hb8120_complete80",
+    "title": "Case 16",
+    "pathology_category": "Data quality \u2014 incomplete data",
+    "teaching_note_file": "teaching_notes/hb8120_complete80.md",
+    "source_route": "synthetic-degraded",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/hb8120_complete80.cif",
+    "fcf_file": "fcf/hb8120_complete80.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      3
+    ]
+  },
+  {
+    "label": "hb8120_cone3ded",
+    "title": "Case 17",
+    "pathology_category": "Data quality \u2014 systematic gaps (3DED geometry)",
+    "teaching_note_file": "teaching_notes/hb8120_cone3ded.md",
+    "source_route": "synthetic-degraded",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/hb8120_cone3ded.cif",
+    "fcf_file": "fcf/hb8120_cone3ded.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      4
+    ]
+  },
+  {
+    "label": "hb8120_ms",
+    "title": "Case 21",
     "pathology_category": "Missed symmetry",
-    "teaching_note_file": "teaching_notes/placeholder-03.md",
-    "source_route": "SI",
-    "citation": "Placeholder — instructor replaces with real citation",
-    "doi": "10.0000/placeholder-03",
-    "deposited_id": "COD 0000003",
-    "cif_file": "cif/placeholder-03.cif",
-    "fcf_file": null,
+    "teaching_note_file": "teaching_notes/hb8120_ms.md",
+    "source_route": "synthetic-wrong-symmetry",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/hb8120_ms.cif",
+    "fcf_file": "fcf/hb8120_ms.fcf",
     "sf_report_file": null,
-    "assigned_groups": [2, 3]
+    "assigned_groups": [
+      5
+    ]
+  },
+  {
+    "label": "hb8120_wa",
+    "title": "Case 22",
+    "pathology_category": "Atom misassignment",
+    "teaching_note_file": "teaching_notes/hb8120_wa.md",
+    "source_route": "synthetic-wrong-atom",
+    "citation": null,
+    "doi": null,
+    "deposited_id": null,
+    "cif_file": "cif/hb8120_wa.cif",
+    "fcf_file": "fcf/hb8120_wa.fcf",
+    "sf_report_file": null,
+    "assigned_groups": [
+      6
+    ]
   }
 ]
