@@ -1133,7 +1133,7 @@ with tab6:
         # the same CSV path as the other tabs via query_cod(), then compute
         # density client-side from the Formula, Z, and Cell volume columns.
         sg_param = f"&spacegroup={d_sg.strip()}" if d_sg.strip() else ""
-        q = f"format=csv&vmin={d_vmin}&strictmin=1&strictmax={d_nel_max}{sg_param}"
+        q = f"format=csv&vmin={d_vmin}&vmax=1000000&strictmin=1&strictmax={d_nel_max}{sg_param}"
         with st.spinner("Querying COD…"):
             st.session_state["density_df"] = query_cod(q)
 
