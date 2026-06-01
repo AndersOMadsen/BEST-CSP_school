@@ -47,6 +47,7 @@ claude.resume
 # Loose working files in the root
 /*.cif
 /reciprocal_space*
+/*_PROMPT.md
 
 # Pipeline — generated structure data (580 MB); track only source code
 Pipeline/Good_Structures_and_data/
