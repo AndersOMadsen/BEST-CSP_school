@@ -1114,11 +1114,9 @@ with tab6:
     with dc1:
         d_vmin = st.number_input(
             "Minimum cell volume (Å³)",
-            min_value=100, value=500, step=100, key="d_vmin",
-            help="Required — prevents the query from returning an unmanageably large result set.",
+            min_value=2000, value=2000, step=100, key="d_vmin",
+            help="Lower bound is 2000 Å³ to keep the query tractable.",
         )
-        if d_vmin < 100:
-            d_vmin = 500
     with dc2:
         d_nel_max = st.slider(
             "Maximum number of elements",
