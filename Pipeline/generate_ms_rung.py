@@ -218,8 +218,16 @@ def generate_ms_rung(
             continue
         kw = parts[0].upper()
 
+        if kw == 'DAMP':
+            continue  # suppress original damping; explicit sequence follows below
+
         if kw in ('L.S.', 'CGLS'):
-            out_parts.append('L.S. 50')
+            # Near-singular normal matrix: ease into the minimum with damped CGLS,
+            # then finish with a few L.S. cycles so ACTA can write the CIF.
+            out_parts.append('DAMP 0.7')
+            out_parts.append('CGLS 20')
+            out_parts.append('DAMP 0.3')
+            out_parts.append('L.S. 10')
             continue
 
         if kw == 'TITL':
