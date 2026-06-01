@@ -221,6 +221,14 @@ def generate_ms_rung(
         if kw == 'DAMP':
             continue  # suppress original damping; explicit sequence follows below
 
+        if kw in ('BOND', 'CONF', 'HTAB', 'RTAB', 'MPLA'):
+            # Suppress geometry-table output for ms rungs.  The expanded P1 ASU
+            # places inversion-related atom pairs near cell boundaries, causing
+            # SHELXL and PLATON to disagree on symmetry codes for the same angle
+            # (both valid for P1, but producing ~90° discrepancy → PLAT702 A-alerts).
+            # The teaching point is the ADDSYM alerts, not geometry.
+            continue
+
         if kw in ('L.S.', 'CGLS'):
             # Near-singular normal matrix: ease into the minimum with damped CGLS,
             # then finish with a few L.S. cycles so ACTA can write the CIF.
