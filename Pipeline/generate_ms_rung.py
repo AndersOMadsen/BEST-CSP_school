@@ -161,14 +161,18 @@ def generate_ms_rung(
         if parts and _is_atom_line(parts, n_sfac):
             orig_atoms.append((parts[0], parts))
 
-    existing_labels: set[str] = {label for label, _ in orig_atoms}
+    # Store labels uppercase: SHELXL label comparison is case-insensitive, so
+    # 'H98a' and 'H98A' are the same atom.  Using a case-folded set prevents
+    # _unique_label from generating a new label that collides with an existing
+    # one that differs only in case.
+    existing_labels: set[str] = {label.upper() for label, _ in orig_atoms}
 
     def _unique_label(base: str) -> str:
-        for suffix in ('p', 'A', 'B', 'C', 'D', 'E', 'F', 'G'):
+        for suffix in ('P', 'Q', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'):
             cand = (base[:3] + suffix) if len(base) >= 4 else (base + suffix)
             cand = cand[:4]  # SHELXL label max 4 chars
-            if cand not in existing_labels:
-                existing_labels.add(cand)
+            if cand.upper() not in existing_labels:
+                existing_labels.add(cand.upper())
                 return cand
         raise RuntimeError(f"Cannot generate unique label for '{base}'")
 
