@@ -4,6 +4,7 @@ import requests
 import io
 import json
 import re
+import random
 import anthropic
 from pathlib import Path
 
@@ -605,6 +606,9 @@ if "selected_group" not in st.session_state:
     st.session_state["selected_group"] = None
 if "instructor_view" not in st.session_state:
     st.session_state["instructor_view"] = False
+# Presentation draw keys (tab 7):
+#   "presentation_order"   — list[str] once drawn, absent before draw
+#   "presenting_index"     — int: -1 = not started, 0-4 = current presenter
 if "_blind_mode_default" not in st.session_state:
     # Read once at startup; never re-read from secrets during the session
     st.session_state["_blind_mode_default"] = bool(_get_secret("BLIND_MODE_DEFAULT", True))
@@ -685,6 +689,18 @@ All conclusions require your own reading of the data.
         st.session_state["_blind_mode_default"] and not _nonblind_override
     )
 
+    # ── Presentation groups ────────────────────────────────────────────────────
+    st.markdown("---")
+    st.markdown("### Presentation groups")
+    st.text_area(
+        "Group names (one per line)",
+        value="Group 1\nGroup 2\nGroup 3\nGroup 4\nGroup 5",
+        height=120,
+        key="_pres_groups_text",
+        help="Edit before drawing the presentation order in the 🎲 tab.",
+        label_visibility="collapsed",
+    )
+
     st.markdown("---")
     st.markdown(
         "<p style='text-align:center; font-size:0.8rem; color:#555; margin-bottom:4px'>"
@@ -720,13 +736,14 @@ st.markdown(
     "The goal is to develop judgement — tools here scaffold it, they don't substitute for it."
 )
 
-tab4, tab5, tab1, tab2, tab3, tab6 = st.tabs([
+tab4, tab5, tab1, tab2, tab3, tab6, tab7 = st.tabs([
     "🎓 Curated structures",
     "💬 checkCIF Tutor",
     "📦 Large unit cells",
     "🔢 High Z′ structures",
     "📐 Space group P -1",
     "🪶 Density extremes",
+    "🎲 Presentation order",
 ])
 
 
@@ -1193,6 +1210,180 @@ with tab6:
             if not df_valid.empty:
                 show_table(df_valid, sort_by="Density (g/cm³)", tab_id="tab_density",
                            ascending=(mode_key == "low"))
+
+
+# ── Tab 7: Presentation order draw ────────────────────────────────────────────
+
+_ORDINALS = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"]
+
+
+def _presentation_draw_html(order: list[str]) -> str:
+    """Self-contained HTML/CSS/JS card-shuffle animation. No external deps."""
+    # Build card elements (concatenation avoids f-string brace-escaping in CSS/JS)
+    card_divs = ""
+    for i, (grp, pos) in enumerate(zip(order, _ORDINALS)):
+        card_divs += (
+            f'<div class="card" id="c{i}">'
+            f'<div class="ci" id="ci{i}">'
+            f'<div class="cb"><span class="dm">◇</span></div>'
+            f'<div class="cf">'
+            f'<div class="pl">{pos}</div>'
+            f'<div class="gl">{grp}</div>'
+            f'</div></div></div>'
+        )
+
+    css = (
+        "<style>"
+        "body{margin:0;padding:24px 8px;background:transparent}"
+        "#ca{display:flex;justify-content:center;gap:16px}"
+        ".card{width:120px;height:200px}"
+        ".ci{position:relative;width:100%;height:100%;"
+        "transform-style:preserve-3d;transition:transform .5s ease-in-out}"
+        ".ci.flipped{transform:rotateY(180deg)}"
+        ".cb,.cf{position:absolute;width:100%;height:100%;"
+        "backface-visibility:hidden;-webkit-backface-visibility:hidden;"
+        "border-radius:12px;display:flex;flex-direction:column;"
+        "align-items:center;justify-content:center}"
+        ".cb{background:#253d8e;box-shadow:0 4px 14px rgba(0,0,0,.35)}"
+        ".dm{color:#b0afd2;font-size:52px;line-height:1}"
+        ".cf{background:#fff;border:3px solid #253d8e;"
+        "transform:rotateY(180deg);gap:10px;padding:16px 10px;"
+        "box-shadow:0 4px 14px rgba(0,0,0,.15)}"
+        ".pl{font-family:Georgia,serif;font-size:38px;font-weight:700;"
+        "color:#253d8e;line-height:1}"
+        ".gl{font-size:13px;font-weight:600;color:#333;"
+        "text-align:center;word-break:break-word;line-height:1.3}"
+        "@keyframes s0{0%{transform:translate(0,0)rotate(0)}"
+        "25%{transform:translate(-18px,-8px)rotate(-3deg)}"
+        "55%{transform:translate(10px,5px)rotate(2deg)}"
+        "80%{transform:translate(-5px,-2px)rotate(-1deg)}"
+        "100%{transform:translate(0,0)rotate(0)}}"
+        "@keyframes s1{0%{transform:translate(0,0)rotate(0)}"
+        "20%{transform:translate(20px,-5px)rotate(3deg)}"
+        "50%{transform:translate(-12px,8px)rotate(-2deg)}"
+        "75%{transform:translate(6px,-3px)rotate(1deg)}"
+        "100%{transform:translate(0,0)rotate(0)}}"
+        "@keyframes s2{0%{transform:translate(0,0)rotate(0)}"
+        "30%{transform:translate(0,-18px)rotate(2deg)}"
+        "60%{transform:translate(8px,10px)rotate(-1deg)}"
+        "100%{transform:translate(0,0)rotate(0)}}"
+        "@keyframes s3{0%{transform:translate(0,0)rotate(0)}"
+        "20%{transform:translate(-20px,6px)rotate(2deg)}"
+        "50%{transform:translate(14px,-7px)rotate(-2deg)}"
+        "80%{transform:translate(-7px,3px)rotate(1deg)}"
+        "100%{transform:translate(0,0)rotate(0)}}"
+        "@keyframes s4{0%{transform:translate(0,0)rotate(0)}"
+        "25%{transform:translate(22px,-6px)rotate(-3deg)}"
+        "55%{transform:translate(-11px,8px)rotate(2deg)}"
+        "80%{transform:translate(5px,-3px)rotate(-1deg)}"
+        "100%{transform:translate(0,0)rotate(0)}}"
+        "</style>"
+    )
+
+    js = (
+        "<script>"
+        "const cis=Array.from(document.querySelectorAll('.ci'));"
+        "const sa=['s0','s1','s2','s3','s4'];"
+        "const dur=1500;"
+        "cis.forEach((el,i)=>{"
+        "  el.parentElement.style.animation=sa[i%sa.length]+' '+dur/1000+'s ease-in-out';"
+        "});"
+        "cis.forEach((el,i)=>{"
+        "  setTimeout(()=>el.classList.add('flipped'),dur+300+i*1000);"
+        "});"
+        "</script>"
+    )
+
+    return (
+        f"<!DOCTYPE html><html><head>{css}</head>"
+        f"<body><div id='ca'>{card_divs}</div>{js}</body></html>"
+    )
+
+
+with tab7:
+    st.subheader("Presentation order draw")
+
+    # Read group names from the sidebar widget
+    _groups_raw = st.session_state.get("_pres_groups_text",
+                                       "Group 1\nGroup 2\nGroup 3\nGroup 4\nGroup 5")
+    _group_names = [n.strip() for n in _groups_raw.splitlines() if n.strip()]
+
+    order = st.session_state.get("presentation_order")
+
+    if order is None:
+        st.markdown(
+            "Set the group names in the sidebar, then click **Draw the order** "
+            "to randomly assign presentation slots."
+        )
+        if st.button("Draw the order", key="_draw_btn", type="primary"):
+            shuffled = list(_group_names)
+            random.shuffle(shuffled)
+            st.session_state["presentation_order"] = shuffled
+            st.session_state["presenting_index"] = -1
+            st.rerun()
+
+    else:
+        # ── Card animation (client-side; preserves state across Streamlit reruns) ──
+        st.components.v1.html(_presentation_draw_html(order), height=320)
+
+        st.markdown("---")
+
+        # ── Persistent queue ───────────────────────────────────────────────────
+        idx = st.session_state.get("presenting_index", -1)
+
+        cols = st.columns(len(order))
+        for i, (col, grp) in enumerate(zip(cols, order)):
+            with col:
+                if i == idx:
+                    st.markdown(
+                        f"<div style='background:#B45309;color:white;padding:10px 6px;"
+                        f"border-radius:8px;text-align:center;'>"
+                        f"<div style='font-size:0.75rem;font-weight:600;opacity:.85'>{_ORDINALS[i]}</div>"
+                        f"<div style='font-size:1rem;font-weight:700;margin:4px 0'>{grp}</div>"
+                        f"<div style='font-size:0.65rem;opacity:.85'>▶ Now presenting</div>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    done = i < idx
+                    border = "#b0afd2" if done else "#253d8e"
+                    color  = "#aaa"    if done else "#253d8e"
+                    st.markdown(
+                        f"<div style='border:2px solid {border};padding:10px 6px;"
+                        f"border-radius:8px;text-align:center;'>"
+                        f"<div style='font-size:0.75rem;font-weight:600;color:#aaa'>{_ORDINALS[i]}</div>"
+                        f"<div style='font-size:1rem;font-weight:700;color:{color};margin:4px 0'>{grp}</div>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+
+        st.markdown("")
+        _bc1, _bc2, _ = st.columns([1, 1, 4])
+        with _bc1:
+            if st.button("← Previous", key="_prev_btn",
+                         disabled=(idx < 0)):
+                st.session_state["presenting_index"] -= 1
+                st.rerun()
+        with _bc2:
+            if st.button("Next presenter →", key="_next_btn",
+                         disabled=(idx >= len(order) - 1)):
+                st.session_state["presenting_index"] += 1
+                st.rerun()
+
+        # ── Re-roll (deliberately friction-y) ─────────────────────────────────
+        with st.expander("Re-roll the order"):
+            st.warning(
+                "This discards the current presentation order for this session. "
+                "The groups will need to be drawn again."
+            )
+            _confirmed = st.checkbox(
+                "I'm sure — discard the current order", key="_reroll_confirm"
+            )
+            if st.button("Re-roll", key="_reroll_btn", disabled=not _confirmed):
+                del st.session_state["presentation_order"]
+                st.session_state["presenting_index"] = -1
+                st.session_state["_reroll_confirm"] = False
+                st.rerun()
 
 
 # ── Footer ─────────────────────────────────────────────────────────────────────
