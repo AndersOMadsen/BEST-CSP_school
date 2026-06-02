@@ -381,38 +381,45 @@ def parse_alert_codes(text: str) -> list[dict]:
     """
     Extract {code, severity} pairs from pasted checkCIF text.
 
-    Handles four formats:
-      1. PLAT029_ALERT_1_C ...  (standard PLATON/IUCr underscore format, severity present)
-      2. PLAT029 ALERT 1 C ...  (space-separated variant, severity present)
-      3. PLAT029 ...            (bare code with PLAT prefix, no severity)
-      4. 029_ALERT_1_C ...      (code without PLAT prefix — some checkCIF variants)
+    Recognises all IUCr checkCIF alert code families:
+      - PLAT codes:     PLAT + 3-4 digits  (PLATON geometry/symmetry checks)
+      - IUCr data codes: 5 letters + 2 digits  (e.g. SHFSU01, FORMU01, ABSMU01)
 
+    Handles both with and without the _ALERT_n_X severity suffix.
     Returns deduplicated list; first occurrence of each code wins for severity.
     """
     seen: dict[str, str | None] = {}
 
-    # Pattern 1 & 2: full PLAT+code+ALERT+severity  (underscore or space separated)
+    # Pattern 1: any IUCr code + ALERT + severity (underscore or space separated)
+    # Covers PLAT029_ALERT_1_C, SHFSU01_ALERT_1_A, FORMU01_ALERT_2_B, etc.
     for m in re.finditer(
-        r"PLAT\s*(\d{3,4})\s*[_ ]\s*ALERT\s*[_ ]\s*\d+\s*[_ ]\s*([ABCG])\b",
-        text,
-        re.IGNORECASE,
+        r"([A-Z]{3,6})\s*(\d{2,4})\s*[_ ]\s*ALERT\s*[_ ]\s*\d+\s*[_ ]\s*([ABCG])\b",
+        text, re.IGNORECASE,
     ):
-        code = f"PLAT{m.group(1).zfill(3)}"
+        prefix, digits, sev = m.group(1).upper(), m.group(2), m.group(3).upper()
+        code = f"PLAT{digits.zfill(3)}" if prefix == "PLAT" else f"{prefix}{digits}"
         if code not in seen:
-            seen[code] = m.group(2).upper()
+            seen[code] = sev
 
-    # Pattern 3: bare PLAT prefix only  — PLAT029 or PLAT 029
+    # Pattern 2: bare PLAT code — PLAT029 or PLAT 029
     for m in re.finditer(r"PLAT\s*(\d{3,4})", text, re.IGNORECASE):
         code = f"PLAT{m.group(1).zfill(3)}"
         if code not in seen:
             seen[code] = None
 
-    # Pattern 4: code without PLAT prefix but followed by ALERT keyword
-    # e.g. "029_ALERT_1_C" or "029 ALERT 1 C"  — seen in some checkCIF output variants
+    # Pattern 3: bare non-PLAT IUCr code — 5 uppercase letters + 2 digits (e.g. SHFSU01)
+    for m in re.finditer(r"\b([A-Z]{5})(\d{2})\b", text, re.IGNORECASE):
+        prefix, digits = m.group(1).upper(), m.group(2)
+        if prefix == "PLAT":
+            continue  # handled by Pattern 2
+        code = f"{prefix}{digits}"
+        if code not in seen:
+            seen[code] = None
+
+    # Pattern 4: bare number + ALERT (no letter prefix) — some checkCIF output variants
     for m in re.finditer(
         r"\b(\d{3,4})\s*[_ ]\s*ALERT\s*[_ ]\s*\d+\s*[_ ]\s*([ABCG])\b",
-        text,
-        re.IGNORECASE,
+        text, re.IGNORECASE,
     ):
         code = f"PLAT{m.group(1).zfill(3)}"
         if code not in seen:
@@ -422,24 +429,29 @@ def parse_alert_codes(text: str) -> list[dict]:
 
 
 def lookup_evidence_pointer(code: str, ep_data: dict) -> str:
-    """Return the evidence-pointer string for a PLAT code using the rules in ep_data."""
-    num_match = re.search(r"\d+", code)
-    if not num_match:
-        return ep_data.get("default", "")
-    num = int(num_match.group())
+    """Return the evidence-pointer string for a code using the rules in ep_data.
+    Range rules only apply to PLAT codes; non-PLAT codes fall back to default."""
     for rule in ep_data.get("rules", []):
         if rule["match"] == "codes" and code in rule["codes"]:
             return rule["pointer"]
-        if rule["match"] == "range":
-            lo = int(re.search(r"\d+", rule["from"]).group())
-            hi = int(re.search(r"\d+", rule["to"]).group())
-            if lo <= num <= hi:
-                return rule["pointer"]
+    if code.upper().startswith("PLAT"):
+        num_match = re.search(r"\d+", code)
+        if num_match:
+            num = int(num_match.group())
+            for rule in ep_data.get("rules", []):
+                if rule["match"] == "range":
+                    lo = int(re.search(r"\d+", rule["from"]).group())
+                    hi = int(re.search(r"\d+", rule["to"]).group())
+                    if lo <= num <= hi:
+                        return rule["pointer"]
     return ep_data.get("default", "Look at the relevant value in the checkCIF output.")
 
 
 def is_sf_report_relevant(code: str) -> bool:
-    """Return True if the SF report is relevant to investigating this PLAT code."""
+    """Return True if the SF report is relevant to investigating this alert code.
+    Only defined for PLAT codes; non-PLAT codes return False."""
+    if not code.upper().startswith("PLAT"):
+        return False
     num_match = re.search(r"\d+", code)
     if not num_match:
         return False
